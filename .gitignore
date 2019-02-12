@@ -24,3 +24,5 @@ hs_err_pid*
 
 # own stuff
 *.swp
+
+\.DS_Store
