@@ -1,3 +1,5 @@
+package org.dat055;
+
 public class Coordinate {
     private int xPos;
     private int yPos;
