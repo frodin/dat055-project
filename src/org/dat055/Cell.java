@@ -1,4 +1,4 @@
-package src.org.dat055;
+package org.dat055;
 
 public class Cell {
 
