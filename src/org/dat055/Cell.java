@@ -1,3 +1,5 @@
+package src.org.dat055;
+
 public class Cell {
 
     private String color;
