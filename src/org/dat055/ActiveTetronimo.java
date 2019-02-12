@@ -1,3 +1,5 @@
+package org.dat055;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
