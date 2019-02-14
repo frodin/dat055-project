@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class ActiveTetromino {
     private ArrayList<State> states;
-    private State currentState;
+    protected State currentState;
     private int stateIndex;
 
     /**
