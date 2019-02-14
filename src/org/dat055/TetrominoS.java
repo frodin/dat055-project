@@ -27,9 +27,9 @@ public class TetrominoS extends ActiveTetromino {
         // State 3
         this.states.add(new State(color,
                 new Coordinate(1, 1),
-                new Coordinate(2, 2),
-                new Coordinate(0, 0),
-                new Coordinate(1, 1))
+                new Coordinate(2, 1),
+                new Coordinate(0, 2),
+                new Coordinate(1, 2))
         );
 
         // State 4
