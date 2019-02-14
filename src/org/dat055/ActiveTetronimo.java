@@ -8,12 +8,19 @@ public class ActiveTetronimo {
     // med tillhörande cell
     //ska ha ett nuvarande state, privat variable med getter
     //ska ha en rotate()-funktion som ändrar nuvarande state till nästkommande state
-    private ArrayList<HashMap<Point, Cell>> states = new ArrayList<>(); //Lista med alla våra states (representerade av hashmaps)
-    private HashMap<Point, Cell> state = new HashMap<Point, Cell>();
-    private HashMap<Point, Cell> currentState = states.get(0); //nuvarande state (vilken rotation tetrominon har just nu)
-    private int stateIndex = 0;
+    private ArrayList<HashMap<Coordinate, Cell>> states; //Lista med alla våra states (representerade av hashmaps)
+    private HashMap<Coordinate, Cell> state;
+    private HashMap<Coordinate, Cell> currentState; //nuvarande state (vilken rotation tetrominon har just nu)
+    private int stateIndex;
 
-    public HashMap<Point,Cell> getState(){ //returnerar nuvarande state
+    public ActiveTetronimo(){
+        states = new ArrayList<>();
+        state  = new HashMap<Coordinate, Cell>();
+        currentState = states.get(0);
+        stateIndex = 0;
+    }
+
+    public HashMap<Coordinate,Cell> getState(){ //returnerar nuvarande state
         return states.get(stateIndex);
     }
     public void rotate(){ //ger oss nästa state i listan
