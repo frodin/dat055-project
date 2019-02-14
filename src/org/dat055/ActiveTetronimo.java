@@ -30,6 +30,9 @@ public class ActiveTetronimo {
     }
     public void rotate(){ //give us next state in the list
         stateIndex = stateIndex % 4 + 1;
+        if(stateIndex == 4){ //Jump back to zero, prevent the currentState to get out of bounds
+            stateIndex = 0;
+        }
         currentState = states.get(stateIndex);
     }
 
