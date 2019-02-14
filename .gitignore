@@ -25,10 +25,8 @@ hs_err_pid*
 # own stuff
 *.swp
 
-src/\.DS_Store
+*.DS_Store
 
-\.DS_Store
+*.xml
 
-\.idea/workspace\.xml
-
-\.idea/tasks\.xml
+\.idea/
