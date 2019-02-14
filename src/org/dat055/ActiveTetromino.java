@@ -3,18 +3,13 @@ package org.dat055;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * ska ha en privat variabel som är en lista över hashmaps innehållande en point(key)
- * med tillhörande cell
- * ska ha ett nuvarande state, privat variable med getter
- * ska ha en rotate()-funktion som ändrar nuvarande state till nästkommande state
- */
 public class ActiveTetromino {
-    private ArrayList<State> states; //List of all our diffrent tetromino states (represented by hashmaps)
-    private State currentState; //Which rotationen the current tetromino has
+    private ArrayList<State> states;
+    private State currentState;
     private int stateIndex;
 
     /**
+     * Constructor
      * Initiates our instance variables
      */
     public ActiveTetromino(){
@@ -23,11 +18,18 @@ public class ActiveTetromino {
         stateIndex = 0;
     }
 
-    public State getState(){ //return current state
+    /**
+     * @return returns currentState
+     */
+    public State getState(){
         return currentState;
     }
 
-    public void rotate(){ //give us next state in the list
+    /**
+     * Rotatates to next state
+     * At last state go back to the first
+     */
+    public void rotate(){
         stateIndex = stateIndex++ % 4;
         currentState = states.get(stateIndex);
     }
