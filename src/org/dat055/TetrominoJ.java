@@ -2,6 +2,10 @@ package org.dat055;
 
 public class TetrominoJ extends ActiveTetromino {
 
+    /**
+     * Constructor.
+     * @param color Initial color for the Tetromino cells.
+     */
     public TetrominoJ(String color) {
 
         // State 1
