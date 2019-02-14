@@ -3,8 +3,8 @@ package org.dat055;
 
 public class TetrominoI extends ActiveTetromino{
     /**
-     * Constructor creates different stats for the tetromino
-     * @param color
+     * Constructor creates different states for the tetromino
+     * @param color of the containing cells.
      */
     public TetrominoI (String color){
 
