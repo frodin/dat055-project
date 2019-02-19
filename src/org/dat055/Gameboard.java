@@ -18,4 +18,16 @@ public class Gameboard {
             gameboard.put(new Coordinate(x, y), null);
         }
     }
+
+    public Cell getCell(Coordinate coord){
+        return gameboard.get(coord);
+    }
+
+    public void setCell(Coordinate coord, Cell cell){
+        gameboard.put(coord, cell);
+    }
+
+    public HashMap<Coordinate, Cell> getGameboard(){
+        return gameboard;
+    }
 }
