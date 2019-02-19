@@ -2,11 +2,11 @@ package org.dat055;
 
 import java.util.HashMap;
 
-public class Gameboard implements GameBoardInterface {
+public class GameBoard implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
     private int y, x;
 
-    public Gameboard(int xLength, int yLength){
+    public GameBoard(int xLength, int yLength){
         makeGameboard(xLength, yLength);
 
     }
