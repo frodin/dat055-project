@@ -18,7 +18,7 @@ public class MainMenu {
 
     @FXML
     public void newGame(MouseEvent event) throws IOException {
-        Stage rootStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        Stage rootStage = (Stage)((Node)event.getSource()).getScene().getWindow(); // lol java
         Parent game = FXMLLoader.load(getClass().getResource("game.fxml"));
         rootStage.setScene(new Scene(game));
     }
