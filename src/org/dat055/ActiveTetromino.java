@@ -33,5 +33,4 @@ public class ActiveTetromino {
         stateIndex = stateIndex++ % this.states.size();
         currentState = states.get(stateIndex);
     }
-
 }

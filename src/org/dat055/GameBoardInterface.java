@@ -18,7 +18,7 @@ public interface GameBoardInterface {
     // trello #14: ActiveTetromino hantering
     Coordinate getTetrominoPosition();
     void setTetrominoPosition(Coordinate coord);
-    HashMap<Coordinate, Cell> getTetrominoCells();
+    State getTetrominoCells();
     void rotateTetromino();
     void killTetromino();
     void createTetromino();

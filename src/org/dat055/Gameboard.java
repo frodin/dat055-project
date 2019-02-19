@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 public class Gameboard implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
+    private Coordinate activeTetrominoPos;
+    private ActiveTetromino activeTetromino;
     private int y, x;
 
     public Gameboard(int xLength, int yLength){
@@ -30,4 +32,27 @@ public class Gameboard implements GameBoardInterface {
     public HashMap<Coordinate, Cell> getGameboard(){
         return gameboard;
     }
+
+    public Coordinate getTerominoPosition(){
+        return activeTetrominoPos;
+    }
+    public void setTetrominoPosition(Coordinate coord){
+        activeTetrominoPos = coord;
+    }
+    public HashMap<Coordinate, Cell> getTetrominoCells(){
+         ActiveTetromino temp = new ActiveTetromino();
+         temp = activeTetromino;
+    }
+    public void rotateTetromino(){
+        activeTetromino.rotate();
+    }
+    public void killTetromino(){
+
+    }
+    public void createTetromino(){
+        activeTetromino = new ActiveTetromino();
+
+    }
+
+
 }
