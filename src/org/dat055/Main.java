@@ -11,8 +11,6 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         final String TITLE = "Tetris";
-        final int WINDOW_WIDTH = 600;
-        final int WINDOW_HEIGHT = 400;
 
         Parent mainMenu = FXMLLoader.load(getClass().getResource("views/main_menu.fxml"));
         primaryStage.setTitle(TITLE);
