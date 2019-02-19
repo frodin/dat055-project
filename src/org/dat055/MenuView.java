@@ -31,8 +31,8 @@ public class MenuView extends Application {
         StackPane layout =  new StackPane();
         layout.getChildren().add(startButton);
 
-        Scene scene = new Scene(layout, 300,500);
-        window.setScene(scene);
+        menuScene = new Scene(layout, 300,500);
+        window.setScene(menuScene);
         window.show();
         startButton.setOnAction(event -> {
 
