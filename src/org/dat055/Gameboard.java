@@ -30,4 +30,34 @@ public class Gameboard implements GameBoardInterface {
     public HashMap<Coordinate, Cell> getGameboard(){
         return gameboard;
     }
+
+    /**
+     * implementation for clearing a _single_ line
+     * @param y specific row
+     */
+
+    @Override
+    public void deleteRow(int y) {
+        for (int i = 0; i < this.x; i++) {
+            setCell(new Coordinate(i, y), null);
+        }
+    }
+
+    /**
+     * lowers all cells on all rows above by 1
+     * @param y specific row
+     */
+
+    @Override
+    public void lowerAbove(int y) {
+        for (int i = y - 1; i >= 0; i--) {
+            for (int j = 0; j < this.x; j++) {
+                Cell myCell = getCell(new Coordinate(j, i));
+                if (myCell != null) {
+                    setCell(new Coordinate(j, i + 1), myCell);
+                    setCell(new Coordinate(j, i), null);
+                }
+            }
+        }
+    }
 }
