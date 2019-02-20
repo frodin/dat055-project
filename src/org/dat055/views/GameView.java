@@ -3,9 +3,6 @@ package org.dat055.views;
 import javafx.fxml.FXML;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import org.dat055.Gameboard;
 
 public class GameView {
