@@ -1,6 +1,8 @@
 package org.dat055;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Gameboard implements GameBoardInterface {
@@ -39,26 +41,29 @@ public class Gameboard implements GameBoardInterface {
     }
 
     /**
-     * clears any number of lines and lowers above
+     * clears any number of lines and lowers above cells
      * @param y array of rows
      */
-
     @Override
-    public void clearMultipleLines(int[] y) {
-        Arrays.sort(y);
-        for (int i : y) {
-            deleteRow(i);
-            lowerAbove(i);
-        }
+    public void clearMultipleLines(ArrayList<Integer> y) {
+        Collections.sort(y);
+        y.forEach(i -> clearLine(i));
     }
 
     /**
-     * clears a single line. should always be followed with lowerAbove() call
+     * helper method: clears a line and lowers above cells.
      * @param y specific row
      */
+    private void clearLine(int y) {
+        deleteRow(y);
+        lowerAbove(y);
+    }
 
-    @Override
-    public void deleteRow(int y) {
+    /**
+     * deletes a row. should always be followed with lowerAbove() call
+     * @param y specific row
+     */
+    private void deleteRow(int y) {
         for (int i = 0; i < this.x; i++) {
             setCell(i, y, null);
         }
@@ -68,9 +73,7 @@ public class Gameboard implements GameBoardInterface {
      * lowers all cells on all rows above by 1
      * @param y specific row
      */
-
-    @Override
-    public void lowerAbove(int y) {
+    private void lowerAbove(int y) {
         for (int i = y - 1; i >= 0; i--) {
             for (int j = 0; j < this.x; j++) {
                 Cell myCell = getCell(j, i);
@@ -80,5 +83,29 @@ public class Gameboard implements GameBoardInterface {
                 }
             }
         }
+    }
+
+    /**
+     * scans the gameboard for lines to clear
+     * @return list of rows to clear
+     */
+    @Override
+    public ArrayList<Integer> checkLines() {
+        ArrayList<Integer> lines = new ArrayList<>();
+        for (int i = 0; i < this.y; i++) {
+            xLoop:
+            for (int j = 0; j < this.x; j++) {
+                if (getCell(j, i) == null) {
+                    break xLoop;
+                }
+                else if (getCell(j, i) != null && j == this.x - 1) {
+                    lines.add(i);
+                }
+            }
+        }
+        if (lines.size() > 0) {
+            return lines;
+        }
+        else return null;
     }
 }
