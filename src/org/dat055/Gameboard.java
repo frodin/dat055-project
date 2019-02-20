@@ -39,9 +39,10 @@ public class Gameboard implements GameBoardInterface {
     public void setTetrominoPosition(Coordinate coord){
         activeTetrominoPos = coord;
     }
-    public HashMap<Coordinate, Cell> getTetrominoCells(){
-         ActiveTetromino temp = new ActiveTetromino();
-         temp = activeTetromino;
+    public HashMap<Coordinate,Cell> getTetrominoCells(){
+        return activeTetromino.getState().getState();
+
+        // temp = activeTetromino;
     }
     public void rotateTetromino(){
         activeTetromino.rotate();

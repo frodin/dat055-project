@@ -23,7 +23,7 @@ public class State {
         this.state.put(coord4, new Cell(color));
     }
 
-    public HashMap getState() {
+    public HashMap<Coordinate, Cell> getHashMap() {
         return this.state;
     }
 }
