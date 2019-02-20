@@ -5,13 +5,17 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import org.dat055.GameBoardInterface;
 import org.dat055.Gameboard;
 
 public class GameView {
     @FXML private GridPane board;
+    private Gameboard gameBoard;
 
-    // todo: hur ska denna kopplas till gameboard?
-
+    public GameView(Gameboard gameBoard) {
+        this.gameBoard = gameBoard;
+    }
+    
     @FXML
     private void initialize() {
         board.setHgap(0);
@@ -27,5 +31,7 @@ public class GameView {
         columnConstraints.setHgrow(Priority.ALWAYS);
         // todo: det ska nog finnas gameBoard.y RowConstraints och gameBoard.x ColumnConstraints
         board.getColumnConstraints().add(columnConstraints);
+
+
     }
 }
