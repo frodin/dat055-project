@@ -21,4 +21,15 @@ public class Coordinate {
     public int getYPos() {
         return this.yPos;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        Coordinate coord = (Coordinate) o;
+        return (this.xPos == coord.getXPos() && this.yPos == coord.getYPos());
+    }
+    
+    @Override
+    public int hashCode() {
+        return this.xPos*397 + this.yPos*397;
+    }
 }
