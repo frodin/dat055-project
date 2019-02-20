@@ -2,7 +2,7 @@ package org.dat055;
 
 import java.util.HashMap;
 
-public class Gameboard implements GameBoardInterface {
+public class Gameboard {
     private HashMap<Coordinate, Cell> gameboard;
     private int y, x;
 
