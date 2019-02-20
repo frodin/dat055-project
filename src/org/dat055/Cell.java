@@ -17,7 +17,7 @@ public class Cell {
      * @param color The color of the cell.
      */
     public Cell(String color) {
-        color = color;
+        this.color = color;
     }
 
     public String getColor() {
