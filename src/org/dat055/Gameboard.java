@@ -5,20 +5,30 @@ import java.util.HashMap;
 
 public class Gameboard {
     private HashMap<Coordinate, Cell> gameboard;
-    private int y, x;
+    private int width, height;
 
-    public Gameboard(int xLength, int yLength){
-       // makeGameboard(xLength, yLength);
+    public Gameboard(int width, int height){
+       this.width = width;
+       this.height = height;
+       gameboard = new HashMap<>();
+
     }
 
-    public void makeGameboard(int xLength, int yLength){
+    /*public void makeGameboard(int xLength, int yLength){
         for(int i = 0; i < xLength * yLength; i++){
             x = i % yLength;
             y = i / xLength;
             gameboard.put(new Coordinate(x, y), null);
         }
     }
+    */
 
+    public int getWidth(){
+        return this.width;
+    }
+    public int getHeight(){
+        return this.height;
+    }
     public Cell getCell(Coordinate coord) {
         return gameboard.get(coord);
     }
