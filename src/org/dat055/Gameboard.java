@@ -1,9 +1,6 @@
 package org.dat055;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class Gameboard implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
@@ -87,25 +84,28 @@ public class Gameboard implements GameBoardInterface {
 
     /**
      * scans the gameboard for lines to clear
-     * @return list of rows to clear
+     * @return list of rows to clear, will be empty if no lines found.
      */
     @Override
     public ArrayList<Integer> checkLines() {
         ArrayList<Integer> lines = new ArrayList<>();
-        for (int i = 0; i < this.y; i++) {
-            xLoop:
-            for (int j = 0; j < this.x; j++) {
-                if (getCell(j, i) == null) {
-                    break xLoop;
-                }
-                else if (getCell(j, i) != null && j == this.x - 1) {
-                    lines.add(i);
-                }
+
+        int[] temp = new int[this.y];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = 0;
+        }
+
+        Map<Coordinate, Cell> map = gameboard;
+        for (Coordinate coord : map.keySet()) {
+            temp[coord.getYPos()]++;
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] == this.x) {
+                lines.add(i);
             }
+
         }
-        if (lines.size() > 0) {
-            return lines;
-        }
-        else return null;
+        return lines;
     }
 }
