@@ -2,27 +2,19 @@ package org.dat055;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Gameboard implements GameBoardInterface{
     private HashMap<Coordinate, Cell> gameboard;
-    private Coordinate activeTetrominoPos;
-    private ActiveTetromino activeTetromino;
+    private Coordinate gameBoardCoordinate;
     private int width, height;
 
     public Gameboard(int width, int height){
        this.width = width;
        this.height = height;
        gameboard = new HashMap<>();
+       gameBoardCoordinate = new Coordinate(4,0);
     }
-
-    /*public void makeGameboard(int xLength, int yLength){
-        for(int i = 0; i < xLength * yLength; i++){
-            x = i % yLength;
-            y = i / xLength;
-            gameboard.put(new Coordinate(x, y), null);
-        }
-    }
-    */
 
     public int getWidth(){
         return this.width;
@@ -44,28 +36,43 @@ public class Gameboard implements GameBoardInterface{
         gameboard.put(new Coordinate(xPos, yPos), cell);
     }
 
-    public HashMap<Coordinate, Cell> getGameboard(){
+    public HashMap<Coordinate, Cell> getGameboard() {
         return gameboard;
     }
 
-    public Coordinate getTerominoPosition(){
-        return activeTetrominoPos;
-    }
-    public void setTetrominoPosition(Coordinate coord){
-        activeTetrominoPos = coord;
-    }
-    public HashMap<Coordinate,Cell> getTetrominoCells(){
-        return activeTetromino.getState().getHashMap();
+    // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
+    // Now coordinates range from 10x20 and before it was 3x3
+
+    public HashMap<Coordinate,Cell> getAdaptedTetrominoCoordinates(ActiveTetromino activeTetromino){
+        HashMap<Coordinate,Cell> tempHashMap = new HashMap<Coordinate,Cell>();
+
+        //We iterate over all entries in the active tetromino.(No null values)
+        for(Map.Entry<Coordinate,Cell> entry : activeTetromino.getState().getHashMap().entrySet()){
+
+            // Assign the tempHashMap with updated coordinates
+            tempHashMap.put(new Coordinate(
+                    entry.getKey().getXPos()+ gameBoardCoordinate.getXPos(),
+                    entry.getKey().getYPos() + gameBoardCoordinate.getYPos()),
+                    entry.getValue());
+        }
+
+        return tempHashMap;
 
         // temp = activeTetromino;
     }
-    public void rotateTetromino(){
+
+    // Rotates the tetromino
+    public void rotateTetromino(ActiveTetromino activeTetromino){
         activeTetromino.rotate();
     }
-    public void killTetromino(){
+
+    // Merge the tetromino with the gameboard
+    public void killTetromino(ActiveTetromino activeTetromino){
+
+        // TODO
 
     }
-    public void createTetromino(){
+    public void createTetromino(ActiveTetromino activeTetromino){
         activeTetromino = new ActiveTetromino();
 
     }
