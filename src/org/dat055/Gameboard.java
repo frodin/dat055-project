@@ -7,8 +7,7 @@ public class Gameboard implements GameBoardInterface {
     private int y, x;
 
     public Gameboard(int xLength, int yLength){
-        makeGameboard(xLength, yLength);
-
+       // makeGameboard(xLength, yLength);
     }
 
     public void makeGameboard(int xLength, int yLength){
