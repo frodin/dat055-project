@@ -61,20 +61,23 @@ public class Gameboard implements GameBoardInterface{
         // temp = activeTetromino;
     }
 
-    // Rotates the tetromino
+    /**
+     * Rotates the given tetromino
+     * @param activeTetromino the tetromino to be rotated
+     */
     public void rotateTetromino(ActiveTetromino activeTetromino){
         activeTetromino.rotate();
     }
 
-    // Merge the tetromino with the gameboard
+    /**
+     * Merges the given tetromino with the gameboard
+     * @param activeTetromino the tetromino to be merged.
+     */
     public void killTetromino(ActiveTetromino activeTetromino){
 
-        // TODO
-
-    }
-    public void createTetromino(ActiveTetromino activeTetromino){
-        activeTetromino = new ActiveTetromino();
-
+        for(Map.Entry<Coordinate,Cell> entry : activeTetromino.getState().getHashMap().entrySet()){
+            setCell(entry.getKey(), entry.getValue());
+        }
     }
 
     /**
