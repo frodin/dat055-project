@@ -12,9 +12,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         final String TITLE = "Tetris";
-        Parent mainMenu = FXMLLoader.load(getClass().getResource("views/menu_view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/menu_view.fxml"));
+        MenuView menuController = new MenuView();
+        loader.setController(menuController);
         primaryStage.setTitle(TITLE);
-        primaryStage.setScene(new Scene(mainMenu));
+        primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
     }
 
