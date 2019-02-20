@@ -7,20 +7,29 @@ public class Gameboard implements GameBoardInterface{
     private HashMap<Coordinate, Cell> gameboard;
     private Coordinate activeTetrominoPos;
     private ActiveTetromino activeTetromino;
-    private int y, x;
+    private int width, height;
 
-    public Gameboard(int xLength, int yLength){
-       // makeGameboard(xLength, yLength);
+    public Gameboard(int width, int height){
+       this.width = width;
+       this.height = height;
+       gameboard = new HashMap<>();
     }
 
-    public void makeGameboard(int xLength, int yLength){
+    /*public void makeGameboard(int xLength, int yLength){
         for(int i = 0; i < xLength * yLength; i++){
             x = i % yLength;
             y = i / xLength;
             gameboard.put(new Coordinate(x, y), null);
         }
     }
+    */
 
+    public int getWidth(){
+        return this.width;
+    }
+    public int getHeight(){
+        return this.height;
+    }
     public Cell getCell(Coordinate coord) {
         return gameboard.get(coord);
     }
@@ -82,7 +91,7 @@ public class Gameboard implements GameBoardInterface{
 
     @Override
     public void deleteRow(int y) {
-        for (int i = 0; i < this.x; i++) {
+        for (int i = 0; i < this.width; i++) {
             setCell(i, y, null);
         }
     }
@@ -95,7 +104,7 @@ public class Gameboard implements GameBoardInterface{
     @Override
     public void lowerAbove(int y) {
         for (int i = y - 1; i >= 0; i--) {
-            for (int j = 0; j < this.x; j++) {
+            for (int j = 0; j < this.width; j++) {
                 Cell myCell = getCell(j, i);
                 if (myCell != null) {
                     setCell(j, i + 1, myCell);
