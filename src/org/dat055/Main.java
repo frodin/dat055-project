@@ -12,7 +12,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         final String TITLE = "Tetris";
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/menu_view.fxml"));
-        MenuView menuController = new MenuView();
+        Gameboard gameBoard = new Gameboard(10, 20);
+        MenuView menuController = new MenuView(gameBoard);
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
         primaryStage.setScene(new Scene(loader.load()));

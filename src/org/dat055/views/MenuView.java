@@ -7,12 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.dat055.Gameboard;
 
 import java.io.IOException;
 
 public class MenuView {
+    Gameboard gameBoard;
 
-    public MenuView() {
+    public MenuView(Gameboard gameBoard) {
+        this.gameBoard = gameBoard;
     }
 
     @FXML
