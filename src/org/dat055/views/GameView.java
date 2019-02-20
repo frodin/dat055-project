@@ -7,7 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import org.dat055.Gameboard;
 
-public class Game {
+public class GameView {
     @FXML private GridPane board;
 
     // todo: hur ska denna kopplas till gameboard?

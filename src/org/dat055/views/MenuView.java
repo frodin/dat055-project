@@ -10,16 +10,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainMenu {
+public class MenuView {
 
-    public MainMenu() {
-
+    public MenuView() {
     }
 
     @FXML
     public void newGame(MouseEvent event) throws IOException {
-        Stage rootStage = (Stage)((Node)event.getSource()).getScene().getWindow(); // lol java
-        Parent game = FXMLLoader.load(getClass().getResource("game.fxml"));
+        Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
+        Parent game = FXMLLoader.load(getClass().getResource("game_view.fxml"));
         rootStage.setScene(new Scene(game));
     }
+
+
 }
