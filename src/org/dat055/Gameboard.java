@@ -49,7 +49,7 @@ public class Gameboard{
     }
 
     public HashMap<Coordinate, Cell> getGameboard(){
-        return gameboard;
+        return this.gameboard;
     }
 
     // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
