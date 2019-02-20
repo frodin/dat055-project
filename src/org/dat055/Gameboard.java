@@ -2,6 +2,7 @@ package org.dat055;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Gameboard {
     private HashMap<Coordinate, Cell> gameboard;
@@ -32,8 +33,14 @@ public class Gameboard {
     public Cell getCell(Coordinate coord) {
         return gameboard.get(coord);
     }
-    public Cell getCell(int xPos, int yPos){
-            return gameboard.get(new Coordinate(xPos, yPos));
+
+    public Cell getCell(int xPos, int yPos) {
+        for (Map.Entry<Coordinate,Cell> cell : this.gameboard.entrySet()) {
+            if (cell.getKey().getXPos() == xPos && cell.getKey().getYPos() == yPos) {
+                return cell.getValue();
+            }
+        }
+        return null;
     }
 
     public void setCell(Coordinate coord, Cell cell){
