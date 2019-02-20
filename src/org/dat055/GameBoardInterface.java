@@ -1,5 +1,6 @@
 package org.dat055;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface GameBoardInterface {
@@ -12,9 +13,7 @@ public interface GameBoardInterface {
     HashMap<Coordinate, Cell> getGameBoard();
 
     // trello #15: GameBoard - vad som händer när en rad tas bort
-    void clearMultipleLines(int[] y);
-    void deleteRow(int y);
-    void lowerAbove(int y);
+    void clearMultipleLines(ArrayList<Integer> y);
 
     // trello #14: ActiveTetromino hantering
     Coordinate getTetrominoPosition();
@@ -23,4 +22,7 @@ public interface GameBoardInterface {
     void rotateTetromino();
     void killTetromino();
     void createTetromino();
+
+    // trello #18: Gameboard. undersöker om det finns lines att cleara.
+    ArrayList<Integer> checkLines();
 }
