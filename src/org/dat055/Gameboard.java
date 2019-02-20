@@ -68,7 +68,7 @@ public class Gameboard {
 
     @Override
     public void deleteRow(int y) {
-        for (int i = 0; i < this.x; i++) {
+        for (int i = 0; i < this.width; i++) {
             setCell(i, y, null);
         }
     }
@@ -81,7 +81,7 @@ public class Gameboard {
     @Override
     public void lowerAbove(int y) {
         for (int i = y - 1; i >= 0; i--) {
-            for (int j = 0; j < this.x; j++) {
+            for (int j = 0; j < this.width; j++) {
                 Cell myCell = getCell(j, i);
                 if (myCell != null) {
                     setCell(j, i + 1, myCell);
