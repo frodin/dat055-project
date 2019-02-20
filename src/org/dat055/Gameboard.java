@@ -42,6 +42,14 @@ public class Gameboard {
         gameboard.put(new Coordinate(xPos, yPos), cell);
     }
 
+    public void removeCell(Coordinate coord) {
+        gameboard.remove(coord);
+    }
+
+    public void removeCell(int xPos, int yPos) {
+        gameboard.remove(new Coordinate(xPos, yPos));
+    }
+
     public HashMap<Coordinate, Cell> getGameboard(){
         return gameboard;
     }
@@ -50,7 +58,7 @@ public class Gameboard {
      * clears any number of lines and lowers above cells
      * @param y array of rows
      */
-    @Override
+    //@Override
     public void clearMultipleLines(ArrayList<Integer> y) {
         Collections.sort(y);
         y.forEach(i -> clearLine(i));
@@ -67,7 +75,7 @@ public class Gameboard {
 
     public void deleteRow(int y) {
         for (int i = 0; i < this.width; i++) {
-            setCell(i, y, null);
+            removeCell(i, y);
         }
     }
 
@@ -81,7 +89,7 @@ public class Gameboard {
                 Cell myCell = getCell(j, i);
                 if (myCell != null) {
                     setCell(j, i + 1, myCell);
-                    setCell(j, i, null);
+                    removeCell(j, i);
                 }
             }
         }
@@ -91,11 +99,11 @@ public class Gameboard {
      * scans the gameboard for lines to clear
      * @return list of rows to clear, will be empty if no lines found.
      */
-    @Override
+    //@Override
     public ArrayList<Integer> checkLines() {
         ArrayList<Integer> lines = new ArrayList<>();
 
-        int[] temp = new int[this.y];
+        int[] temp = new int[this.height];
         for (int i = 0; i < temp.length; i++) {
             temp[i] = 0;
         }
@@ -106,7 +114,7 @@ public class Gameboard {
         }
 
         for (int i = 0; i < temp.length; i++) {
-            if (temp[i] == this.x) {
+            if (temp[i] == this.width) {
                 lines.add(i);
             }
 
