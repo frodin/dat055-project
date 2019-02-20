@@ -1,0 +1,27 @@
+.container {
+    -fx-background-color: black;
+    -fx-font-family: 'DejaVu Sans Mono', monospace;
+    -fx-min-width: 500px;
+    -fx-min-height: 600px;
+}
+
+.logo {
+    -fx-font-size: 37pt;
+    -fx-font-weight: bold;
+    -fx-padding: 10pt;
+    -fx-text-fill: white;
+}
+
+.mainMenuButton {
+    -fx-background-color: none;
+    -fx-text-fill: #999;
+    -fx-font-size: 11pt;
+}
+
+.mainMenuButton:hover {
+    -fx-text-fill: white;
+}
+
+.mainMenuNewGameButton {
+    -fx-font-size: 14pt;
+}

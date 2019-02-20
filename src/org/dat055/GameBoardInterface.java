@@ -12,6 +12,7 @@ public interface GameBoardInterface {
     HashMap<Coordinate, Cell> getGameBoard();
 
     // trello #15: GameBoard - vad som händer när en rad tas bort
+    void clearMultipleLines(int[] y);
     void deleteRow(int y);
     void lowerAbove(int y);
 
