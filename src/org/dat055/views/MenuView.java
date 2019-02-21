@@ -9,15 +9,16 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.dat055.Gameboard;
+import org.dat055.GameboardController;
 
 import java.io.IOException;
 
 public class MenuView {
-    Gameboard gameBoard;
+    GameboardController gameBoardController;
     @FXML Button newGameButton;
 
-    public MenuView(Gameboard gameBoard) {
-        this.gameBoard = gameBoard;
+    public MenuView(GameboardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
     }
 
     @FXML
@@ -29,13 +30,11 @@ public class MenuView {
     public void newGame(MouseEvent event) {
         Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
         FXMLLoader loader = new FXMLLoader(getClass().getResource("game_view.fxml"));
-        loader.setController(new GameView(this.gameBoard));
+        loader.setController(new GameView(this.gameBoardController));
         try {
             rootStage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
 }

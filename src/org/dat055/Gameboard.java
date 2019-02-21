@@ -89,12 +89,29 @@ public class Gameboard implements GameBoardInterface{
         activeTetromino.rotate();
     }
 
+    public void createTetromino(int i){
+        switch(i){
+            case 0: activeTetromino = new TetrominoI();
+            break;
+            case 1: activeTetromino = new TetrominoJ();
+            break;
+            case 2: activeTetromino = new TetrominoL();
+            break;
+            case 3: activeTetromino = new TetrominoO();
+            break;
+            case 4: activeTetromino = new TetrominoS();
+            break;
+            case 5: activeTetromino = new TetrominoT();
+            break;
+            case 6: activeTetromino = new TetrominoZ();
+            break;
+        }
+    }
+
     public void createTetromino(){
-        String color = "FF0000"; // This is red.
-        /*
-        activeTetromino = new ActiveTetromino();
-        */
-        activeTetromino = new TetrominoS(color);
+        Random rand = new Random();
+        int random = rand.nextInt(7);
+        createTetromino(random);
     }
 
     /**
