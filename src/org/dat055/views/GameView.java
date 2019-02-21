@@ -7,10 +7,15 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.dat055.Cell;
+import org.dat055.Coordinate;
 import org.dat055.Gameboard;
 import org.dat055.GameboardController;
 
-public class GameView {
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
+public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
 
@@ -46,9 +51,12 @@ public class GameView {
 
         //this.field.setGridLinesVisible(true);
 
+        this.gameBoardController.addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
-        System.out.println(this.gameBoardController.getGameboard().getTetrominoCells());
-        this.gameBoardController.getGameboard().killTetromino();
+        this.gameBoardController.start();
+        //System.out.println(this.gameBoardController.getGameboard().getTetrominoCells());
+        //this.gameBoardController.getGameboard().killTetromino();
+        //this
 
 
         updateField();
@@ -57,8 +65,8 @@ public class GameView {
     /**
      * Redraws the game field.
      */
-    private void updateField() {
-        // Loop over gameBoardController to find all cells
+    public void updateField() {
+        // Loop over game board to draw all cells
         for (int i = 0; i < this.gameBoardController.getGameboard().getWidth(); i++) {
             for (int j = 0; j < this.gameBoardController.getGameboard().getHeight(); j ++) {
                 Cell cell = this.gameBoardController.getGameboard().getCell(i, j);
@@ -68,7 +76,7 @@ public class GameView {
 
                 if (cell != null) {
                     // Cell found, get color from cell
-                    rect.setFill(Color.RED);
+                    rect.setFill(Color.web(cell.getColor()));
                 } else {
                     // No cell found, set color to black
                     rect.setFill(Color.web("111111"));
@@ -78,6 +86,13 @@ public class GameView {
                 this.field.add(rect, i, j);
 
             }
+        }
+
+        // Draw active tetronimo
+        for (Map.Entry<Coordinate, Cell> entry : this.gameBoardController.getTetrominoCells().entrySet()) {
+            Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+            rect.setFill(Color.web(entry.getValue().getColor()));
+            this.field.add(rect, entry.getKey().getXPos(), entry.getKey().getYPos());
         }
     }
 
@@ -90,5 +105,11 @@ public class GameView {
         GridPane grid = new GridPane();
 
         return grid;
+    }
+
+    @Override
+    public void update(Observable obj, Object arg) {
+        System.out.println("[DEBUG] Change detected.");
+        updateField();
     }
 }
