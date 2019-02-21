@@ -1,8 +1,10 @@
 package org.dat055;
 
 import javafx.application.Platform;
-
 import java.util.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
 
 public class GameboardController extends Observable {
     private Gameboard gameboard;
@@ -14,11 +16,13 @@ public class GameboardController extends Observable {
     public Coordinate getTetrominoPosition() {
         return gameboard.getTetrominoPosition();
     }
+
     public void setTetrominoPosition(int x, int y) {
         gameboard.setTetrominoPosition(new Coordinate(x, y));
         setChanged();
         notifyObservers();
     }
+
     public void start() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -28,8 +32,8 @@ public class GameboardController extends Observable {
                 });
             }
         }, 1000, 1000);
-
     }
+
     public void tick() {
         // move the active tetromino down one block
         setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos()+1);
@@ -37,10 +41,24 @@ public class GameboardController extends Observable {
                 this.gameboard.getTetrominoPosition().getXPos() + "," +
                 this.gameboard.getTetrominoPosition().getYPos());
     }
+
     public void createRandomTetromino() {
-        gameboard.createTetromino();
+        Class<?>[] possibleClasses = {TetrominoI.class, TetrominoS.class, TetrominoJ.class, TetrominoL.class, TetrominoO.class, TetrominoT.class, TetrominoZ.class};
+        Random rand = new Random();
+
+        Class<?> cl = possibleClasses[rand.nextInt(possibleClasses.length)];
+        try {
+            Class.forName(cl.toString());
+            Constructor<?> constr = cl.getConstructor(cl);
+            Object obj = constr.newInstance(new Object[] { "FF0000" });
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        setChanged();
         notifyObservers();
     }
+
     public Gameboard getGameboard() {
         return this.gameboard;
     }
