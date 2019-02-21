@@ -1,12 +1,12 @@
 package org.dat055;
 
 public class TetrominoT extends ActiveTetromino {
-
+    private String color = "800080";
     /**
      * Constructor creates different states for the tetromino
      * @param color of the containing cells.
      */
-    public TetrominoT (String color){
+    public TetrominoT (){
 
         // Här skapas state 0 för tetromino T
         states.add(new State(color,
