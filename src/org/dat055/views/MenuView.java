@@ -28,13 +28,13 @@ public class MenuView {
     @FXML
     public void newGame(MouseEvent event) {
         Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
-        Parent game = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("game_view.fxml"));
+        loader.setController(new GameView(this.gameBoard));
         try {
-            game = FXMLLoader.load(getClass().getResource("game_view.fxml"));
+            rootStage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        rootStage.setScene(new Scene(game));
     }
 
 

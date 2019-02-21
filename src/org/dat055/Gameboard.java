@@ -1,10 +1,8 @@
 package org.dat055;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-public class Gameboard implements GameBoardInterface{
+public class Gameboard{
     private HashMap<Coordinate, Cell> gameboard;
     private Coordinate gameBoardCoordinate;
     private int width, height;
@@ -27,8 +25,14 @@ public class Gameboard implements GameBoardInterface{
     public Cell getCell(Coordinate coord) {
         return gameboard.get(coord);
     }
-    public Cell getCell(int xPos, int yPos){
-            return gameboard.get(new Coordinate(xPos, yPos));
+
+    public Cell getCell(int xPos, int yPos) {
+        for (Map.Entry<Coordinate,Cell> cell : this.gameboard.entrySet()) {
+            if (cell.getKey().getXPos() == xPos && cell.getKey().getYPos() == yPos) {
+                return cell.getValue();
+            }
+        }
+        return null;
     }
 
     public void setCell(Coordinate coord, Cell cell){
@@ -38,8 +42,16 @@ public class Gameboard implements GameBoardInterface{
         gameboard.put(new Coordinate(xPos, yPos), cell);
     }
 
-    public HashMap<Coordinate, Cell> getGameboard() {
-        return gameboard;
+    public void removeCell(Coordinate coord) {
+        gameboard.remove(coord);
+    }
+
+    public void removeCell(int xPos, int yPos) {
+        gameboard.remove(new Coordinate(xPos, yPos));
+    }
+
+    public HashMap<Coordinate, Cell> getGameboard(){
+        return this.gameboard;
     }
 
     // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
@@ -81,28 +93,27 @@ public class Gameboard implements GameBoardInterface{
     }
 
     /**
-     * clears any number of lines and lowers above
+     * clears any number of lines and lowers above cells
      * @param y array of rows
      */
-
-    @Override
-    public void clearMultipleLines(int[] y) {
-        Arrays.sort(y);
-        for (int i : y) {
-            deleteRow(i);
-            lowerAbove(i);
-        }
+    //@Override
+    public void clearMultipleLines(ArrayList<Integer> y) {
+        Collections.sort(y);
+        y.forEach(i -> clearLine(i));
     }
 
     /**
-     * clears a single line. should always be followed with lowerAbove() call
+     * helper method: clears a line and lowers above cells.
      * @param y specific row
      */
+    private void clearLine(int y) {
+        deleteRow(y);
+        lowerAbove(y);
+    }
 
-    @Override
     public void deleteRow(int y) {
         for (int i = 0; i < this.width; i++) {
-            setCell(i, y, null);
+            removeCell(i, y);
         }
     }
 
@@ -110,17 +121,42 @@ public class Gameboard implements GameBoardInterface{
      * lowers all cells on all rows above by 1
      * @param y specific row
      */
-
-    @Override
-    public void lowerAbove(int y) {
+    private void lowerAbove(int y) {
         for (int i = y - 1; i >= 0; i--) {
             for (int j = 0; j < this.width; j++) {
                 Cell myCell = getCell(j, i);
                 if (myCell != null) {
                     setCell(j, i + 1, myCell);
-                    setCell(j, i, null);
+                    removeCell(j, i);
                 }
             }
         }
+    }
+
+    /**
+     * scans the gameboard for lines to clear
+     * @return list of rows to clear, will be empty if no lines found.
+     */
+    //@Override
+    public ArrayList<Integer> checkLines() {
+        ArrayList<Integer> lines = new ArrayList<>();
+
+        int[] temp = new int[this.height];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = 0;
+        }
+
+        Map<Coordinate, Cell> map = gameboard;
+        for (Coordinate coord : map.keySet()) {
+            temp[coord.getYPos()]++;
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] == this.width) {
+                lines.add(i);
+            }
+
+        }
+        return lines;
     }
 }
