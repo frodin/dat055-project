@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 public class ActiveTetromino {
     protected ArrayList<State> states;
-    protected State currentState;
     private int stateIndex;
 
     /**
@@ -14,7 +13,6 @@ public class ActiveTetromino {
      */
     public ActiveTetromino(){
         states = new ArrayList<>();
-        currentState = states.get(0);
         stateIndex = 0;
     }
 
@@ -22,7 +20,7 @@ public class ActiveTetromino {
      * @return returns currentState
      */
     public State getState(){
-        return currentState;
+        return states.get(stateIndex);
     }
 
     /**
@@ -31,6 +29,5 @@ public class ActiveTetromino {
      */
     public void rotate(){
         stateIndex = stateIndex++ % this.states.size();
-        currentState = states.get(stateIndex);
     }
 }

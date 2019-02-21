@@ -46,6 +46,11 @@ public class GameView {
 
         //this.field.setGridLinesVisible(true);
 
+        this.gameBoardController.getGameboard().createTetromino();
+        System.out.println(this.gameBoardController.getGameboard().getTetrominoCells());
+        this.gameBoardController.getGameboard().killTetromino();
+
+
         updateField();
     }
 
