@@ -7,15 +7,12 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.dat055.Cell;
-import org.dat055.Coordinate;
 import org.dat055.Gameboard;
-import org.w3c.dom.css.Rect;
-
-import java.util.Map;
+import org.dat055.GameboardController;
 
 public class GameView {
     @FXML private GridPane field;
-    private Gameboard gameBoard;
+    private GameboardController gameBoardController;
 
     // Width & height of field cells in pixels
     private final static int RECT_WIDTH = 20;
@@ -23,29 +20,26 @@ public class GameView {
 
     /**
      * Constructor.
-     * @param gameBoard The associated Gameboard model.
+     * @param gameBoardController The associated Gameboard model.
      */
-    public GameView(Gameboard gameBoard) {
-        this.gameBoard = gameBoard;
+    public GameView(GameboardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
     }
 
     @FXML
     private void initialize() {
-        // add a sample cell to gameBoard which should be drawn
-        gameBoard.setCell(0, 0, new Cell("FF0000"));
-        gameBoard.setCell(1, 1, new Cell("00FF00"));
 
         this.field.setHgap(5);
         this.field.setVgap(5);
 
         // Add columns
-        for (int i = 0; i < gameBoard.getWidth(); i++) {
+        for (int i = 0; i < gameBoardController.getGameboard().getWidth(); i++) {
             this.field.getColumnConstraints().add(i,
                     new ColumnConstraints(RECT_WIDTH));
         }
 
         // Add rows
-        for (int j = 0; j < gameBoard.getHeight(); j++) {
+        for (int j = 0; j < gameBoardController.getGameboard().getHeight(); j++) {
             this.field.getRowConstraints().add(j,
                     new RowConstraints(RECT_HEIGHT));
         }
@@ -59,10 +53,10 @@ public class GameView {
      * Redraws the game field.
      */
     private void updateField() {
-        // Loop over gameBoard to find all cells
-        for (int i = 0; i < this.gameBoard.getWidth(); i++) {
-            for (int j = 0; j < this.gameBoard.getHeight(); j ++) {
-                Cell cell = this.gameBoard.getCell(i, j);
+        // Loop over gameBoardController to find all cells
+        for (int i = 0; i < this.gameBoardController.getGameboard().getWidth(); i++) {
+            for (int j = 0; j < this.gameBoardController.getGameboard().getHeight(); j ++) {
+                Cell cell = this.gameBoardController.getGameboard().getCell(i, j);
 
                 // Create rectangle
                 Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
