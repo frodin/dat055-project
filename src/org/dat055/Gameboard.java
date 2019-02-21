@@ -90,14 +90,13 @@ public class Gameboard implements GameBoardInterface{
     }
 
     public void createTetrominoRandom(int i){
-        String colorZ, colorI, colorJ, colorL, colorO, colorS, colorT;
-        colorZ = "FF0000"; //Red
-        colorI = "00FFFF";
-        colorJ = "0000FF";
-        colorL = "FFA500";
-        colorO = "FFFF00";
-        colorS = "7FFF00";
-        colorT = "800080";
+        String colorZ = "FF0000"; //Red
+        String colorI = "00FFFF"; //Cyan
+        String colorJ = "0000FF"; //Blue
+        String colorL = "FFA500"; //Orange
+        String colorO = "FFFF00"; //Yellow
+        String colorS = "7FFF00"; //Green
+        String colorT = "800080"; //Purple
         switch(i){
             case 0: activeTetromino = new TetrominoI(colorI);
             break;
