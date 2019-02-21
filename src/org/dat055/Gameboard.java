@@ -90,7 +90,11 @@ public class Gameboard implements GameBoardInterface{
     }
 
     public void createTetromino(){
+        String color = "FF0000"; // This is red.
+        /*
         activeTetromino = new ActiveTetromino();
+        */
+        activeTetromino = new TetrominoS(color);
     }
 
     /**
