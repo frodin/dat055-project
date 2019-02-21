@@ -8,6 +8,8 @@ public class Gameboard implements GameBoardInterface{
     private HashMap<Coordinate, Cell> gameboard;
     private Coordinate gameBoardCoordinate;
     private int width, height;
+    private ActiveTetromino activeTetromino;
+
 
     public Gameboard(int width, int height){
        this.width = width;
@@ -43,7 +45,7 @@ public class Gameboard implements GameBoardInterface{
     // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
     // Now coordinates range from 10x20 and before it was 3x3
 
-    public HashMap<Coordinate,Cell> getAdaptedTetrominoCoordinates(ActiveTetromino activeTetromino){
+    public HashMap<Coordinate,Cell> getAdaptedTetrominoCoordinates(){
         HashMap<Coordinate,Cell> tempHashMap = new HashMap<Coordinate,Cell>();
 
         //We iterate over all entries in the active tetromino.(No null values)
@@ -57,8 +59,6 @@ public class Gameboard implements GameBoardInterface{
         }
 
         return tempHashMap;
-
-        // temp = activeTetromino;
     }
 
     /**
