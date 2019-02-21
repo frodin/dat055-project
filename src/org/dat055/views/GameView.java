@@ -9,13 +9,15 @@ import javafx.scene.shape.Rectangle;
 import org.dat055.Cell;
 import org.dat055.Coordinate;
 import org.dat055.Gameboard;
-import org.w3c.dom.css.Rect;
+import org.dat055.GameboardController;
 
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
-public class GameView {
+public class GameView implements Observer {
     @FXML private GridPane field;
-    private Gameboard gameBoard;
+    private GameboardController gameBoardController;
 
     // Width & height of field cells in pixels
     private final static int RECT_WIDTH = 20;
@@ -23,34 +25,39 @@ public class GameView {
 
     /**
      * Constructor.
-     * @param gameBoard The associated Gameboard model.
+     * @param gameBoardController The associated Gameboard model.
      */
-    public GameView(Gameboard gameBoard) {
-        this.gameBoard = gameBoard;
+    public GameView(GameboardController gameBoardController) {
+        this.gameBoardController = gameBoardController;
     }
 
     @FXML
     private void initialize() {
-        // add a sample cell to gameBoard which should be drawn
-        gameBoard.setCell(0, 0, new Cell("FF0000"));
-        gameBoard.setCell(1, 1, new Cell("00FF00"));
 
         this.field.setHgap(5);
         this.field.setVgap(5);
 
         // Add columns
-        for (int i = 0; i < gameBoard.getWidth(); i++) {
+        for (int i = 0; i < gameBoardController.getGameboard().getWidth(); i++) {
             this.field.getColumnConstraints().add(i,
                     new ColumnConstraints(RECT_WIDTH));
         }
 
         // Add rows
-        for (int j = 0; j < gameBoard.getHeight(); j++) {
+        for (int j = 0; j < gameBoardController.getGameboard().getHeight(); j++) {
             this.field.getRowConstraints().add(j,
                     new RowConstraints(RECT_HEIGHT));
         }
 
         //this.field.setGridLinesVisible(true);
+
+        this.gameBoardController.addObserver(this);
+        this.gameBoardController.getGameboard().createTetromino();
+        this.gameBoardController.start();
+        //System.out.println(this.gameBoardController.getGameboard().getTetrominoCells());
+        //this.gameBoardController.getGameboard().killTetromino();
+        //this
+
 
         updateField();
     }
@@ -58,18 +65,18 @@ public class GameView {
     /**
      * Redraws the game field.
      */
-    private void updateField() {
-        // Loop over gameBoard to find all cells
-        for (int i = 0; i < this.gameBoard.getWidth(); i++) {
-            for (int j = 0; j < this.gameBoard.getHeight(); j ++) {
-                Cell cell = this.gameBoard.getCell(i, j);
+    public void updateField() {
+        // Loop over game board to draw all cells
+        for (int i = 0; i < this.gameBoardController.getGameboard().getWidth(); i++) {
+            for (int j = 0; j < this.gameBoardController.getGameboard().getHeight(); j ++) {
+                Cell cell = this.gameBoardController.getGameboard().getCell(i, j);
 
                 // Create rectangle
                 Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
 
                 if (cell != null) {
                     // Cell found, get color from cell
-                    rect.setFill(Color.RED);
+                    rect.setFill(Color.web(cell.getColor()));
                 } else {
                     // No cell found, set color to black
                     rect.setFill(Color.web("111111"));
@@ -79,6 +86,13 @@ public class GameView {
                 this.field.add(rect, i, j);
 
             }
+        }
+
+        // Draw active tetronimo
+        for (Map.Entry<Coordinate, Cell> entry : this.gameBoardController.getTetrominoCells().entrySet()) {
+            Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+            rect.setFill(Color.web(entry.getValue().getColor()));
+            this.field.add(rect, entry.getKey().getXPos(), entry.getKey().getYPos());
         }
     }
 
@@ -91,5 +105,11 @@ public class GameView {
         GridPane grid = new GridPane();
 
         return grid;
+    }
+
+    @Override
+    public void update(Observable obj, Object arg) {
+        System.out.println("[DEBUG] Change detected.");
+        updateField();
     }
 }
