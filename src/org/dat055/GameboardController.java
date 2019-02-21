@@ -1,5 +1,9 @@
 package org.dat055;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
+
 public class GameboardController {
     private Gameboard gameboard;
 
@@ -18,6 +22,19 @@ public class GameboardController {
 
     }
     public void createRandomTetromino() {
+        Class<?>[] possibleClasses = {TetrominoI.class, TetrominoS.class, TetrominoJ.class, TetrominoL.class, TetrominoO.class, TetrominoT.class, TetrominoZ.class};
+        Random rand = new Random();
+
+        Class<?> cl = possibleClasses[rand.nextInt(possibleClasses.length)];
+        try {
+            Class.forName(cl.toString());
+            Constructor<?> constr = cl.getConstructor(cl);
+            Object obj = constr.newInstance(new Object[] { "FF0000" });
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+
         //gameboard.createTetromino();
     }
     public Gameboard getGameboard() {
