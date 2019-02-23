@@ -36,11 +36,42 @@ public class GameboardController extends Observable {
 
     public void tick() {
         // move the active tetromino down one block
-        setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos()+1);
-        System.out.println("[DEBUG] New tetromino position: " +
-                this.gameboard.getTetrominoPosition().getXPos() + "," +
-                this.gameboard.getTetrominoPosition().getYPos());
+
+        // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino
+        if (canWeMoveDown()) {
+            setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
+            System.out.println("[DEBUG] New tetromino position: " +
+                    this.gameboard.getTetrominoPosition().getXPos() + "," +
+                    this.gameboard.getTetrominoPosition().getYPos());
+        }
     }
+
+    /**
+     * This method tells us if we currently can move our tetromino( in its current state) down or not.
+     * @return True if we can move down, false if we cant move down.
+     */
+
+    public boolean canWeMoveDown(){
+
+        // Loopa över tetrominons hashMap-värden som existerar
+        for(Map.Entry<Coordinate,Cell> tetrominoRef : getTetrominoCells().entrySet()){
+
+            // Om en utav koordinaterna i tetrominon SKULLE HA nått botten av spelplanen så return false
+            if(tetrominoRef.getKey().getYPos() + 1 == getGameboard().getHeight())
+                return false;
+
+            // Loopa över gameBoardets hashMap-värden som existerar
+            for(Map.Entry<Coordinate,Cell> gameBoardRef : gameboard.getTetrominoCells().entrySet()) {
+
+                // Kollar om tetrominons FRAMTIDA y-koordinat matchar någon av gameBoardets existerande y-koordinater
+                if (tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos())
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
 
     public void createRandomTetromino() {
         Class<?>[] possibleClasses = {TetrominoI.class, TetrominoS.class, TetrominoJ.class, TetrominoL.class, TetrominoO.class, TetrominoT.class, TetrominoZ.class};
