@@ -1,6 +1,8 @@
 package org.dat055;
 
 import javafx.application.Platform;
+
+import java.sql.SQLOutput;
 import java.util.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -56,16 +58,19 @@ public class GameboardController extends Observable {
         // Loopa över tetrominons hashMap-värden som existerar
         for(Map.Entry<Coordinate,Cell> tetrominoRef : getTetrominoCells().entrySet()){
 
-            // Om en utav koordinaterna i tetrominon SKULLE HA nått botten av spelplanen så return false
+            // Om en utav koordinaterna i tetrominon SKULLE HA nått under botten av spelplanen så return false
             if(tetrominoRef.getKey().getYPos() + 1 == getGameboard().getHeight())
                 return false;
 
             // Loopa över gameBoardets hashMap-värden som existerar
-            for(Map.Entry<Coordinate,Cell> gameBoardRef : gameboard.getTetrominoCells().entrySet()) {
+            for(Map.Entry<Coordinate,Cell> gameBoardRef : gameboard.getGameBoard().entrySet()) {
 
                 // Kollar om tetrominons FRAMTIDA y-koordinat matchar någon av gameBoardets existerande y-koordinater
-                if (tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos())
+                // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
+                if (tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos() &&
+                        !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
                     return false;
+                }
             }
         }
 
