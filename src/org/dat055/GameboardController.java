@@ -39,7 +39,7 @@ public class GameboardController extends Observable {
     public void tick() {
         // move the active tetromino down one block
 
-        // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino
+        // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
         if (canWeMoveDown()) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
             System.out.println("[DEBUG] New tetromino position: " +
@@ -73,7 +73,62 @@ public class GameboardController extends Observable {
                 }
             }
         }
+        return true;
+    }
 
+    /**
+     * This method tells us if we currently can move our tetromino( in its current state) left or not.
+     * @return True if we can move left, false if we cant move left.
+     */
+
+    public boolean canWeMoveLeft(){
+
+        // Loopa över tetrominons hashMap-värden som existerar
+        for(Map.Entry<Coordinate,Cell> tetrominoRef : getTetrominoCells().entrySet()){
+
+            // Om en utav koordinaterna i tetrominon SKULLE HA nått till vänster om spelplanen så return false
+            if(tetrominoRef.getKey().getXPos() - 1 < 0)
+                return false;
+
+            // Loopa över gameBoardets hashMap-värden som existerar
+            for(Map.Entry<Coordinate,Cell> gameBoardRef : gameboard.getGameBoard().entrySet()) {
+
+                // Kollar om tetrominons FRAMTIDA vänsta x-koordinat matchar någon av gameBoardets existerande x-koordinater
+                // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
+                if (tetrominoRef.getKey().getXPos() - 1 < gameBoardRef.getKey().getXPos() &&
+                        !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * This method tells us if we currently can move our tetromino( in its current state) right or not.
+     * @return True if we can move right, false if we cant move right.
+     */
+
+    public boolean canWeMoveRight(){
+
+        // Loopa över tetrominons hashMap-värden som existerar
+        for(Map.Entry<Coordinate,Cell> tetrominoRef : getTetrominoCells().entrySet()){
+
+            // Om en utav koordinaterna i tetrominon SKULLE HA nått till höger om spelplanen så return false
+            if(tetrominoRef.getKey().getXPos() + 1 > gameboard.getWidth())
+                return false;
+
+            // Loopa över gameBoardets hashMap-värden som existerar
+            for(Map.Entry<Coordinate,Cell> gameBoardRef : gameboard.getGameBoard().entrySet()) {
+
+                // Kollar om tetrominons FRAMTIDA högra x-koordinat matchar någon av gameBoardets existerande x-koordinater
+                // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
+                if (tetrominoRef.getKey().getXPos() + 1 > gameBoardRef.getKey().getXPos() &&
+                        !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
