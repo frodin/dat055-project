@@ -119,9 +119,10 @@ public class Gameboard implements GameBoardInterface{
      */
     public void killTetromino(){
 
-        for(Map.Entry<Coordinate,Cell> entry : activeTetromino.getState().getHashMap().entrySet()){
-            setCell(entry.getKey(), entry.getValue());
+        for(Map.Entry<Coordinate,Cell> cell: getTetrominoCells().entrySet()){
+            setCell(cell.getKey(), cell.getValue());
         }
+
         // Might not be neccesary, but "disables" the activeTetromino
         activeTetromino = null;
 
