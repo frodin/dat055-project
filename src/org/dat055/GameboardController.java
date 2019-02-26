@@ -1,6 +1,8 @@
 package org.dat055;
 
 import javafx.application.Platform;
+
+import java.io.InputStream;
 import java.util.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -24,14 +26,16 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        Timer tickTimer = new Timer();
+        tickTimer.schedule(new TimerTask() {
             public void run() {
                 Platform.runLater(() -> {
                     tick();
+
                 });
             }
         }, 1000, 1000);
+
     }
 
     public void tick() {
@@ -72,8 +76,10 @@ public class GameboardController extends Observable {
      */
     public void moveLeft() {
         Coordinate currPos = this.gameboard.getTetrominoPosition();
-        Coordinate nextPos = null; // calculate next pos here then move it to that position
-        // same for moveRight()
+        // calculate next pos here then move it to that position
+        Coordinate nextPos = new Coordinate(currPos.getXPos() - 1,currPos.getYPos());
+        gameboard.setTetrominoPosition(nextPos);
+        //same for moveRight()
     }
 
     /**
@@ -81,7 +87,25 @@ public class GameboardController extends Observable {
      */
     public void moveRight() {
         Coordinate currPos = this.gameboard.getTetrominoPosition();
+        // calculate next pos here then move it to that position
+        Coordinate nextPos = new Coordinate(currPos.getXPos() + 1,currPos.getYPos());
+        gameboard.setTetrominoPosition(nextPos);
+        //same for moveRight()
     }
+
+    /**
+     * Try to move the active tetromino down.
+     */
+    public void moveDown() {
+        Coordinate currPos = this.gameboard.getTetrominoPosition();
+        // calculate next pos here then move it to that position
+        Coordinate nextPos = new Coordinate(currPos.getXPos(),currPos.getYPos() + 1) ;
+        gameboard.setTetrominoPosition(nextPos);
+    }
+
+
+
+
 
 }
 
