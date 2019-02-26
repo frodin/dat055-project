@@ -158,6 +158,13 @@ public class GameboardController extends Observable {
         return this.gameboard.getTetrominoCells();
     }
 
+    public void killAndReplaceTetromino(){
+        if(!canWeMoveDown()){
+            gameboard.killTetromino();
+            gameboard.createTetromino();
+        }
+    }
+
 }
 
 
