@@ -2,7 +2,7 @@ package org.dat055;
 
 import java.util.*;
 
-public class Gameboard implements GameBoardInterface{
+public class Gameboard extends Observable implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
     private Coordinate tetrominoPosition;
     private int width, height;
@@ -41,18 +41,26 @@ public class Gameboard implements GameBoardInterface{
 
     public void setCell(Coordinate coord, Cell cell){
         gameboard.put(coord, cell);
+        setChanged();
+        notifyObservers();
     }
 
     public void setCell(int xPos, int yPos, Cell cell){
         gameboard.put(new Coordinate(xPos, yPos), cell);
+        setChanged();
+        notifyObservers();
     }
 
     public void removeCell(Coordinate coord) {
         gameboard.remove(coord);
+        setChanged();
+        notifyObservers();
     }
 
     public void removeCell(int xPos, int yPos) {
         gameboard.remove(new Coordinate(xPos, yPos));
+        setChanged();
+        notifyObservers();
     }
 
     public Coordinate getTetrominoPosition(){
@@ -61,6 +69,8 @@ public class Gameboard implements GameBoardInterface{
 
     public void setTetrominoPosition(Coordinate coordinate){
         tetrominoPosition = coordinate;
+        setChanged();
+        notifyObservers();
     }
 
     // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
@@ -87,6 +97,8 @@ public class Gameboard implements GameBoardInterface{
      */
     public void rotateTetromino(){
         activeTetromino.rotate();
+        setChanged();
+        notifyObservers();
     }
 
     public void createTetromino(int i){
@@ -106,6 +118,8 @@ public class Gameboard implements GameBoardInterface{
             case 6: activeTetromino = new TetrominoZ();
             break;
         }
+        setChanged();
+        notifyObservers();
     }
 
     public void createTetromino(){
@@ -121,9 +135,13 @@ public class Gameboard implements GameBoardInterface{
 
         for(Map.Entry<Coordinate,Cell> entry : activeTetromino.getState().getHashMap().entrySet()){
             setCell(entry.getKey(), entry.getValue());
+            setChanged();
+            notifyObservers();
         }
         // Might not be neccesary, but "disables" the activeTetromino
         activeTetromino = null;
+        setChanged();
+        notifyObservers();
 
     }
 
@@ -149,6 +167,8 @@ public class Gameboard implements GameBoardInterface{
     public void deleteRow(int y) {
         for (int i = 0; i < this.width; i++) {
             removeCell(i, y);
+            setChanged();
+            notifyObservers();
         }
     }
 
@@ -162,7 +182,11 @@ public class Gameboard implements GameBoardInterface{
                 Cell myCell = getCell(j, i);
                 if (myCell != null) {
                     setCell(j, i + 1, myCell);
+                    setChanged();
+                    notifyObservers();
                     removeCell(j, i);
+                    setChanged();
+                    notifyObservers();
                 }
             }
         }
@@ -194,4 +218,5 @@ public class Gameboard implements GameBoardInterface{
         }
         return lines;
     }
+    //behöver en update-metod, fundera på vad den ska göra
 }
