@@ -75,7 +75,8 @@ public class GameboardController extends Observable {
 
                 // Kollar om tetrominons FRAMTIDA y-koordinat matchar någon av gameBoardets existerande y-koordinater
                 // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
-                if ((tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos() && tetrominoRef.getKey().getXPos() == gameBoardRef.getKey().getXPos())&&
+                if ((tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos() &&
+                        tetrominoRef.getKey().getXPos() == gameBoardRef.getKey().getXPos())&&
                         !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
                     return false;
                 }
