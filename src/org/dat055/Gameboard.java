@@ -9,11 +9,10 @@ public class Gameboard extends Observable implements GameBoardInterface {
     private ActiveTetromino activeTetromino;
 
 
-    public Gameboard(int width, int height) {
-        this.width = width;
-        this.height = height;
-        gameboard = new HashMap<>();
-        tetrominoPosition = new Coordinate(4, 0);
+    public Gameboard(int width, int height){
+       this.width = width;
+       this.height = height;
+       gameboard = new HashMap<>();
     }
 
     public int getWidth() {
@@ -104,29 +103,23 @@ public class Gameboard extends Observable implements GameBoardInterface {
         notifyObservers();
     }
 
-    public void createTetromino(int i) {
-        switch (i) {
-            case 0:
-                activeTetromino = new TetrominoI();
-                break;
-            case 1:
-                activeTetromino = new TetrominoJ();
-                break;
-            case 2:
-                activeTetromino = new TetrominoL();
-                break;
-            case 3:
-                activeTetromino = new TetrominoO();
-                break;
-            case 4:
-                activeTetromino = new TetrominoS();
-                break;
-            case 5:
-                activeTetromino = new TetrominoT();
-                break;
-            case 6:
-                activeTetromino = new TetrominoZ();
-                break;
+    public void createTetromino(int i){
+        tetrominoPosition = new Coordinate(4,0);
+        switch(i){
+            case 0: activeTetromino = new TetrominoI();
+            break;
+            case 1: activeTetromino = new TetrominoJ();
+            break;
+            case 2: activeTetromino = new TetrominoL();
+            break;
+            case 3: activeTetromino = new TetrominoO();
+            break;
+            case 4: activeTetromino = new TetrominoS();
+            break;
+            case 5: activeTetromino = new TetrominoT();
+            break;
+            case 6: activeTetromino = new TetrominoZ();
+            break;
         }
         setChanged();
         notifyObservers();
