@@ -214,11 +214,6 @@ public class GameboardController extends Observable {
         gameboard.setTetrominoPosition(nextPos);
     }
 
-
-
-
-
-
     public void killAndReplaceTetromino(){
         gameboard.killTetromino();
         gameboard.createTetromino();
