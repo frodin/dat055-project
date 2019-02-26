@@ -1,4 +1,4 @@
-package org.dat055;
+
 
 import javafx.application.Platform;
 
@@ -46,6 +46,10 @@ public class GameboardController extends Observable {
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
                     this.gameboard.getTetrominoPosition().getYPos());
         }
+        else{
+            killAndReplaceTetromino();
+        }
+
     }
 
     /**
@@ -67,7 +71,8 @@ public class GameboardController extends Observable {
 
                 // Kollar om tetrominons FRAMTIDA y-koordinat matchar någon av gameBoardets existerande y-koordinater
                 // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
-                if (tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos() &&
+                if ((tetrominoRef.getKey().getYPos() + 1 == gameBoardRef.getKey().getYPos() &&
+                        tetrominoRef.getKey().getXPos() == gameBoardRef.getKey().getXPos())&&
                         !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
                     return false;
                 }
@@ -156,6 +161,13 @@ public class GameboardController extends Observable {
 
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         return this.gameboard.getTetrominoCells();
+    }
+
+    public void killAndReplaceTetromino(){
+        gameboard.killTetromino();
+        gameboard.createTetromino();
+        setChanged();
+        notifyObservers();
     }
 
 }
