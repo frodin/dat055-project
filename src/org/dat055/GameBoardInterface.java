@@ -13,7 +13,7 @@ public interface GameBoardInterface {
     HashMap<Coordinate, Cell> getGameBoard();
 
     // trello #15: GameBoard - vad som händer när en rad tas bort
-    void clearMultipleLines(ArrayList<Integer> y);
+    //void clearMultipleLines(ArrayList<Integer> y);
 
     // trello #14: ActiveTetromino hantering
     Coordinate getTetrominoPosition();
@@ -24,5 +24,5 @@ public interface GameBoardInterface {
     void createTetromino();
 
     // trello #18: Gameboard. undersöker om det finns lines att cleara.
-    ArrayList<Integer> checkLines();
+    //ArrayList<Integer> checkLines();
 }
