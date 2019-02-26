@@ -67,6 +67,22 @@ public class GameboardController extends Observable {
         return this.gameboard.getTetrominoCells();
     }
 
+    /**
+     * Try to move the active tetromino left.
+     */
+    public void moveLeft() {
+        Coordinate currPos = this.gameboard.getTetrominoPosition();
+        Coordinate nextPos = null; // calculate next pos here then move it to that position
+        // same for moveRight()
+    }
+
+    /**
+     * Try to move the active tetromino right.
+     */
+    public void moveRight() {
+        Coordinate currPos = this.gameboard.getTetrominoPosition();
+    }
+
 }
 
 
