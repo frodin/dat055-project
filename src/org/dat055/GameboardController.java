@@ -2,11 +2,7 @@ package org.dat055;
 
 import javafx.application.Platform;
 
-<<<<<<< HEAD
-import java.io.InputStream;
-=======
-import java.sql.SQLOutput;
->>>>>>> master
+
 import java.util.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
