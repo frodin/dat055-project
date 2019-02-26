@@ -26,20 +26,6 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-
-        for (int i = 0; i < gameboard.getWidth(); i++) {
-            gameboard.setCell(i, 19, new Cell("FF0000"));
-        }
-        for (int i = 0; i < gameboard.getWidth(); i++) {
-            gameboard.setCell(i, 18, new Cell("FF0000"));
-        }
-        for (int i = 0; i < gameboard.getWidth(); i++) {
-            gameboard.setCell(i, 17, new Cell("FF0000"));
-        }
-        gameboard.removeCell(6, 18);
-        gameboard.removeCell(5, 18);
-        gameboard.removeCell(4, 18);
-
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             public void run() {
@@ -51,9 +37,6 @@ public class GameboardController extends Observable {
     }
 
     public void tick() {
-
-
-
         // move the active tetromino down one block
 
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
@@ -63,6 +46,7 @@ public class GameboardController extends Observable {
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
                     this.gameboard.getTetrominoPosition().getYPos());
         }
+
         // check if we have lines to clear
         ArrayList<Integer> linesToClear = checkLines();
         if (linesToClear.size() > 0) {
