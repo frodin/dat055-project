@@ -136,6 +136,8 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
         for(Map.Entry<Coordinate,Cell> cell: getTetrominoCells().entrySet()){
             setCell(cell.getKey(), cell.getValue());
+            setChanged();
+            notifyObservers();
         }
 
         // Might not be neccesary, but "disables" the activeTetromino
