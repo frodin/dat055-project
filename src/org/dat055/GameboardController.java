@@ -46,6 +46,10 @@ public class GameboardController extends Observable {
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
                     this.gameboard.getTetrominoPosition().getYPos());
         }
+        else{
+            killAndReplaceTetromino();
+        }
+
     }
 
     /**
@@ -159,10 +163,10 @@ public class GameboardController extends Observable {
     }
 
     public void killAndReplaceTetromino(){
-        if(!canWeMoveDown()){
-            gameboard.killTetromino();
-            gameboard.createTetromino();
-        }
+        gameboard.killTetromino();
+        gameboard.createTetromino();
+        setChanged();
+        notifyObservers();
     }
 
 }

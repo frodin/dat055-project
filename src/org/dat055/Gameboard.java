@@ -90,6 +90,7 @@ public class Gameboard implements GameBoardInterface{
     }
 
     public void createTetromino(int i){
+        tetrominoPosition = new Coordinate(4,0);
         switch(i){
             case 0: activeTetromino = new TetrominoI();
             break;
