@@ -13,7 +13,6 @@ public class Gameboard implements GameBoardInterface{
        this.width = width;
        this.height = height;
        gameboard = new HashMap<>();
-       tetrominoPosition = new Coordinate(4,0);
     }
 
     public int getWidth(){
