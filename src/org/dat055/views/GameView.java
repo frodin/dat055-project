@@ -5,6 +5,7 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -94,7 +95,6 @@ public class GameView implements Observer {
         };
         frameRateMeter.start();
 
-        //updateField();
         this.initializeField();
     }
 
@@ -103,63 +103,62 @@ public class GameView implements Observer {
      * Only run once.
      */
     public void initializeField() {
-        // Loop over game board to draw all cells
+        // Draw the initial gameboard, initially only contains empty (black) cells
         for (int i = 0; i < this.gameBoardController.getGameboard().getWidth(); i++) {
             for (int j = 0; j < this.gameBoardController.getGameboard().getHeight(); j ++) {
                 Cell cell = this.gameBoardController.getGameboard().getCell(i, j);
-
-                // Create rectangle
                 Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-
-                if (cell != null) {
-                    // Cell found, get color from cell
-                    rect.setFill(Color.web(cell.getColor()));
-                } else {
-                    // No cell found, set color to black
-                    rect.setFill(Color.web("111111"));
-                }
-
-                // Add rectangle
+                rect.setFill(Color.web("111111"));
                 this.field.add(rect, i, j);
             }
         }
     }
 
     /**
+     * Helper function: return a Rectangle object from the game field
+     */
+    private Rectangle getNode(int x, int y) {
+        for (Node node : field.getChildren()) {
+            if (GridPane.getColumnIndex(node) == x && GridPane.getRowIndex(node) == y) {
+                return (Rectangle) node;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Redraws the game field.
      */
     public void updateField() {
+        // Loop over all nodes in GridPane
+        for (Node node : field.getChildren()) {
+            Rectangle rect = (Rectangle) node;
+            // Look for a corresponding Cell object in Gameboard
+            Cell cell = this.gameBoardController.getGameboard().getCell(
+                    GridPane.getColumnIndex(node),
+                    GridPane.getRowIndex(node)
+            );
+            // If such a cell exists, get the color from that cell. Otherwise paint it black.
+            if (cell != null) {
+                rect.setFill(Color.web(cell.getColor()));
+            } else {
+                rect.setFill(Color.web("111111"));
+            }
+        }
+
         // Draw active tetronimo
         if (this.gameBoardController.getTetrominoCells() != null) {
             for (Map.Entry<Coordinate, Cell> entry : this.gameBoardController.getTetrominoCells().entrySet()) {
-                Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-                rect.setFill(Color.web(entry.getValue().getColor()));
-                this.field.add(rect, entry.getKey().getXPos(), entry.getKey().getYPos());
+                Rectangle rect = getNode(entry.getKey().getXPos(), entry.getKey().getYPos());
+
+                if (rect != null)
+                    rect.setFill(Color.web(entry.getValue().getColor()));
             }
         }
 
         // Update draw counter
         this.redraws++;
         this.redrawCounter.setText(" [Redraws: " + this.redraws + "]");
-    }
-
-    /**
-     * Removes the tetromino from the game field and
-     * redraws it in it's current position.
-     */
-    public void redrawTetromino() {
-
-    }
-
-    /**
-     * Takes a Gameboard and returns a drawable GridPane component.
-     * @param gameBoard The Gameboard to draw.
-     * @return A GridPane based on the Gameboard.
-     */
-    private static GridPane createGameField(Gameboard gameBoard) {
-        GridPane grid = new GridPane();
-
-        return grid;
     }
 
     @Override
