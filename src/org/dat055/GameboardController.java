@@ -90,16 +90,16 @@ public class GameboardController extends Observable {
     public boolean canWeRotate(){
         for(Map.Entry<Coordinate, Cell> nextState : getNextTetrominoCells().entrySet()){
             if(nextState.getKey().getXPos() < 0){
-                System.out.println("Detta gick igenom");
                 return false;
             }
             else if(nextState.getKey().getXPos() >= gameboard.getWidth()){
-                System.out.println("Detta gick igenom");
+                return false;
+            } else if(nextState.getKey().getYPos() >= gameboard.getHeight()){
+                return false;
+            } else if (gameboard.getCell(nextState.getKey().getXPos(), nextState.getKey().getYPos()) != null){
                 return false;
             }
-            else if(nextState.getKey().getYPos() >= gameboard.getHeight()){
-                return false;
-            }
+
            // else if(nextState.getKey().getXPos() == )
         }
         return true;
