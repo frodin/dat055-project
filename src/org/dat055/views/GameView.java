@@ -51,12 +51,8 @@ public class GameView implements Observer {
 
         //this.field.setGridLinesVisible(true);
 
-        this.gameBoardController.addObserver(this);
+        this.gameBoardController.getGameboard().addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
-        this.gameBoardController.start();
-        //System.out.println(this.gameBoardController.getGameboard().getTetrominoCells());
-        //this.gameBoardController.getGameboard().killTetromino();
-        //this
 
 
         updateField();
