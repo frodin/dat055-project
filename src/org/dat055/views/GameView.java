@@ -112,6 +112,8 @@ public class GameView implements Observer {
                 this.field.add(rect, i, j);
             }
         }
+        field.setMaxWidth(RECT_WIDTH*this.gameBoardController.getGameboard().getWidth());
+        field.setMaxHeight(RECT_HEIGHT*this.gameBoardController.getGameboard().getHeight());
     }
 
     /**
