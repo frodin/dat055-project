@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.Timer;
 
-public class GameboardController extends Observable {
+public class GameboardController {
     private Gameboard gameboard;
 
     public GameboardController(int width, int height) {
@@ -27,8 +27,6 @@ public class GameboardController extends Observable {
 
     public void setTetrominoPosition(int x, int y) {
         gameboard.setTetrominoPosition(new Coordinate(x, y));
-        setChanged();
-        notifyObservers();
     }
 
     public void start() {
@@ -88,8 +86,6 @@ public class GameboardController extends Observable {
                 }
             }
         }
-        setChanged();
-        notifyObservers();
         return true;
     }
 
@@ -119,8 +115,6 @@ public class GameboardController extends Observable {
                 }
             }
         }
-        setChanged();
-        notifyObservers();
         return true;
     }
 
@@ -150,8 +144,6 @@ public class GameboardController extends Observable {
                 }
             }
         }
-        setChanged();
-        notifyObservers();
         return true;
     }
 
@@ -168,9 +160,6 @@ public class GameboardController extends Observable {
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
         }
-
-        setChanged();
-        notifyObservers();
     }
 
     public Gameboard getGameboard() {
@@ -217,8 +206,6 @@ public class GameboardController extends Observable {
     public void killAndReplaceTetromino(){
         gameboard.killTetromino();
         gameboard.createTetromino();
-        setChanged();
-        notifyObservers();
     }
     public void rotateTetromino(){
         gameboard.rotateTetromino();
