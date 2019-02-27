@@ -50,7 +50,7 @@ public class GameboardController extends Observable {
         // move the active tetromino down one block
 
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
-        if (this.getTetrominoCells() != null && this.canWeMoveDown()) {
+        if (this.getTetrominoCells() != null && this.canMove('d')) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
             System.out.println("[DEBUG] New tetromino position: " +
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
