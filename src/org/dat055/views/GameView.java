@@ -126,10 +126,12 @@ public class GameView implements Observer {
         }
 
         // Draw active tetronimo
-        for (Map.Entry<Coordinate, Cell> entry : this.gameBoardController.getTetrominoCells().entrySet()) {
-            Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-            rect.setFill(Color.web(entry.getValue().getColor()));
-            this.field.add(rect, entry.getKey().getXPos(), entry.getKey().getYPos());
+        if (this.gameBoardController.getTetrominoCells() != null) {
+            for (Map.Entry<Coordinate, Cell> entry : this.gameBoardController.getTetrominoCells().entrySet()) {
+                Rectangle rect = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+                rect.setFill(Color.web(entry.getValue().getColor()));
+                this.field.add(rect, entry.getKey().getXPos(), entry.getKey().getYPos());
+            }
         }
 
         // Update draw counter
