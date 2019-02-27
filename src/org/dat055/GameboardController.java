@@ -40,7 +40,7 @@ public class GameboardController extends Observable {
 
                     });
                 }
-            }, 1000, 1000);
+            }, 100, 100);
 
 
         }
@@ -50,7 +50,7 @@ public class GameboardController extends Observable {
         // move the active tetromino down one block
 
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
-        if (canWeMoveDown()) {
+        if (canMove()) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
             System.out.println("[DEBUG] New tetromino position: " +
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
@@ -59,6 +59,8 @@ public class GameboardController extends Observable {
         else{
             killAndReplaceTetromino();
         }
+        setChanged();
+        notifyObservers();
 
     }
 
@@ -91,6 +93,25 @@ public class GameboardController extends Observable {
         setChanged();
         notifyObservers();
         return true;
+    }
+
+    public boolean canMove() {
+        for(Map.Entry<Coordinate,Cell> tetroCell : getTetrominoCells().entrySet()){
+            if (!cellMove(tetroCell.getKey().getXPos(), tetroCell.getKey().getYPos())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean cellMove(int x, int y) {
+        return gameboard.getCell(x + 1, y) == null &&
+               gameboard.getCell(x - 1, y) == null &&
+               gameboard.getCell(x, y + 1) == null &&
+               (y + 1) < gameboard.getHeight() &&
+               (x + 1) < gameboard.getWidth() &&
+               (x - 1) >= 0;
+
     }
 
     /**
