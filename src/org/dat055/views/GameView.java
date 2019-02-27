@@ -128,6 +128,10 @@ public class GameView implements Observer {
             rect.setFill(Color.web(entry.getValue().getColor()));
             this.field.add(rect, entry.getKey().getXPos(), entry.getKey().getYPos());
         }
+
+        // Update draw counter
+        this.redraws++;
+        this.redrawCounter.setText(" [Redraws: " + this.redraws + "]");
     }
 
     /**
@@ -139,9 +143,6 @@ public class GameView implements Observer {
         GridPane grid = new GridPane();
 
         return grid;
-        // Update draw counter
-        this.redraws++;
-        this.redrawCounter.setText(" [Redraws: " + this.redraws + "]");
     }
 
     @Override
