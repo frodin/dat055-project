@@ -13,9 +13,15 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.Timer;
+/*import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;*/
 
 public class GameboardController extends Observable {
     private Gameboard gameboard;
+    private Timer tickTimer;
+    /*private EventHandler keyHandler;*/
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -32,7 +38,7 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-            Timer tickTimer = new Timer();
+            tickTimer = new Timer();
             tickTimer.schedule(new TimerTask() {
                 public void run() {
                     Platform.runLater(() -> {
@@ -42,8 +48,11 @@ public class GameboardController extends Observable {
                 }
             }, 1000, 1000);
 
+    }
 
-        }
+    public void pause(){
+        tickTimer.cancel();
+    }
 
 
     public void tick() {
@@ -223,6 +232,8 @@ public class GameboardController extends Observable {
     public void rotateTetromino(){
         gameboard.rotateTetromino();
     }
+
+
 
 
 }

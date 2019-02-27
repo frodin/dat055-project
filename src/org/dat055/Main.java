@@ -1,12 +1,17 @@
 package org.dat055;
 
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import org.dat055.views.MenuView;
+
+/*import java.beans.EventHandler;*/
 
 
 public class Main extends Application {
@@ -19,22 +24,56 @@ public class Main extends Application {
         MenuView menuController = new MenuView(gameBoardController);
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
-            if(key.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
 
-            if(key.getCode()== KeyCode.LEFT && gameBoardController.canWeMoveLeft()) {
-                System.out.println("You moved LEFT");
-                gameBoardController.moveLeft();
+
+        EventHandler keyHandler = new EventHandler<KeyEvent>(){
+        /*primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {*/
+
+            public void handle(KeyEvent key){
+                if (key.getCode() == KeyCode.UP) {
+                    gameBoardController.rotateTetromino();
+                }
+                if (key.getCode() == KeyCode.LEFT && gameBoardController.canWeMoveLeft()) {
+                    System.out.println("You moved LEFT");
+                    gameBoardController.moveLeft();
+                }
+                if (key.getCode() == KeyCode.RIGHT && gameBoardController.canWeMoveRight()) {
+                    System.out.println("You moved RIGHT");
+                    gameBoardController.moveRight();
+                }
+                if (key.getCode() == KeyCode.DOWN && gameBoardController.canWeMoveDown()) {
+                    System.out.println("You moved DOWN");
+                    gameBoardController.moveDown();
+                }
+                if (key.getCode() == KeyCode.P) {
+                    System.out.println("You paused the game");
+                    gameBoardController.pause();
+                    primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
+
+                }
+                if (key.getCode() == KeyCode.O) {
+                    System.out.println("You started the game");
+                    gameBoardController.start();
+                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, this);
+
+                }
             }
-            if(key.getCode()== KeyCode.RIGHT && gameBoardController.canWeMoveRight()) {
-                System.out.println("You moved RIGHT");
-                gameBoardController.moveRight();
+
+        };
+
+        EventHandler anotherKeyHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.O){
+                    System.out.println("You started the game");
+                    gameBoardController.start();
+                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                }
             }
-            if(key.getCode()== KeyCode.DOWN && gameBoardController.canWeMoveDown()) {
-                System.out.println("You moved DOWN");
-                gameBoardController.moveDown();
-            }
-        });
+        };
+
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, anotherKeyHandler);
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
     }
