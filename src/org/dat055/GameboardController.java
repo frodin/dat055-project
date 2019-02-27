@@ -163,7 +163,10 @@ public class GameboardController extends Observable {
                 System.out.println("Detta gick igenom");
                 return false;
             }
-
+            else if(nextState.getKey().getYPos() >= gameboard.getHeight()){
+                return false;
+            }
+           // else if(nextState.getKey().getXPos() == )
         }
         return true;
     }
