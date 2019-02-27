@@ -79,6 +79,10 @@ public class Gameboard extends Observable implements GameBoardInterface {
     // Now coordinates range from 10x20 and before it was 3x3
 
     public HashMap<Coordinate, Cell> getTetrominoCells() {
+        // Return null if no active tetromino exists
+        if (this.activeTetromino == null)
+            return null;
+
         HashMap<Coordinate, Cell> tempHashMap = new HashMap<Coordinate, Cell>();
 
         //We iterate over all entries in the active tetromino.(No null values)
@@ -145,11 +149,14 @@ public class Gameboard extends Observable implements GameBoardInterface {
      * Merges the given tetromino with the gameboard and "disables" the activeTetromino so it no longer exists.
      */
     public void killTetromino() {
+        // Null check
+        if (this.activeTetromino == null)
+            return;
 
         for (Map.Entry<Coordinate, Cell> cell : getTetrominoCells().entrySet()) {
             setCell(cell.getKey(), cell.getValue());
-            setChanged();
-            notifyObservers();
+            //setChanged();
+            //notifyObservers();
         }
 
         // Might not be neccesary, but "disables" the activeTetromino
