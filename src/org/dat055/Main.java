@@ -19,8 +19,21 @@ public class Main extends Application {
         MenuView menuController = new MenuView(gameBoardController);
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if(event.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
+            if(key.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
+
+            if(key.getCode()== KeyCode.LEFT && gameBoardController.canWeMoveLeft()) {
+                System.out.println("You moved LEFT");
+                gameBoardController.moveLeft();
+            }
+            if(key.getCode()== KeyCode.RIGHT && gameBoardController.canWeMoveRight()) {
+                System.out.println("You moved RIGHT");
+                gameBoardController.moveRight();
+            }
+            if(key.getCode()== KeyCode.DOWN && gameBoardController.canWeMoveDown()) {
+                System.out.println("You moved DOWN");
+                gameBoardController.moveDown();
+            }
         });
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();

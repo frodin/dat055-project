@@ -1,12 +1,18 @@
 package org.dat055;
 
 import javafx.application.Platform;
+import org.dat055.Gameboard;
 
+
+import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLOutput;
 import java.util.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
+import java.util.Timer;
 
 public class GameboardController extends Observable {
     private Gameboard gameboard;
@@ -26,15 +32,19 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                Platform.runLater(() -> {
-                    tick();
-                });
-            }
-        }, 1000, 1000);
-    }
+            Timer tickTimer = new Timer();
+            tickTimer.schedule(new TimerTask() {
+                public void run() {
+                    Platform.runLater(() -> {
+                        tick();
+
+                    });
+                }
+            }, 1000, 1000);
+
+
+        }
+
 
     public void tick() {
         // move the active tetromino down one block
@@ -78,6 +88,8 @@ public class GameboardController extends Observable {
                 }
             }
         }
+        setChanged();
+        notifyObservers();
         return true;
     }
 
@@ -100,12 +112,15 @@ public class GameboardController extends Observable {
 
                 // Kollar om tetrominons FRAMTIDA vänsta x-koordinat matchar någon av gameBoardets existerande x-koordinater
                 // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
-                if (tetrominoRef.getKey().getXPos() - 1 < gameBoardRef.getKey().getXPos() &&
+                if ((tetrominoRef.getKey().getXPos() - 1 < gameBoardRef.getKey().getXPos() &&
+                    tetrominoRef.getKey().getYPos() == gameBoardRef.getKey().getYPos() ) &&
                         !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
                     return false;
                 }
             }
         }
+        setChanged();
+        notifyObservers();
         return true;
     }
 
@@ -120,7 +135,7 @@ public class GameboardController extends Observable {
         for(Map.Entry<Coordinate,Cell> tetrominoRef : getTetrominoCells().entrySet()){
 
             // Om en utav koordinaterna i tetrominon SKULLE HA nått till höger om spelplanen så return false
-            if(tetrominoRef.getKey().getXPos() + 1 > gameboard.getWidth())
+            if(tetrominoRef.getKey().getXPos() + 1 >= gameboard.getWidth())
                 return false;
 
             // Loopa över gameBoardets hashMap-värden som existerar
@@ -128,12 +143,15 @@ public class GameboardController extends Observable {
 
                 // Kollar om tetrominons FRAMTIDA högra x-koordinat matchar någon av gameBoardets existerande x-koordinater
                 // Dock ej sina egna koordinater. (Tetrominon kan inte krocka med sig själv)
-                if (tetrominoRef.getKey().getXPos() + 1 > gameBoardRef.getKey().getXPos() &&
+                if ((tetrominoRef.getKey().getXPos() + 1 > gameBoardRef.getKey().getXPos() &&
+                        tetrominoRef.getKey().getYPos() == gameBoardRef.getKey().getYPos()) &&
                         !(tetrominoRef.hashCode() == gameBoardRef.hashCode())) {
                     return false;
                 }
             }
         }
+        setChanged();
+        notifyObservers();
         return true;
     }
 
@@ -163,6 +181,39 @@ public class GameboardController extends Observable {
         return this.gameboard.getTetrominoCells();
     }
 
+
+    /**
+     * Try to move the active tetromino left.
+     */
+    public void moveLeft() {
+        Coordinate currPos = this.gameboard.getTetrominoPosition();
+        // calculate next pos here then move it to that position
+        Coordinate nextPos = new Coordinate(currPos.getXPos() - 1,currPos.getYPos());
+        gameboard.setTetrominoPosition(nextPos);
+        //same for moveRight()
+    }
+
+    /**
+     * Try to move the active tetromino right.
+     */
+    public void moveRight() {
+        Coordinate currPos = this.gameboard.getTetrominoPosition();
+        // calculate next pos here then move it to that position
+        Coordinate nextPos = new Coordinate(currPos.getXPos() + 1,currPos.getYPos());
+        gameboard.setTetrominoPosition(nextPos);
+        //same for moveRight()
+    }
+
+    /**
+     * Try to move the active tetromino down.
+     */
+    public void moveDown() {
+        Coordinate currPos = this.gameboard.getTetrominoPosition();
+        // calculate next pos here then move it to that position
+        Coordinate nextPos = new Coordinate(currPos.getXPos(),currPos.getYPos() + 1) ;
+        gameboard.setTetrominoPosition(nextPos);
+    }
+
     public void killAndReplaceTetromino(){
         gameboard.killTetromino();
         gameboard.createTetromino();
@@ -172,6 +223,7 @@ public class GameboardController extends Observable {
     public void rotateTetromino(){
         gameboard.rotateTetromino();
     }
+
 
 }
 
