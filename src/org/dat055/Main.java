@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.dat055.views.MenuView;
 
+
 public class Main extends Application {
 
     @Override
@@ -18,8 +19,9 @@ public class Main extends Application {
         MenuView menuController = new MenuView(gameBoardController);
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
+            if(key.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
 
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()== KeyCode.LEFT && gameBoardController.canWeMoveLeft()) {
                 System.out.println("You moved LEFT");
                 gameBoardController.moveLeft();

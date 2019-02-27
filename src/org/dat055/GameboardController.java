@@ -219,6 +219,9 @@ public class GameboardController extends Observable {
         setChanged();
         notifyObservers();
     }
+    public void rotateTetromino(){
+        gameboard.rotateTetromino();
+    }
 
 
 }

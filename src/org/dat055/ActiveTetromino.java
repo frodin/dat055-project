@@ -17,10 +17,19 @@ public class ActiveTetromino {
     }
 
     /**
-     * @return returns currentState
+     * @return returns the current state
      */
     public State getState(){
         return states.get(stateIndex);
+    }
+
+    /**
+     *
+     * @return returns the next state
+     */
+    public State getNextState(){
+        return states.get((stateIndex + 1) % this.states.size());
+
     }
 
     /**
@@ -28,6 +37,6 @@ public class ActiveTetromino {
      * At last state go back to the first
      */
     public void rotate(){
-        stateIndex = stateIndex++ % this.states.size();
+        stateIndex = ++stateIndex % this.states.size();
     }
 }
