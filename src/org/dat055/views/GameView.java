@@ -69,8 +69,6 @@ public class GameView implements Observer {
                     new RowConstraints(RECT_HEIGHT));
         }
 
-        //this.field.setGridLinesVisible(true);
-
         this.gameBoardController.getGameboard().addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
         this.gameBoardController.start();
@@ -80,29 +78,31 @@ public class GameView implements Observer {
         AnimationTimer frameRateMeter = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                long oldFrameTime = frameTimes[frameTimeIndex] ;
-                frameTimes[frameTimeIndex] = now ;
-                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+                long oldFrameTime = frameTimes[frameTimeIndex];
+                frameTimes[frameTimeIndex] = now;
+                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
                 if (frameTimeIndex == 0) {
                     arrayFilled = true;
                 }
                 if (arrayFilled) {
-                    long elapsedNanos = now - oldFrameTime ;
-                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
-                    double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame ;
+                    long elapsedNanos = now - oldFrameTime;
+                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+                    double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame;
                     fpsCounter.setText(String.format("[FPS: %.3f]", frameRate));
                 }
             }
         };
         frameRateMeter.start();
 
-        updateField();
+        //updateField();
+        this.initializeField();
     }
 
     /**
-     * Redraws the game field.
+     * Draw the whole gamefield including empty cells.
+     * Only run once.
      */
-    public void updateField() {
+    public void initializeField() {
         // Loop over game board to draw all cells
         for (int i = 0; i < this.gameBoardController.getGameboard().getWidth(); i++) {
             for (int j = 0; j < this.gameBoardController.getGameboard().getHeight(); j ++) {
@@ -121,10 +121,14 @@ public class GameView implements Observer {
 
                 // Add rectangle
                 this.field.add(rect, i, j);
-
             }
         }
+    }
 
+    /**
+     * Redraws the game field.
+     */
+    public void updateField() {
         // Draw active tetronimo
         if (this.gameBoardController.getTetrominoCells() != null) {
             for (Map.Entry<Coordinate, Cell> entry : this.gameBoardController.getTetrominoCells().entrySet()) {
@@ -137,6 +141,14 @@ public class GameView implements Observer {
         // Update draw counter
         this.redraws++;
         this.redrawCounter.setText(" [Redraws: " + this.redraws + "]");
+    }
+
+    /**
+     * Removes the tetromino from the game field and
+     * redraws it in it's current position.
+     */
+    public void redrawTetromino() {
+
     }
 
     /**
