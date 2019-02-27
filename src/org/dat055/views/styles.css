@@ -25,3 +25,7 @@
 .mainMenuNewGameButton {
     -fx-font-size: 14pt;
 }
+
+.debugArea {
+    -fx-max-height: 10px;
+}

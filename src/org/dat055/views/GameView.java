@@ -1,11 +1,17 @@
 package org.dat055.views;
 
+import javafx.animation.Animation;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import org.dat055.Cell;
 import org.dat055.Coordinate;
 import org.dat055.Gameboard;
@@ -18,6 +24,20 @@ import java.util.Observer;
 public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
+
+    // fps counter
+    @FXML private Label fpsCounter;
+    private final long[] frameTimes = new long[100];
+    private int frameTimeIndex = 0;
+    private boolean arrayFilled = false;
+
+    // redraw counter
+    @FXML private Label redrawCounter;
+    private int redraws = 0;
+
+    // change event counter
+    @FXML private Label changeCounter;
+    private int changeEvents = 0;
 
     // Width & height of field cells in pixels
     private final static int RECT_WIDTH = 20;
@@ -54,6 +74,24 @@ public class GameView implements Observer {
         this.gameBoardController.getGameboard().addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
 
+        // fps counter
+        AnimationTimer frameRateMeter = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                long oldFrameTime = frameTimes[frameTimeIndex] ;
+                frameTimes[frameTimeIndex] = now ;
+                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length ;
+                if (frameTimeIndex == 0) {
+                    arrayFilled = true;
+                }
+                if (arrayFilled) {
+                    long elapsedNanos = now - oldFrameTime ;
+                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length ;
+                    double frameRate = 1_000_000_000.0 / elapsedNanosPerFrame ;
+                    fpsCounter.setText(String.format("[FPS: %.3f]", frameRate));
+                }
+            }
+        };
 
         updateField();
     }
@@ -101,11 +139,16 @@ public class GameView implements Observer {
         GridPane grid = new GridPane();
 
         return grid;
+        // Update draw counter
+        this.redraws++;
+        this.redrawCounter.setText(" [Redraws: " + this.redraws + "]");
     }
 
     @Override
     public void update(Observable obj, Object arg) {
-        System.out.println("[DEBUG] Change detected.");
+        this.changeEvents++;
+        this.changeCounter.setText(" [Change events: " + this.changeEvents + "]");
+        System.out.println("[DEBUG] Change detected. Changes: " + this.changeEvents);
         updateField();
     }
 }
