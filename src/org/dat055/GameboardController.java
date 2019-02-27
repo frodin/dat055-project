@@ -15,10 +15,12 @@ import java.util.Random;
 import java.util.Timer;
 
 public class GameboardController extends Observable {
+    private Timer tickTimer;
     private Gameboard gameboard;
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
+        tickTimer = new Timer();
     }
 
     public Coordinate getTetrominoPosition() {
@@ -32,7 +34,7 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-            Timer tickTimer = new Timer();
+            tickTimer = new Timer();
             tickTimer.schedule(new TimerTask() {
                 public void run() {
                     Platform.runLater(() -> {
@@ -45,9 +47,9 @@ public class GameboardController extends Observable {
 
         }
 
+    // move the active tetromino down one block
 
     public void tick() {
-        // move the active tetromino down one block
 
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
         if (this.getTetrominoCells() != null && this.canMove('d')) {
@@ -63,6 +65,24 @@ public class GameboardController extends Observable {
         notifyObservers();
 
     }
+
+    public boolean haveWeLost(){
+
+        if ( getTetrominoCells() == null){
+            System.out.println(" THis triggered");
+        }
+        for ( Map.Entry<Coordinate, Cell> tetroRef : getTetrominoCells().entrySet() ){
+            int tetroX = tetroRef.getKey().getXPos();
+            int tetroY = tetroRef.getKey().getYPos();
+               if(gameboard.getCell(tetroX, tetroY) != null) {
+                   return true;
+               }
+        }
+        return false;
+    }
+
+
+
 
     public boolean canMove(char d) {
         for(Map.Entry<Coordinate,Cell> tetroCell : getTetrominoCells().entrySet()){
@@ -146,6 +166,10 @@ public class GameboardController extends Observable {
         gameboard.createTetromino();
         setChanged();
         notifyObservers();
+    }
+
+    public void stopTimer(){
+        tickTimer.cancel();
     }
     public void rotateTetromino(){
         gameboard.rotateTetromino();

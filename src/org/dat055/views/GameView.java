@@ -5,19 +5,23 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.dat055.Cell;
 import org.dat055.Coordinate;
 import org.dat055.Gameboard;
 import org.dat055.GameboardController;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -166,6 +170,19 @@ public class GameView implements Observer {
         this.changeEvents++;
         this.changeCounter.setText(" [Change events: " + this.changeEvents + "]");
         System.out.println("[DEBUG] Change detected. Changes: " + this.changeEvents);
+        if(gameBoardController.haveWeLost()){ // Check if we have lost after the a new tetromino has been created.
+            System.out.println("you lost!!!!!");
+            gameBoardController.stopTimer();
+            Stage tempStage = (Stage) field.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
+            loader.setController(new MenuView(this.gameBoardController));
+            try {
+                tempStage.setScene(new Scene(loader.load()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         updateField();
+
     }
 }
