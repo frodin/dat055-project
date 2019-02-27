@@ -87,6 +87,24 @@ public class GameboardController extends Observable {
         }
         return true;
     }
+    public boolean canWeRotate(){
+        for(Map.Entry<Coordinate, Cell> nextState : getNextTetrominoCells().entrySet()){
+            if(nextState.getKey().getXPos() < 0){
+                return false;
+            }
+            else if(nextState.getKey().getXPos() >= gameboard.getWidth()){
+                return false;
+            } else if(nextState.getKey().getYPos() >= gameboard.getHeight()){
+                return false;
+            } else if (gameboard.getCell(nextState.getKey().getXPos(), nextState.getKey().getYPos()) != null){
+                return false;
+            }
+
+           // else if(nextState.getKey().getXPos() == )
+        }
+        return true;
+    }
+
     private boolean cellDown(int x, int y) {
         return gameboard.getCell(x, y + 1) == null &&
                (y + 1) < gameboard.getHeight();
@@ -106,6 +124,9 @@ public class GameboardController extends Observable {
 
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         return this.gameboard.getTetrominoCells();
+    }
+    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+        return this.gameboard.getNextTetrominoCells();
     }
 
 

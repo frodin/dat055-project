@@ -20,7 +20,7 @@ public class Main extends Application {
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
-            if(key.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
+            if(key.getCode() == KeyCode.UP && gameBoardController.canWeRotate()) gameBoardController.rotateTetromino();
 
             if(key.getCode()== KeyCode.LEFT && gameBoardController.canMove('l')) {
                 System.out.println("You moved LEFT");
