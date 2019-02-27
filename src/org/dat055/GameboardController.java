@@ -50,7 +50,7 @@ public class GameboardController extends Observable {
         // move the active tetromino down one block
 
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
-        if (canMove()) {
+        if (canMove('d')) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
             System.out.println("[DEBUG] New tetromino position: " +
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
@@ -95,24 +95,44 @@ public class GameboardController extends Observable {
         return true;
     }
 
-    public boolean canMove() {
+    public boolean canMove(char d) {
         for(Map.Entry<Coordinate,Cell> tetroCell : getTetrominoCells().entrySet()){
-            if (!cellMove(tetroCell.getKey().getXPos(), tetroCell.getKey().getYPos())) {
-                return false;
+            switch (d){
+                case 'd':
+                    if (!cellDown(tetroCell.getKey().getXPos(), tetroCell.getKey().getYPos())) {
+                        return false;
+                    }
+                    break;
+                case 'l':
+                    if (!cellLeft(tetroCell.getKey().getXPos(), tetroCell.getKey().getYPos())) {
+                        return false;
+                    }
+                    break;
+                case 'r':
+                    if (!cellRight(tetroCell.getKey().getXPos(), tetroCell.getKey().getYPos())) {
+                        return false;
+                    }
+                    break;
+                default: return false;
             }
         }
         return true;
     }
-
-    private boolean cellMove(int x, int y) {
-        return gameboard.getCell(x + 1, y) == null &&
-               gameboard.getCell(x - 1, y) == null &&
-               gameboard.getCell(x, y + 1) == null &&
-               (y + 1) < gameboard.getHeight() &&
-               (x + 1) < gameboard.getWidth() &&
-               (x - 1) >= 0;
+    private boolean cellDown(int x, int y) {
+        return gameboard.getCell(x, y + 1) == null &&
+               (y + 1) < gameboard.getHeight();
 
     }
+    private boolean cellLeft(int x, int y) {
+        return gameboard.getCell(x - 1, y) == null &&
+                (x - 1) >= 0;
+    }
+    private boolean cellRight(int x, int y) {
+        return gameboard.getCell(x + 1, y) == null &&
+                (x + 1) < gameboard.getWidth();
+
+    }
+
 
     /**
      * This method tells us if we currently can move our tetromino( in its current state) left or not.

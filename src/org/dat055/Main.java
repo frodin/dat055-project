@@ -22,16 +22,15 @@ public class Main extends Application {
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
             if(key.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
 
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()== KeyCode.LEFT && gameBoardController.canMove()) {
+            if(key.getCode()== KeyCode.LEFT && gameBoardController.canMove('l')) {
                 System.out.println("You moved LEFT");
                 gameBoardController.moveLeft();
             }
-            if(key.getCode()== KeyCode.RIGHT && gameBoardController.canMove()) {
+            if(key.getCode()== KeyCode.RIGHT && gameBoardController.canMove('r')) {
                 System.out.println("You moved RIGHT");
                 gameBoardController.moveRight();
             }
-            if(key.getCode()== KeyCode.DOWN && gameBoardController.canMove()) {
+            if(key.getCode()== KeyCode.DOWN && gameBoardController.canMove('d')) {
                 System.out.println("You moved DOWN");
                 gameBoardController.moveDown();
             }
