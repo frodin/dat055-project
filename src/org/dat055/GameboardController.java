@@ -47,6 +47,8 @@ public class GameboardController extends Observable {
 
 
     public void tick() {
+
+
         // move the active tetromino down one block
 
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
@@ -59,6 +61,12 @@ public class GameboardController extends Observable {
         else{
             killAndReplaceTetromino();
         }
+        // check if we have lines to clear
+        ArrayList<Integer> linesToClear = checkLines();
+        if (linesToClear.size() > 0) {
+            clearMultipleLines(linesToClear);
+        }
+
         setChanged();
         notifyObservers();
 
@@ -152,6 +160,75 @@ public class GameboardController extends Observable {
     }
 
 
+    /**
+     * clears any number of lines and lowers above cells
+     * @param y array of rows
+     */
+    //@Override
+    public void clearMultipleLines(ArrayList<Integer> y) {
+        Collections.sort(y);
+        y.forEach(i -> clearLine(i));
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * helper method: clears a line and lowers above cells.
+     * @param y specific row
+     */
+    private void clearLine(int y) {
+        deleteRow(y);
+        lowerAbove(y);
+    }
+
+    private void deleteRow(int y) {
+        for (int i = 0; i < gameboard.getWidth(); i++) {
+            gameboard.removeCell(i, y);
+        }
+    }
+
+    /**
+     * lowers all cells on all rows above by 1
+     * @param y specific row
+     */
+    private void lowerAbove(int y) {
+        for (int i = y - 1; i >= 0; i--) {
+            for (int j = 0; j < gameboard.getWidth(); j++) {
+                Cell myCell = gameboard.getCell(j, i);
+                if (myCell != null) {
+                    gameboard.setCell(j, i + 1, myCell);
+                    gameboard.removeCell(j, i);
+                }
+            }
+        }
+    }
+
+    /**
+     * scans the gameboard for lines to clear
+     * @return list of rows to clear, will be empty if no lines found.
+     */
+    //@Override
+    public ArrayList<Integer> checkLines() {
+        ArrayList<Integer> lines = new ArrayList<>();
+
+        int[] temp = new int[gameboard.getHeight()];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = 0;
+        }
+
+        Map<Coordinate, Cell> map = gameboard.getGameBoard();
+        for (Coordinate coord : map.keySet()) {
+            temp[coord.getYPos()]++;
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] == gameboard.getWidth()) {
+                lines.add(i);
+            }
+
+        }
+        return lines;
+    }
 }
 
 
