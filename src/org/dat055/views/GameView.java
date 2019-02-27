@@ -75,6 +75,7 @@ public class GameView implements Observer {
         this.gameBoardController.getGameboard().createTetromino();
 
         // fps counter
+        fpsCounter.setText("[FPS: ??.???]");
         AnimationTimer frameRateMeter = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -92,6 +93,7 @@ public class GameView implements Observer {
                 }
             }
         };
+        frameRateMeter.start();
 
         updateField();
     }
