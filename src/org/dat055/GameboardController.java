@@ -154,6 +154,20 @@ public class GameboardController extends Observable {
         notifyObservers();
         return true;
     }
+    public boolean canWeRotate(){
+        for(Map.Entry<Coordinate, Cell> nextState : getNextTetrominoCells().entrySet()){
+            if(nextState.getKey().getXPos() < 0){
+                System.out.println("Detta gick igenom");
+                return false;
+            }
+            else if(nextState.getKey().getXPos() >= gameboard.getWidth()){
+                System.out.println("Detta gick igenom");
+                return false;
+            }
+
+        }
+        return true;
+    }
 
 
     public void createRandomTetromino() {
@@ -179,6 +193,9 @@ public class GameboardController extends Observable {
 
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         return this.gameboard.getTetrominoCells();
+    }
+    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+        return this.gameboard.getNextTetrominoCells();
     }
 
 

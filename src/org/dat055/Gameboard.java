@@ -93,6 +93,15 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
         return tempHashMap;
     }
+    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+        HashMap<Coordinate, Cell> tempHashMap = new HashMap<>();
+        for(Map.Entry<Coordinate, Cell> entry : activeTetromino.getNextState().getHashMap().entrySet()){
+            tempHashMap.put(new Coordinate(
+                    entry.getKey().getXPos() + tetrominoPosition.getXPos(),
+                    entry.getKey().getYPos() + tetrominoPosition.getYPos()), entry.getValue());
+        }
+        return tempHashMap;
+    }
 
     /**
      * Rotates the current tetromino
