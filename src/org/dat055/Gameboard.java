@@ -101,6 +101,7 @@ public class Gameboard extends Observable implements GameBoardInterface {
         activeTetromino.rotate();
         setChanged();
         notifyObservers();
+        //getTetrominoCells();
     }
 
     public void createTetromino(int i){

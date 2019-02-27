@@ -3,8 +3,11 @@ package org.dat055;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.dat055.views.MenuView;
+
 
 public class Main extends Application {
 
@@ -16,6 +19,9 @@ public class Main extends Application {
         MenuView menuController = new MenuView(gameBoardController);
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if(event.getCode() == KeyCode.UP) gameBoardController.rotateTetromino();
+        });
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
     }

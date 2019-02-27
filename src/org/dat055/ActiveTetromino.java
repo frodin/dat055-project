@@ -37,6 +37,6 @@ public class ActiveTetromino {
      * At last state go back to the first
      */
     public void rotate(){
-        stateIndex = stateIndex++ % this.states.size();
+        stateIndex = ++stateIndex % this.states.size();
     }
 }
