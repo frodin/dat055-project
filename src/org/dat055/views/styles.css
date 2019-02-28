@@ -34,4 +34,19 @@
 
 .debugArea {
     -fx-max-height: 10px;
+    -fx-pref-height: 10px;
+}
+
+.scoreArea {
+    -fx-max-height: 50px;
+    -fx-pref-height: 50px;
+    -fx-min-height: 50px;
+}
+
+.scoreLabel {
+    -fx-text-fill: #ddd;
+}
+
+.scoreCountLabel {
+    -fx-text-fill: white;
 }
