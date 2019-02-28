@@ -173,14 +173,6 @@ public class GameView implements Observer {
         if(gameBoardController.haveWeLost()){ // Check if we have lost after the a new tetromino has been created.
             System.out.println("you lost!!!!!");
             gameBoardController.stopTimer();
-            Stage tempStage = (Stage) field.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
-            loader.setController(new MenuView(this.gameBoardController));
-            try {
-                tempStage.setScene(new Scene(loader.load()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
         updateField();
 

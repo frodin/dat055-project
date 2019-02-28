@@ -17,10 +17,16 @@ import java.util.Timer;
 public class GameboardController extends Observable {
     private Timer tickTimer;
     private Gameboard gameboard;
+    private boolean lost;
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
         tickTimer = new Timer();
+        lost = false;
+    }
+
+    public boolean getLost(){
+        return this.lost;
     }
 
     public Coordinate getTetrominoPosition() {
@@ -68,13 +74,10 @@ public class GameboardController extends Observable {
 
     public boolean haveWeLost(){
 
-        if ( getTetrominoCells() == null){
-            System.out.println(" THis triggered");
-        }
+        if (getTetrominoCells() == null) return false;
+
         for ( Map.Entry<Coordinate, Cell> tetroRef : getTetrominoCells().entrySet() ){
-            int tetroX = tetroRef.getKey().getXPos();
-            int tetroY = tetroRef.getKey().getYPos();
-               if(gameboard.getCell(tetroX, tetroY) != null) {
+               if(gameboard.getCell(tetroRef.getKey()) != null) {
                    return true;
                }
         }
@@ -164,6 +167,7 @@ public class GameboardController extends Observable {
     public void killAndReplaceTetromino(){
         gameboard.killTetromino();
         gameboard.createTetromino();
+        lost = haveWeLost();
         setChanged();
         notifyObservers();
     }
