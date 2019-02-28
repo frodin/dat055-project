@@ -10,6 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -18,6 +20,7 @@ import org.dat055.Coordinate;
 import org.dat055.Gameboard;
 import org.dat055.GameboardController;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -25,6 +28,7 @@ import java.util.Observer;
 public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
+    private MediaPlayer mediaPlayer;
 
     // fps counter
     @FXML private Label fpsCounter;
@@ -69,6 +73,12 @@ public class GameView implements Observer {
             this.field.getRowConstraints().add(j,
                     new RowConstraints(RECT_HEIGHT));
         }
+
+        // start music
+        String musicFile = "tetris.mp3";
+        Media sound = new Media(new File(musicFile).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
 
         this.gameBoardController.getGameboard().addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
