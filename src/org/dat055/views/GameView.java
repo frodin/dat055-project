@@ -78,6 +78,7 @@ public class GameView implements Observer {
         String musicFile = "tetris.mp3";
         Media sound = new Media(new File(musicFile).toURI().toString());
         mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.play();
 
         this.gameBoardController.getGameboard().addObserver(this);
