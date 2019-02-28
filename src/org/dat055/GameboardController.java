@@ -17,6 +17,9 @@ import java.util.Timer;
 public class GameboardController extends Observable {
     private Gameboard gameboard;
     private Timer tickTimer;
+    private int score;
+    private int clearedLines;
+
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -50,10 +53,6 @@ public class GameboardController extends Observable {
 
 
     public void tick() {
-
-
-        // move the active tetromino down one block
-
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
         if (this.getTetrominoCells() != null && this.canMove('d')) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
@@ -70,9 +69,26 @@ public class GameboardController extends Observable {
             clearMultipleLines(linesToClear);
         }
 
+        // If we cleared any lines, increase our score and our cleared-lines counter
+        int numLines = linesToClear.size();
+        this.clearedLines += numLines;
+        switch (numLines) {
+            case 1: this.score += 40; break;
+            case 2: this.score += 100; break;
+            case 3: this.score += 300; break;
+            case 4: this.score += 1200; break;
+        }
+
         setChanged();
         notifyObservers();
+    }
 
+    public int getScore() {
+        return this.score;
+    }
+
+    public int getClearedLines() {
+        return this.clearedLines;
     }
 
     public boolean canMove(char d) {
