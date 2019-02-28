@@ -1,6 +1,9 @@
 package org.dat055;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import org.dat055.Gameboard;
 
 
@@ -18,11 +21,24 @@ public class GameboardController extends Observable {
     private Timer tickTimer;
     private Gameboard gameboard;
     private boolean lost;
+    private final BooleanProperty gameEnded;
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
         tickTimer = new Timer();
         lost = false;
+        gameEnded = new SimpleBooleanProperty();
+    }
+
+    public BooleanProperty gameEndedProperty() {
+        return gameEnded ;
+    }
+    public final boolean isGameEnded() {
+        return gameEndedProperty().get();
+    }
+
+    public final void setGameEnded(boolean gameEnded) {
+        gameEndedProperty().set(gameEnded);
     }
 
     public boolean getLost(){

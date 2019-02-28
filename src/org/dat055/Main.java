@@ -8,6 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.dat055.views.MenuView;
 
+import java.io.IOException;
+
 
 public class Main extends Application {
 
@@ -33,6 +35,15 @@ public class Main extends Application {
             if(key.getCode()== KeyCode.DOWN && gameBoardController.canMove('d')) {
                 System.out.println("You moved DOWN");
                 gameBoardController.moveDown();
+            }
+        });
+        gameBoardController.gameEndedProperty().addListener((obs, gameWasEnded, gameIsNowEnded) -> {
+            if (gameIsNowEnded) {
+                try {
+                    primaryStage.setScene(new Scene(loader.load()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         primaryStage.setScene(new Scene(loader.load()));

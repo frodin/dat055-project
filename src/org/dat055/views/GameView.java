@@ -173,6 +173,7 @@ public class GameView implements Observer {
         if(gameBoardController.haveWeLost()){ // Check if we have lost after the a new tetromino has been created.
             System.out.println("you lost!!!!!");
             gameBoardController.stopTimer();
+            gameBoardController.setGameEnded(true);
         }
         updateField();
 
