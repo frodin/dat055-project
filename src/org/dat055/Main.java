@@ -55,12 +55,11 @@ public class Main extends Application {
         EventHandler anotherKeyHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.O){
+                if(event.getCode() == KeyCode.O && keyHandler == null){
                     System.out.println("You started the game");
                     gameBoardController.start();
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
                 }
-
             }
         };
 
