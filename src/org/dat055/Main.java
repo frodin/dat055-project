@@ -11,7 +11,7 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import org.dat055.views.MenuView;
 
-/*import java.beans.EventHandler;*/
+
 
 
 public class Main extends Application {
@@ -44,11 +44,7 @@ public class Main extends Application {
                     System.out.println("You moved DOWN");
                     gameBoardController.moveDown();
                 }
-                /*if (key.getCode() == KeyCode.P) {
-                    System.out.println("You paused the game");
-                    gameBoardController.pause();
-                    primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
-                }*/
+
             }
         };
 
@@ -68,7 +64,6 @@ public class Main extends Application {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.P) {
-                    /*primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, this);*/
                     System.out.println("You paused the game");
                     gameBoardController.pause();
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
@@ -79,19 +74,9 @@ public class Main extends Application {
             }
         };
 
-        /*EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.O && keyHandler.equals(null)){
-                    System.out.println("You started the game");
-                    gameBoardController.start();
-                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
-                }
-            }
-        };*/
+
 
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, pauseKeyHandler);
-        /*primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, startKeyHandler);*/
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
