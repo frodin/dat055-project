@@ -31,7 +31,7 @@ public class GameboardController extends Observable {
         notifyObservers();
     }
 
-    public void start() {
+    public void start(int level) {
             Timer tickTimer = new Timer();
             tickTimer.schedule(new TimerTask() {
                 public void run() {
@@ -40,7 +40,7 @@ public class GameboardController extends Observable {
 
                     });
                 }
-            }, 1000, 1000);
+            }, levelToSpeed(level), levelToSpeed(level));
 
 
         }
@@ -249,6 +249,16 @@ public class GameboardController extends Observable {
 
         }
         return lines;
+    }
+
+
+    public int levelToSpeed(int level) {
+        if (level < 10) {
+            return 1000 / level;
+        }
+        else {
+            return 1000 / 10;
+        }
     }
 }
 
