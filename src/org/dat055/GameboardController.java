@@ -22,6 +22,9 @@ public class GameboardController extends Observable {
     private Gameboard gameboard;
     private boolean lost;
     private final BooleanProperty gameEnded;
+    private int score;
+    private int clearedLines;
+
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -65,14 +68,15 @@ public class GameboardController extends Observable {
                     });
                 }
             }, 1000, 1000);
+    }
 
-
-        }
+    public void pause(){
+        tickTimer.cancel();
+    }
 
     // move the active tetromino down one block
 
     public void tick() {
-
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
         if (this.getTetrominoCells() != null && this.canMove('d')) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
@@ -83,9 +87,32 @@ public class GameboardController extends Observable {
         else{
             killAndReplaceTetromino();
         }
+        // check if we have lines to clear
+        ArrayList<Integer> linesToClear = checkLines();
+        if (linesToClear.size() > 0) {
+            clearMultipleLines(linesToClear);
+        }
+
+        // If we cleared any lines, increase our score and our cleared-lines counter
+        int numLines = linesToClear.size();
+        this.clearedLines += numLines;
+        switch (numLines) {
+            case 1: this.score += 40; break;
+            case 2: this.score += 100; break;
+            case 3: this.score += 300; break;
+            case 4: this.score += 1200; break;
+        }
+
         setChanged();
         notifyObservers();
+    }
 
+    public int getScore() {
+        return this.score;
+    }
+
+    public int getClearedLines() {
+        return this.clearedLines;
     }
 
     public boolean haveWeLost(){
@@ -126,6 +153,24 @@ public class GameboardController extends Observable {
         }
         return true;
     }
+    public boolean canWeRotate(){
+        for(Map.Entry<Coordinate, Cell> nextState : getNextTetrominoCells().entrySet()){
+            if(nextState.getKey().getXPos() < 0){
+                return false;
+            }
+            else if(nextState.getKey().getXPos() >= gameboard.getWidth()){
+                return false;
+            } else if(nextState.getKey().getYPos() >= gameboard.getHeight()){
+                return false;
+            } else if (gameboard.getCell(nextState.getKey().getXPos(), nextState.getKey().getYPos()) != null){
+                return false;
+            }
+
+           // else if(nextState.getKey().getXPos() == )
+        }
+        return true;
+    }
+
     private boolean cellDown(int x, int y) {
         return gameboard.getCell(x, y + 1) == null &&
                (y + 1) < gameboard.getHeight();
@@ -145,6 +190,9 @@ public class GameboardController extends Observable {
 
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         return this.gameboard.getTetrominoCells();
+    }
+    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+        return this.gameboard.getNextTetrominoCells();
     }
 
 
@@ -195,6 +243,80 @@ public class GameboardController extends Observable {
         gameboard.rotateTetromino();
     }
 
+
+
+
+
+
+    /**
+     * clears any number of lines and lowers above cells
+     * @param y array of rows
+     */
+    //@Override
+    public void clearMultipleLines(ArrayList<Integer> y) {
+        Collections.sort(y);
+        y.forEach(i -> clearLine(i));
+        setChanged();
+        notifyObservers();
+    }
+
+    /**
+     * helper method: clears a line and lowers above cells.
+     * @param y specific row
+     */
+    private void clearLine(int y) {
+        deleteRow(y);
+        lowerAbove(y);
+    }
+
+    private void deleteRow(int y) {
+        for (int i = 0; i < gameboard.getWidth(); i++) {
+            gameboard.removeCell(i, y);
+        }
+    }
+
+    /**
+     * lowers all cells on all rows above by 1
+     * @param y specific row
+     */
+    private void lowerAbove(int y) {
+        for (int i = y - 1; i >= 0; i--) {
+            for (int j = 0; j < gameboard.getWidth(); j++) {
+                Cell myCell = gameboard.getCell(j, i);
+                if (myCell != null) {
+                    gameboard.setCell(j, i + 1, myCell);
+                    gameboard.removeCell(j, i);
+                }
+            }
+        }
+    }
+
+    /**
+     * scans the gameboard for lines to clear
+     * @return list of rows to clear, will be empty if no lines found.
+     */
+    //@Override
+    public ArrayList<Integer> checkLines() {
+        ArrayList<Integer> lines = new ArrayList<>();
+
+        int[] temp = new int[gameboard.getHeight()];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = 0;
+        }
+
+        Map<Coordinate, Cell> map = gameboard.getGameBoard();
+        for (Coordinate coord : map.keySet()) {
+            temp[coord.getYPos()]++;
+        }
+
+        for (int i = 0; i < temp.length; i++) {
+            if (temp[i] == gameboard.getWidth()) {
+                lines.add(i);
+            }
+
+        }
+        return lines;
+    }
 
 }
 

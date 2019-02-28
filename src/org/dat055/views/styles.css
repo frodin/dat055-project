@@ -26,6 +26,27 @@
     -fx-font-size: 14pt;
 }
 
+.gameField {
+    -fx-padding: 5px;
+    -fx-border-color: #999999;
+    -fx-border-width: 2px;
+}
+
 .debugArea {
     -fx-max-height: 10px;
+    -fx-pref-height: 10px;
+}
+
+.scoreArea {
+    -fx-max-height: 50px;
+    -fx-pref-height: 50px;
+    -fx-min-height: 50px;
+}
+
+.scoreLabel {
+    -fx-text-fill: #ddd;
+}
+
+.scoreCountLabel {
+    -fx-text-fill: white;
 }
