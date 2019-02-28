@@ -44,26 +44,54 @@ public class Main extends Application {
                     System.out.println("You moved DOWN");
                     gameBoardController.moveDown();
                 }
-                if (key.getCode() == KeyCode.P) {
+                /*if (key.getCode() == KeyCode.P) {
                     System.out.println("You paused the game");
                     gameBoardController.pause();
+                    primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
+                }*/
+            }
+        };
+
+        EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.O){
+                    System.out.println("You started the game");
+                    gameBoardController.start();
+                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
                 }
             }
         };
 
-        EventHandler anotherKeyHandler = new EventHandler<KeyEvent>() {
+        EventHandler pauseKeyHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.O && keyHandler == null){
+                if (event.getCode() == KeyCode.P) {
+                    /*primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, this);*/
+                    System.out.println("You paused the game");
+                    gameBoardController.pause();
+                    primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, startKeyHandler);
+
+                }
+
+            }
+        };
+
+        /*EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.O && keyHandler.equals(null)){
                     System.out.println("You started the game");
                     gameBoardController.start();
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
                 }
             }
-        };
+        };*/
 
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, anotherKeyHandler);
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, pauseKeyHandler);
+        /*primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, startKeyHandler);*/
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();

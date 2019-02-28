@@ -42,7 +42,6 @@ public class GameboardController extends Observable {
                     });
                 }
             }, 1000, 1000);
-
     }
 
     public void pause(){
