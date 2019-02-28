@@ -7,25 +7,28 @@
 
 <BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="container" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <GridPane fx:id="field" BorderPane.alignment="CENTER" styleClass="gameField">
+      <GridPane fx:id="field" styleClass="gameField" BorderPane.alignment="CENTER">
       </GridPane>
    </center>
    <left>
    </left>
    <right>
    </right>
-   <top>
-   </top>
-   <bottom>
-   </bottom>
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" styleClass="debugArea" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="fpsCounter" />
             <Label fx:id="redrawCounter" />
             <Label fx:id="changeCounter" />
-
          </children>
       </HBox>
    </bottom>
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="scoreArea" fx:id="scoreArea" BorderPane.alignment="CENTER">
+         <children>
+            <Label id="scoreLabel" styleClass="scoreLabel" fx:id="scoreLabel" text="Score:" />
+            <Label id="scoreCountLabel" fx:id="scoreCountLabel" styleClass="scoreCountLabel" />
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

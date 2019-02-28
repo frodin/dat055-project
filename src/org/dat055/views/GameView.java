@@ -5,11 +5,12 @@ import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -29,6 +30,11 @@ public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
     private MediaPlayer mediaPlayer;
+
+    // score counter
+    @FXML private HBox scoreArea;
+    @FXML private Label scoreLabel;
+    @FXML private Label scoreCountLabel;
 
     // fps counter
     @FXML private Label fpsCounter;
@@ -80,6 +86,8 @@ public class GameView implements Observer {
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.play();
 
+
+        // start game
         this.gameBoardController.getGameboard().addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
         this.gameBoardController.start();
@@ -106,6 +114,12 @@ public class GameView implements Observer {
         frameRateMeter.start();
 
         this.initializeField();
+
+        // align and initialize score counter label
+        this.scoreArea.setSpacing(5);
+        this.scoreCountLabel.setText(Integer.toString(0));
+        scoreArea.setAlignment(Pos.BOTTOM_CENTER);
+        scoreArea.setPadding(new Insets(0, 0, 0, -field.getMaxWidth()));
     }
 
     /**
@@ -171,6 +185,9 @@ public class GameView implements Observer {
         // Update draw counter
         this.redraws++;
         this.redrawCounter.setText(" [Redraws: " + this.redraws + "]");
+
+        // Update score counter
+        this.scoreCountLabel.setText(String.format("%d", this.gameBoardController.getScore()));
     }
 
     @Override
