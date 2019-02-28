@@ -19,10 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.dat055.Cell;
-import org.dat055.Coordinate;
-import org.dat055.Gameboard;
-import org.dat055.GameboardController;
+import org.dat055.*;
 
 import java.io.IOException;
 import java.io.File;
@@ -203,6 +200,17 @@ public class GameView implements Observer {
         if(gameBoardController.getLost()){ // Check if we have lost after the a new tetromino has been created.
             System.out.println("you lost!!!!!");
             gameBoardController.stopTimer();
+            Stage s = Main.getPrimaryStage();
+            //
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
+            loader.setController(new MenuView(new GameboardController(this.gameBoardController.getGameboard().getWidth(), this.gameBoardController.getGameboard().getHeight())));
+            try {
+                s.setScene(new Scene(loader.load()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //
             gameBoardController.setGameEnded(true);
         }
         updateField();

@@ -17,10 +17,20 @@ import java.io.IOException;
 
 
 public class Main extends Application {
+    private static Stage primaryStage; // **Declare static Stage**
+
+    private void setPrimaryStage(Stage stage) {
+        Main.primaryStage = stage;
+    }
+
+    static public Stage getPrimaryStage() {
+        return Main.primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         final String TITLE = "Tetris";
+        setPrimaryStage(primaryStage);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("views/menu_view.fxml"));
         GameboardController gameBoardController = new GameboardController(10, 20);
         MenuView menuController = new MenuView(gameBoardController);
