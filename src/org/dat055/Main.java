@@ -27,8 +27,6 @@ public class Main extends Application {
 
 
         EventHandler keyHandler = new EventHandler<KeyEvent>(){
-        /*primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, key -> {*/
-
             public void handle(KeyEvent key){
                 if (key.getCode() == KeyCode.UP) {
                     gameBoardController.rotateTetromino();
@@ -49,16 +47,8 @@ public class Main extends Application {
                     System.out.println("You paused the game");
                     gameBoardController.pause();
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
-
-                }
-                if (key.getCode() == KeyCode.O) {
-                    System.out.println("You started the game");
-                    gameBoardController.start();
-                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, this);
-
                 }
             }
-
         };
 
         EventHandler anotherKeyHandler = new EventHandler<KeyEvent>() {
