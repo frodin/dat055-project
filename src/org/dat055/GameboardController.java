@@ -16,6 +16,9 @@ import java.util.Timer;
 
 public class GameboardController extends Observable {
     private Gameboard gameboard;
+    private int currentLevel = 0;
+    private int linesCleared = 0;
+    private Timer tickTimer = new Timer();
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -32,19 +35,22 @@ public class GameboardController extends Observable {
     }
 
     public void start(int level) {
-            Timer tickTimer = new Timer();
             tickTimer.schedule(new TimerTask() {
                 public void run() {
-                    Platform.runLater(() -> {
-                        tick();
-
-                    });
+                    if (linesCleared > currentLevel) {
+                        tickTimer.cancel();
+                        tickTimer.purge();
+                        currentLevel++;
+                    }
+                    else {
+                        Platform.runLater(() -> tick());
+                    }
                 }
             }, levelToSpeed(level), levelToSpeed(level));
+    }
 
-
-        }
-
+    private void runTimer(int level) {
+    }
 
     public void tick() {
 
@@ -64,6 +70,7 @@ public class GameboardController extends Observable {
         // check if we have lines to clear
         ArrayList<Integer> linesToClear = checkLines();
         if (linesToClear.size() > 0) {
+            linesCleared = linesCleared + linesToClear.size();
             clearMultipleLines(linesToClear);
         }
 
@@ -254,7 +261,7 @@ public class GameboardController extends Observable {
 
     public int levelToSpeed(int level) {
         if (level < 10) {
-            return 1000 / level;
+            return 1000 / (level + 1);
         }
         else {
             return 1000 / 10;

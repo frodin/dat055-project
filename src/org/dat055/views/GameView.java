@@ -83,7 +83,7 @@ public class GameView implements Observer {
 
         this.gameBoardController.getGameboard().addObserver(this);
         this.gameBoardController.getGameboard().createTetromino();
-        this.gameBoardController.start(1);
+        this.gameBoardController.start(0);
 
         // fps counter
         fpsCounter.setText("[FPS: ??.???]");
