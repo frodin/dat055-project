@@ -16,8 +16,10 @@ import java.util.Timer;
 
 public class GameboardController extends Observable {
     private Gameboard gameboard;
+    private Timer tickTimer;
     private int score;
     private int clearedLines;
+
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -34,15 +36,19 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-        this.score = 0;
-        Timer tickTimer = new Timer();
-        tickTimer.schedule(new TimerTask() {
-            public void run() {
-                Platform.runLater(() -> {
-                    tick();
-                });
-            }
-        }, 1000, 1000);
+            tickTimer = new Timer();
+            tickTimer.schedule(new TimerTask() {
+                public void run() {
+                    Platform.runLater(() -> {
+                        tick();
+
+                    });
+                }
+            }, 1000, 1000);
+    }
+
+    public void pause(){
+        tickTimer.cancel();
     }
 
 
@@ -194,6 +200,10 @@ public class GameboardController extends Observable {
     }
 
 
+
+
+
+
     /**
      * clears any number of lines and lowers above cells
      * @param y array of rows
@@ -263,6 +273,7 @@ public class GameboardController extends Observable {
         }
         return lines;
     }
+
 }
 
 
