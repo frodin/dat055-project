@@ -28,6 +28,8 @@
          <children>
             <Label id="scoreLabel" styleClass="scoreLabel" fx:id="scoreLabel" text="Score:" />
             <Label id="scoreCountLabel" fx:id="scoreCountLabel" styleClass="scoreCountLabel" />
+            <Label id="levelLabel" styleClass="levelLabel" fx:id="levelLabel" text="Level:" />
+            <Label id="levelCountLabel" fx:id="levelCountLabel" styleClass="levelCountLabel" />
          </children>
       </HBox>
    </top>

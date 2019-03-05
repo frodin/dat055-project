@@ -18,6 +18,11 @@ public class GameboardController extends Observable {
     private Gameboard gameboard;
     private int score;
     private int clearedLines;
+    private TimerTask timerTask;
+    private Timer tickTimer;
+    private int periodTimer = 1000;
+    private int delay = 1000;
+    private int clearedLines1;
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -34,16 +39,33 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-        this.score = 0;
-        Timer tickTimer = new Timer();
-        tickTimer.schedule(new TimerTask() {
+        if(this.score)
+        tickTimer = new Timer();
+        tickTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    tick();
+                    if(clearedLines != 0 && clearedLines % 3 == 0){
+                        clearedLines = 0;
+                        tickTimer.cancel();
+                        periodTimer /= 2;
+                        delay = 0;
+                        start();
+                    }
+                });
+            }
+        }, delay, periodTimer);
+        /*tickTimer = new Timer();
+        tickTimer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 Platform.runLater(() -> {
                     tick();
                 });
             }
-        }, 1000, 1000);
-    }
+        }, 1000, periodTimer);
+        */
+        }
 
 
     public void tick() {
@@ -62,6 +84,9 @@ public class GameboardController extends Observable {
         if (linesToClear.size() > 0) {
             clearMultipleLines(linesToClear);
         }
+        if(clearedLines != 0 && clearedLines == 10){
+            setClearedLines();
+        }
 
         // If we cleared any lines, increase our score and our cleared-lines counter
         int numLines = linesToClear.size();
@@ -76,7 +101,9 @@ public class GameboardController extends Observable {
         setChanged();
         notifyObservers();
     }
-
+    private void setClearedLines(){
+        clearedLines = 0;
+    }
     public int getScore() {
         return this.score;
     }
