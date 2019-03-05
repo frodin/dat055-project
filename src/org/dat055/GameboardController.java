@@ -38,6 +38,7 @@ public class GameboardController extends Observable {
     public void resetGameBoardController(){
         tickTimer.cancel();
         tickTimer.purge();
+        score = 0;
         this.gameboard = new Gameboard(width, height);
         lost = false;
     }

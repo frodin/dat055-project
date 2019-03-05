@@ -85,20 +85,6 @@ public class Main extends Application {
 
             }
         };
-        // Lol på nedan
-        /*
-        gameBoardController.gameEndedProperty().addListener((obs, gameWasEnded, gameIsNowEnded) -> {
-            if (gameIsNowEnded) {
-                try {
-                    primaryStage.setScene(new Scene(loader.load()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
-
-
-
 
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, pauseKeyHandler);
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
