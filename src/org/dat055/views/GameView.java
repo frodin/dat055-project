@@ -202,6 +202,7 @@ public class GameView implements Observer {
 
         // Update score counter
         this.scoreCountLabel.setText(String.format("%d", this.gameBoardController.getScore()));
+        this.levelCountLabel.setText(String.format("%d", this.gameBoardController.getLevel()));
 
     }
 

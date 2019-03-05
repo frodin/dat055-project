@@ -39,14 +39,15 @@ public class GameboardController extends Observable {
     }
 
     public void start() {
-        if(this.score)
+        this.score = getScore();
         tickTimer = new Timer();
         tickTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
                     tick();
-                    if(clearedLines != 0 && clearedLines % 3 == 0){
+                    if(clearedLines != 0 && clearedLines >= 10){
+                        levelUp();
                         clearedLines = 0;
                         tickTimer.cancel();
                         periodTimer /= 2;
@@ -84,9 +85,6 @@ public class GameboardController extends Observable {
         if (linesToClear.size() > 0) {
             clearMultipleLines(linesToClear);
         }
-        if(clearedLines != 0 && clearedLines == 10){
-            setClearedLines();
-        }
 
         // If we cleared any lines, increase our score and our cleared-lines counter
         int numLines = linesToClear.size();
@@ -101,8 +99,11 @@ public class GameboardController extends Observable {
         setChanged();
         notifyObservers();
     }
-    private void setClearedLines(){
-        clearedLines = 0;
+    public void levelUp(){
+        gameboard.levelUp();
+    }
+    public int getLevel(){
+        return gameboard.getLevel();
     }
     public int getScore() {
         return this.score;
