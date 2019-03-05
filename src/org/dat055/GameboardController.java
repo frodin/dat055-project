@@ -21,28 +21,27 @@ public class GameboardController extends Observable {
     private Timer tickTimer;
     private Gameboard gameboard;
     private boolean lost;
-    private final BooleanProperty gameEnded;
     private int score;
     private int clearedLines;
+    private int width;
+    private int height;
 
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
         tickTimer = new Timer();
         lost = false;
-        gameEnded = new SimpleBooleanProperty();
+        this.width = width;
+        this.height = height;
     }
 
-    public BooleanProperty gameEndedProperty() {
-        return gameEnded ;
-    }
-    public final boolean isGameEnded() {
-        return gameEndedProperty().get();
+    public void resetGameBoardController(){
+        tickTimer.cancel();
+        tickTimer.purge();
+        this.gameboard = new Gameboard(width, height);
+        lost = false;
     }
 
-    public final void setGameEnded(boolean gameEnded) {
-        gameEndedProperty().set(gameEnded);
-    }
 
     public boolean getLost(){
         return this.lost;
@@ -236,9 +235,6 @@ public class GameboardController extends Observable {
         notifyObservers();
     }
 
-    public void stopTimer(){
-        tickTimer.cancel();
-    }
     public void rotateTetromino(){
         gameboard.rotateTetromino();
     }

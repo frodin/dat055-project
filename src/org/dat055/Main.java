@@ -85,6 +85,8 @@ public class Main extends Application {
 
             }
         };
+        // Lol på nedan
+        /*
         gameBoardController.gameEndedProperty().addListener((obs, gameWasEnded, gameIsNowEnded) -> {
             if (gameIsNowEnded) {
                 try {
@@ -93,7 +95,7 @@ public class Main extends Application {
                     e.printStackTrace();
                 }
             }
-        });
+        });*/
 
 
 

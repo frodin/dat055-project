@@ -199,19 +199,15 @@ public class GameView implements Observer {
         System.out.println("[DEBUG] Change detected. Changes: " + this.changeEvents);
         if(gameBoardController.getLost()){ // Check if we have lost after the a new tetromino has been created.
             System.out.println("you lost!!!!!");
-            gameBoardController.stopTimer();
+            gameBoardController.resetGameBoardController();
             Stage s = Main.getPrimaryStage();
-            //
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
-            loader.setController(new MenuView(new GameboardController(this.gameBoardController.getGameboard().getWidth(), this.gameBoardController.getGameboard().getHeight())));
+            loader.setController(new MenuView(this.gameBoardController));
             try {
                 s.setScene(new Scene(loader.load()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //
-            gameBoardController.setGameEnded(true);
         }
         updateField();
 
