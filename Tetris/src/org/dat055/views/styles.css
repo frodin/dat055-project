@@ -56,3 +56,14 @@
     -fx-font-size: 18pt;
     -fx-text-fill: white;
 }
+
+.highscoreNameLabel {
+    -fx-font-weight: bold;
+}
+
+.highscoreNameLabel, .highscoreScoreLabel {
+    -fx-text-fill: white;
+    -fx-start-margin: 10px;
+    -fx-padding: 10px;
+}
+
