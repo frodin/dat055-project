@@ -6,7 +6,7 @@ import java.util.HashMap;
  * A state is a HashMap that represents a Tetromino state - a collection of 4 cells
  *
  * @author
- * @version
+ * @version 2019-02-20
  */
 public class State {
     private HashMap<Coordinate, Cell> state = new HashMap<Coordinate, Cell>();

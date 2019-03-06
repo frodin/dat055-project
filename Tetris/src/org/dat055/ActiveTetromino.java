@@ -8,7 +8,7 @@ import java.util.HashMap;
  * Which contains an arraylist of all its states
  *
  * @author
- * @version
+ * @version 2019-02-27
  */
 public class ActiveTetromino {
     protected ArrayList<State> states;

@@ -5,7 +5,7 @@ package org.dat055;
  * each cell on the gameboard and in its internal tetromino
  *
  * @author
- * @version
+ * @version 2019-02-20
  */
 public class Coordinate {
     private int xPos;
