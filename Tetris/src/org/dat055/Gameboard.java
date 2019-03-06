@@ -3,7 +3,11 @@ package org.dat055;
 import java.util.*;
 
 /**
- * 
+ * Model of our gameboard the consists of a hashmap
+ * with coordinate as key and a cell as value
+ *
+ * @author
+ * @version
  */
 public class Gameboard extends Observable implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
@@ -11,7 +15,11 @@ public class Gameboard extends Observable implements GameBoardInterface {
     private int width, height;
     private ActiveTetromino activeTetromino;
 
-
+    /**
+     * Creates an gameboard with a width and a height and
+     * @param width in terms of cells
+     * @param height in terms of cells
+     */
     public Gameboard(int width, int height){
        this.width = width;
        this.height = height;
