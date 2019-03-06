@@ -70,7 +70,7 @@ public class GameboardController extends Observable {
             public void run() {
                 Platform.runLater(() -> {
                     tick();
-                    if(clearedLines != 0 && clearedLines >= 10){
+                    if(clearedLines != 0 && clearedLines >= 1){
                         switch (clearedLines){
                             case 11: clearedLines = 1;
                             break;
@@ -79,16 +79,21 @@ public class GameboardController extends Observable {
                             case 13: clearedLines = 3;
                             break;
                             default: clearedLines = 0;
+                            break;
                         }
                         levelUp();
                         tickTimer.cancel();
-                        periodTimer /= 2;
+                        levelToSpeed(getLevel());
                         delay = 0;
                         start();
                     }
                 });
             }
         }, delay, periodTimer);
+    }
+    public void levelToSpeed(int i){
+        if(i < 10) periodTimer = 1000 / i;
+        else periodTimer = 1000 / 10;
     }
 
     public void pause(){
