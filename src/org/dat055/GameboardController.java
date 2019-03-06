@@ -18,7 +18,7 @@ public class GameboardController extends Observable {
     private Gameboard gameboard;
     private int currentLevel = 0;
     private int linesCleared = 0;
-    private Timer tickTimer = new Timer();
+    private Timer tickTimer;
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
@@ -35,22 +35,20 @@ public class GameboardController extends Observable {
     }
 
     public void start(int level) {
-            tickTimer.schedule(new TimerTask() {
-                public void run() {
-                    Platform.runLater(() -> {
-                                tick();
-                                if (linesCleared > currentLevel) {
-                                    tickTimer.cancel();
-                                    currentLevel++;
-                                    start(currentLevel);
-                                }
-                    });
+        tickTimer = new Timer();
+        tickTimer.schedule(new TimerTask() {
+            public void run() {
+                Platform.runLater(() -> {
+                    tick();
+                    if (linesCleared > currentLevel * 10) {
+                        tickTimer.cancel();
+                        currentLevel++;
+                        start(currentLevel);
+                    }
+                });
 
-                }
-            }, 0, levelToSpeed(level));
-    }
-
-    private void runTimer(int level) {
+            }
+        }, 0, levelToSpeed(level));
     }
 
     public void tick() {
@@ -64,8 +62,7 @@ public class GameboardController extends Observable {
             System.out.println("[DEBUG] New tetromino position: " +
                     this.gameboard.getTetrominoPosition().getXPos() + "," +
                     this.gameboard.getTetrominoPosition().getYPos());
-        }
-        else{
+        } else {
             killAndReplaceTetromino();
         }
         // check if we have lines to clear
@@ -81,8 +78,8 @@ public class GameboardController extends Observable {
     }
 
     public boolean canMove(char d) {
-        for(Map.Entry<Coordinate,Cell> tetroCell : getTetrominoCells().entrySet()){
-            switch (d){
+        for (Map.Entry<Coordinate, Cell> tetroCell : getTetrominoCells().entrySet()) {
+            switch (d) {
                 case 'd':
                     if (!cellDown(tetroCell.getKey().getXPos(), tetroCell.getKey().getYPos())) {
                         return false;
@@ -98,37 +95,40 @@ public class GameboardController extends Observable {
                         return false;
                     }
                     break;
-                default: return false;
+                default:
+                    return false;
             }
         }
         return true;
     }
-    public boolean canWeRotate(){
-        for(Map.Entry<Coordinate, Cell> nextState : getNextTetrominoCells().entrySet()){
-            if(nextState.getKey().getXPos() < 0){
+
+    public boolean canWeRotate() {
+        for (Map.Entry<Coordinate, Cell> nextState : getNextTetrominoCells().entrySet()) {
+            if (nextState.getKey().getXPos() < 0) {
                 return false;
-            }
-            else if(nextState.getKey().getXPos() >= gameboard.getWidth()){
+            } else if (nextState.getKey().getXPos() >= gameboard.getWidth()) {
                 return false;
-            } else if(nextState.getKey().getYPos() >= gameboard.getHeight()){
+            } else if (nextState.getKey().getYPos() >= gameboard.getHeight()) {
                 return false;
-            } else if (gameboard.getCell(nextState.getKey().getXPos(), nextState.getKey().getYPos()) != null){
+            } else if (gameboard.getCell(nextState.getKey().getXPos(), nextState.getKey().getYPos()) != null) {
                 return false;
             }
 
-           // else if(nextState.getKey().getXPos() == )
+            // else if(nextState.getKey().getXPos() == )
         }
         return true;
     }
 
     private boolean cellDown(int x, int y) {
         return gameboard.getCell(x, y + 1) == null &&
-               (y + 1) < gameboard.getHeight();
+                (y + 1) < gameboard.getHeight();
     }
+
     private boolean cellLeft(int x, int y) {
         return gameboard.getCell(x - 1, y) == null &&
                 (x - 1) >= 0;
     }
+
     private boolean cellRight(int x, int y) {
         return gameboard.getCell(x + 1, y) == null &&
                 (x + 1) < gameboard.getWidth();
@@ -141,7 +141,8 @@ public class GameboardController extends Observable {
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         return this.gameboard.getTetrominoCells();
     }
-    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+
+    public HashMap<Coordinate, Cell> getNextTetrominoCells() {
         return this.gameboard.getNextTetrominoCells();
     }
 
@@ -152,7 +153,7 @@ public class GameboardController extends Observable {
     public void moveLeft() {
         Coordinate currPos = this.gameboard.getTetrominoPosition();
         // calculate next pos here then move it to that position
-        Coordinate nextPos = new Coordinate(currPos.getXPos() - 1,currPos.getYPos());
+        Coordinate nextPos = new Coordinate(currPos.getXPos() - 1, currPos.getYPos());
         gameboard.setTetrominoPosition(nextPos);
         //same for moveRight()
     }
@@ -163,7 +164,7 @@ public class GameboardController extends Observable {
     public void moveRight() {
         Coordinate currPos = this.gameboard.getTetrominoPosition();
         // calculate next pos here then move it to that position
-        Coordinate nextPos = new Coordinate(currPos.getXPos() + 1,currPos.getYPos());
+        Coordinate nextPos = new Coordinate(currPos.getXPos() + 1, currPos.getYPos());
         gameboard.setTetrominoPosition(nextPos);
         //same for moveRight()
     }
@@ -174,23 +175,25 @@ public class GameboardController extends Observable {
     public void moveDown() {
         Coordinate currPos = this.gameboard.getTetrominoPosition();
         // calculate next pos here then move it to that position
-        Coordinate nextPos = new Coordinate(currPos.getXPos(),currPos.getYPos() + 1) ;
+        Coordinate nextPos = new Coordinate(currPos.getXPos(), currPos.getYPos() + 1);
         gameboard.setTetrominoPosition(nextPos);
     }
 
-    public void killAndReplaceTetromino(){
+    public void killAndReplaceTetromino() {
         gameboard.killTetromino();
         gameboard.createTetromino();
         setChanged();
         notifyObservers();
     }
-    public void rotateTetromino(){
+
+    public void rotateTetromino() {
         gameboard.rotateTetromino();
     }
 
 
     /**
      * clears any number of lines and lowers above cells
+     *
      * @param y array of rows
      */
     //@Override
@@ -203,6 +206,7 @@ public class GameboardController extends Observable {
 
     /**
      * helper method: clears a line and lowers above cells.
+     *
      * @param y specific row
      */
     private void clearLine(int y) {
@@ -218,6 +222,7 @@ public class GameboardController extends Observable {
 
     /**
      * lowers all cells on all rows above by 1
+     *
      * @param y specific row
      */
     private void lowerAbove(int y) {
@@ -234,6 +239,7 @@ public class GameboardController extends Observable {
 
     /**
      * scans the gameboard for lines to clear
+     *
      * @return list of rows to clear, will be empty if no lines found.
      */
     //@Override
@@ -259,12 +265,10 @@ public class GameboardController extends Observable {
         return lines;
     }
 
-
     public int levelToSpeed(int level) {
         if (level < 10) {
             return 1000 / (level + 1);
-        }
-        else {
+        } else {
             return 1000 / 10;
         }
     }
