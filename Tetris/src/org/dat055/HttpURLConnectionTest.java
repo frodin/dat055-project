@@ -19,8 +19,8 @@ public class HttpURLConnectionTest {
     public void sendGET() throws IOException {
         URL obj = new URL(GET_URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("User-Agent", USER_AGENT);
+        //con.setRequestMethod("GET");
+        //con.setRequestProperty("User-Agent", USER_AGENT);
         int responseCode = con.getResponseCode();
         System.out.println("GET Response Code :: " + responseCode);
         if (responseCode == HttpURLConnection.HTTP_OK) { // success
@@ -45,8 +45,8 @@ public class HttpURLConnectionTest {
     public void sendPOST() throws IOException {
         URL obj = new URL(POST_URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", USER_AGENT);
+        //con.setRequestMethod("POST");
+        //con.setRequestProperty("User-Agent", USER_AGENT);
 
         // For POST only - START
         con.setDoOutput(true);
