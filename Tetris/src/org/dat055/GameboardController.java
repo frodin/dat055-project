@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.Timer;
 
-public class GameboardController extends Observable {
+public class GameboardController{
     private Timer tickTimer;
     private Gameboard gameboard;
     private boolean lost;
@@ -59,8 +59,6 @@ public class GameboardController extends Observable {
 
     public void setTetrominoPosition(int x, int y) {
         gameboard.setTetrominoPosition(new Coordinate(x, y));
-        setChanged();
-        notifyObservers();
     }
 
     public void start() {
@@ -119,9 +117,6 @@ public class GameboardController extends Observable {
             case 3: this.score += 300; break;
             case 4: this.score += 1200; break;
         }
-
-        setChanged();
-        notifyObservers();
     }
     public void levelUp(){
         gameboard.levelUp();
@@ -254,8 +249,6 @@ public class GameboardController extends Observable {
         gameboard.killTetromino();
         gameboard.createTetromino();
         lost = haveWeLost();
-        setChanged();
-        notifyObservers();
     }
 
     public void rotateTetromino(){
@@ -275,8 +268,6 @@ public class GameboardController extends Observable {
     public void clearMultipleLines(ArrayList<Integer> y) {
         Collections.sort(y);
         y.forEach(i -> clearLine(i));
-        setChanged();
-        notifyObservers();
     }
 
     /**
