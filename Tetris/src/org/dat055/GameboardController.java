@@ -41,6 +41,8 @@ public class GameboardController extends Observable {
         tickTimer.cancel();
         tickTimer.purge();
         score = 0;
+        periodTimer = 1000;
+        delay = 1000;
         this.gameboard = new Gameboard(width, height);
         lost = false;
     }
