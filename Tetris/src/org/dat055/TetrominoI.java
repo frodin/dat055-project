@@ -1,6 +1,11 @@
 package org.dat055;
 
-
+/**
+ * Creates the diffrent states for the I tetromino
+ *
+ * @author
+ * @Version
+ */
 public class TetrominoI extends ActiveTetromino{
     private String color = "00FFFF";
     /**
@@ -9,28 +14,28 @@ public class TetrominoI extends ActiveTetromino{
      */
     public TetrominoI (){
 
-        // Här skapas state 0 för tetromino I
+        // Here we create state 0 for tetromino I
         states.add(new State(color,
                 new Coordinate(0, 1),
                 new Coordinate(1, 1),
                 new Coordinate(2, 1),
                 new Coordinate(3, 1)));
 
-        // Här skapas state 1
+        // Here we create state 1
         states.add(new State(color,
                 new Coordinate(2, 0),
                 new Coordinate(2, 1),
                 new Coordinate(2, 2),
                 new Coordinate(2, 3)));
 
-        // Här skapas state 2
+        // Here we create state 2
         states.add(new State(color,
                 new Coordinate(0, 2),
                 new Coordinate(1, 2),
                 new Coordinate(2, 2),
                 new Coordinate(3, 2)));
 
-        // Här skapas state 3
+        // Here we create state 3
         states.add(new State(color,
                 new Coordinate(1, 0),
                 new Coordinate(1, 1),

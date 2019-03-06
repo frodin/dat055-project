@@ -1,5 +1,12 @@
 package org.dat055;
 
+/**
+ * Cell object that the gameboard and tetrominos is made up of.
+ * Two kinds of cell, "empty" and "filled"
+ *
+ * @author
+ * @Version
+ */
 public class Cell {
 
     private String color;

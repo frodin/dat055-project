@@ -1,5 +1,12 @@
 package org.dat055;
 
+/**
+ * Coordinate object which will be associated with
+ * each cell on the gameboard and in its internal tetromino
+ *
+ * @author
+ * @version
+ */
 public class Coordinate {
     private int xPos;
     private int yPos;

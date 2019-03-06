@@ -3,6 +3,13 @@ package org.dat055;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Activetetromino is the current tetromino on the gameboard
+ * Which contains an arraylist of all its states
+ *
+ * @author
+ * @version
+ */
 public class ActiveTetromino {
     protected ArrayList<State> states;
     private int stateIndex;

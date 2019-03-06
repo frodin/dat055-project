@@ -1,5 +1,11 @@
 package org.dat055;
 
+/**
+ * Creates the diffrent states for tetromino J
+ *
+ * @author
+ * @version
+ */
 public class TetrominoJ extends ActiveTetromino {
     private String color = "0000FF";
     /**

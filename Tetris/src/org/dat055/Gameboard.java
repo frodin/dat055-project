@@ -2,6 +2,9 @@ package org.dat055;
 
 import java.util.*;
 
+/**
+ * 
+ */
 public class Gameboard extends Observable implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
     private Coordinate tetrominoPosition;

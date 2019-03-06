@@ -1,5 +1,11 @@
 package org.dat055;
 
+/**
+ * Creates the diffrent states for teromino O
+ *
+ * @author
+ * @version
+ */
 public class TetrominoO extends ActiveTetromino{
     private String color = "FFFF00";
     /**
@@ -8,8 +14,7 @@ public class TetrominoO extends ActiveTetromino{
      */
     public TetrominoO (){
 
-        // Här skapas state 0 för tetromino O (behövs bara state 0 då Tetromino O är identisk i alla states)
-
+        // state 0 för tetromino O (Only needs one state because all states are identical)
         states.add(new State(color,
                 new Coordinate(1,0),
                 new Coordinate(2,0),
