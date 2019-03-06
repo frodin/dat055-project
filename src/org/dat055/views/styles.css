@@ -50,3 +50,10 @@
 .scoreCountLabel {
     -fx-text-fill: white;
 }
+
+.levelLabel {
+    -fx-text-fill: #ddd;
+}
+.levelCountLabel {
+    -fx-text-fill: white;
+}
