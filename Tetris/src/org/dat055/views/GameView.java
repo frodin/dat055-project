@@ -9,6 +9,8 @@ import java.net.URL;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.sun.deploy.net.HttpResponse;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
@@ -210,9 +212,13 @@ public class GameView implements Observer {
 
     public void postScore(String name, int score){
         Gson gsonObject = new GsonBuilder().create();
-        gsonObject.toJson(name);
-        gsonObject.toJson(score);
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name", name);
+        jsonObject.addProperty("score", score);
 
+
+
+        System.out.println(jsonObject.toString());
         String postUrl = "localhost:8080";
         URL obj = null;
         HttpURLConnectionTest httpURLConnectionTest = new HttpURLConnectionTest();
@@ -220,7 +226,7 @@ public class GameView implements Observer {
         try {
             httpURLConnectionTest.sendGET();
             System.out.println("GET DONE");
-            httpURLConnectionTest.sendPOST();
+            httpURLConnectionTest.sendPOST(jsonObject);
             System.out.println("POST DONE");
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,8 @@
 package org.dat055;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -42,7 +45,7 @@ public class HttpURLConnectionTest {
 
     }
 
-    public void sendPOST() throws IOException {
+    public void sendPOST(JsonObject jsonObject) throws IOException {
         URL obj = new URL(POST_URL);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         //con.setRequestMethod("POST");
@@ -51,6 +54,10 @@ public class HttpURLConnectionTest {
         // For POST only - START
         con.setDoOutput(true);
         OutputStream os = con.getOutputStream();
+        //OutputStream os = con.getOutputStream(gsonObj.);
+
+        ((OutputStream) os).flush();
+        os.write(jsonObject.toString().getBytes());
         ((OutputStream) os).flush();
         os.close();
         // For POST only - END
