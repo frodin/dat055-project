@@ -1,5 +1,15 @@
 package org.dat055.views;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.sun.deploy.net.HttpResponse;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -21,16 +31,22 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.dat055.*;
 
+import javax.net.ssl.HttpsURLConnection;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.net.HttpURLConnection;
+import java.security.Permission;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Scanner;
 
 public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
     private MediaPlayer mediaPlayer;
+    private final String USER_AGENT = "Mozilla/5.0";
 
     // score counter
     @FXML private HBox scoreArea;
@@ -192,6 +208,38 @@ public class GameView implements Observer {
         this.scoreCountLabel.setText(String.format("%d", this.gameBoardController.getScore()));
     }
 
+    public void postScore(String name, int score){
+        Gson gsonObject = new GsonBuilder().create();
+        gsonObject.toJson(name);
+        gsonObject.toJson(score);
+
+        String postUrl = "localhost:8080";
+        URL obj = null;
+
+        try {
+            obj = new URL(postUrl);
+            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+
+            Permission perm = con.getPermission();
+
+
+            con.setRequestMethod("POST");
+            con.setRequestProperty("User-Agent", USER_AGENT);
+            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("You got IOException");
+        }
+
+
+
+    }
+
     @Override
     public void update(Observable obj, Object arg) {
         this.changeEvents++;
@@ -201,6 +249,16 @@ public class GameView implements Observer {
             System.out.println("you lost!!!!!");
             gameBoardController.resetGameBoardController();
             mediaPlayer.stop();
+            //  ----------------------
+            Scanner scanner = new Scanner(System.in);
+            String playerName = scanner.next();
+            int playerScore = gameBoardController.getScore();
+            postScore(playerName, playerScore);
+
+            //localhost:8080
+            //-----------------------
+            //-----------------------
+
             Stage s = Main.getPrimaryStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
             loader.setController(new MenuView(this.gameBoardController));
