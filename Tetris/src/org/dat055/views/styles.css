@@ -3,6 +3,7 @@
     -fx-font-family: 'DejaVu Sans Mono', monospace;
     -fx-min-width: 500px;
     -fx-min-height: 600px;
+    -fx-text-fill: white;
 }
 
 .logo {
@@ -48,5 +49,10 @@
 }
 
 .scoreCountLabel {
+    -fx-text-fill: white;
+}
+
+.highscoreLabel {
+    -fx-font-size: 18pt;
     -fx-text-fill: white;
 }

@@ -16,6 +16,7 @@ import java.io.IOException;
 public class MenuView {
     GameboardController gameBoardController;
     @FXML Button newGameButton;
+    @FXML Button highscoreButton;
 
     public MenuView(GameboardController gameBoardController) {
         this.gameBoardController = gameBoardController;
@@ -24,6 +25,7 @@ public class MenuView {
     @FXML
     public void initialize() {
         newGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> newGame(event));
+        highscoreButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> showHighscore(event));
     }
 
     @FXML
@@ -36,5 +38,18 @@ public class MenuView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void showHighscore(MouseEvent event) {
+        Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("highscore_view.fxml"));
+        loader.setController(new HighscoreView());
+        try {
+            rootStage.setScene(new Scene(loader.load()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
