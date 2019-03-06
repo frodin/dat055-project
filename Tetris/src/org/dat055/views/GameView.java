@@ -46,7 +46,7 @@ public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
     private MediaPlayer mediaPlayer;
-    private final String USER_AGENT = "Mozilla/5.0";
+    //private final String USER_AGENT = "Mozilla/5.0";
 
     // score counter
     @FXML private HBox scoreArea;
@@ -215,26 +215,17 @@ public class GameView implements Observer {
 
         String postUrl = "localhost:8080";
         URL obj = null;
+        HttpURLConnectionTest httpURLConnectionTest = new HttpURLConnectionTest();
 
         try {
-            obj = new URL(postUrl);
-            HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
-
-            Permission perm = con.getPermission();
-
-
-            con.setRequestMethod("POST");
-            con.setRequestProperty("User-Agent", USER_AGENT);
-            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-
-        } catch (MalformedURLException e) {
+            httpURLConnectionTest.sendGET();
+            System.out.println("GET DONE");
+            httpURLConnectionTest.sendPOST();
+            System.out.println("POST DONE");
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("You got IOException");
-        }
+
 
 
 
@@ -250,8 +241,12 @@ public class GameView implements Observer {
             gameBoardController.resetGameBoardController();
             mediaPlayer.stop();
             //  ----------------------
+            /*
             Scanner scanner = new Scanner(System.in);
             String playerName = scanner.next();
+            */
+            String playerName = "DigBick";
+
             int playerScore = gameBoardController.getScore();
             postScore(playerName, playerScore);
 
