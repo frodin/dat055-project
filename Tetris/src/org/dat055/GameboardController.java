@@ -41,6 +41,7 @@ public class GameboardController extends Observable {
         tickTimer.cancel();
         tickTimer.purge();
         score = 0;
+        clearedLines = 0;
         periodTimer = 1000;
         delay = 1000;
         this.gameboard = new Gameboard(width, height);
@@ -70,17 +71,7 @@ public class GameboardController extends Observable {
             public void run() {
                 Platform.runLater(() -> {
                     tick();
-                    if(clearedLines != 0 && clearedLines >= 1){
-                        switch (clearedLines){
-                            case 11: clearedLines = 1;
-                            break;
-                            case 12: clearedLines = 2;
-                            break;
-                            case 13: clearedLines = 3;
-                            break;
-                            default: clearedLines = 0;
-                            break;
-                        }
+                    if(clearedLines >= getLevel() * 10){
                         levelUp();
                         tickTimer.cancel();
                         levelToSpeed(getLevel());
