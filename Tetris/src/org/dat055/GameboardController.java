@@ -1,6 +1,9 @@
 package org.dat055;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import org.dat055.Gameboard;
 
 
@@ -15,17 +18,36 @@ import java.util.Random;
 import java.util.Timer;
 
 public class GameboardController extends Observable {
+    private Timer tickTimer;
     private Gameboard gameboard;
+    private boolean lost;
     private int score;
     private int clearedLines;
-    private TimerTask timerTask;
-    private Timer tickTimer;
     private int periodTimer = 1000;
     private int delay = 1000;
-    private int clearedLines1;
+    private int width;
+    private int height;
+
 
     public GameboardController(int width, int height) {
         this.gameboard = new Gameboard(width, height);
+        tickTimer = new Timer();
+        lost = false;
+        this.width = width;
+        this.height = height;
+    }
+
+    public void resetGameBoardController(){
+        tickTimer.cancel();
+        tickTimer.purge();
+        score = 0;
+        this.gameboard = new Gameboard(width, height);
+        lost = false;
+    }
+
+
+    public boolean getLost(){
+        return this.lost;
     }
 
     public Coordinate getTetrominoPosition() {
@@ -65,17 +87,13 @@ public class GameboardController extends Observable {
                 });
             }
         }, delay, periodTimer);
-        /*tickTimer = new Timer();
-        tickTimer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                Platform.runLater(() -> {
-                    tick();
-                });
-            }
-        }, 1000, periodTimer);
-        */
-        }
+    }
 
+    public void pause(){
+        tickTimer.cancel();
+    }
+
+    // move the active tetromino down one block
 
     public void tick() {
         // Kollar om vi faktiskt kan gå ner innan vi gör det. Om vi kan det så utför setTetromino...
@@ -120,6 +138,21 @@ public class GameboardController extends Observable {
     public int getClearedLines() {
         return this.clearedLines;
     }
+
+    public boolean haveWeLost(){
+
+        if (getTetrominoCells() == null) return false;
+
+        for ( Map.Entry<Coordinate, Cell> tetroRef : getTetrominoCells().entrySet() ){
+               if(gameboard.getCell(tetroRef.getKey()) != null) {
+                   return true;
+               }
+        }
+        return false;
+    }
+
+
+
 
     public boolean canMove(char d) {
         for(Map.Entry<Coordinate,Cell> tetroCell : getTetrominoCells().entrySet()){
@@ -222,12 +255,18 @@ public class GameboardController extends Observable {
     public void killAndReplaceTetromino(){
         gameboard.killTetromino();
         gameboard.createTetromino();
+        lost = haveWeLost();
         setChanged();
         notifyObservers();
     }
+
     public void rotateTetromino(){
         gameboard.rotateTetromino();
     }
+
+
+
+
 
 
     /**
@@ -299,6 +338,7 @@ public class GameboardController extends Observable {
         }
         return lines;
     }
+
 }
 
 
