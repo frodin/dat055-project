@@ -47,8 +47,16 @@ public class GameboardController extends Observable {
                 Platform.runLater(() -> {
                     tick();
                     if(clearedLines != 0 && clearedLines >= 10){
+                        switch (clearedLines){
+                            case 11: clearedLines = 1;
+                            break;
+                            case 12: clearedLines = 2;
+                            break;
+                            case 13: clearedLines = 3;
+                            break;
+                            default: clearedLines = 0;
+                        }
                         levelUp();
-                        clearedLines = 0;
                         tickTimer.cancel();
                         periodTimer /= 2;
                         delay = 0;
