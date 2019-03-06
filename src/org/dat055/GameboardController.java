@@ -37,16 +37,17 @@ public class GameboardController extends Observable {
     public void start(int level) {
             tickTimer.schedule(new TimerTask() {
                 public void run() {
-                    if (linesCleared > currentLevel) {
-                        tickTimer.cancel();
-                        tickTimer.purge();
-                        currentLevel++;
-                    }
-                    else {
-                        Platform.runLater(() -> tick());
-                    }
+                    Platform.runLater(() -> {
+                                tick();
+                                if (linesCleared > currentLevel) {
+                                    tickTimer.cancel();
+                                    currentLevel++;
+                                    start(currentLevel);
+                                }
+                    });
+
                 }
-            }, levelToSpeed(level), levelToSpeed(level));
+            }, 0, levelToSpeed(level));
     }
 
     private void runTimer(int level) {
