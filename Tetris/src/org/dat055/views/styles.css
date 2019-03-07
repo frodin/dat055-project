@@ -55,6 +55,7 @@
 .highscoreLabel {
     -fx-font-size: 18pt;
     -fx-text-fill: white;
+    -fx-padding: 20px;
 }
 
 .highscoreNameLabel {
@@ -63,10 +64,10 @@
 
 .highscoreNameLabel, .highscoreScoreLabel {
     -fx-text-fill: white;
-    -fx-start-margin: 10px;
-    -fx-padding: 10px;
+    -fx-padding: 0 0 0 20;
 }
 
 .errorLabel {
     -fx-text-fill: red;
+    -fx-padding: 10 0 0 20px;
 }
