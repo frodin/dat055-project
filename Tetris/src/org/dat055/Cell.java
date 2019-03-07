@@ -5,7 +5,7 @@ package org.dat055;
  * Two kinds of cell, "empty" and "filled"
  *
  * @author Max Hansson
- * @Version 2019-02-20
+ * @version 2019-02-20
  */
 public class Cell {
 

@@ -30,8 +30,8 @@ import java.util.Observer;
 /**
  * GameView takes care of the visual aspects of the game
  *
- * @author
- * @version
+ * @author Max Hansson
+ * @version 2019-03-07
  */
 public class GameView implements Observer {
     @FXML private GridPane field;

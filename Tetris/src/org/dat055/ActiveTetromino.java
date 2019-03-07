@@ -7,7 +7,7 @@ import java.util.HashMap;
  * Activetetromino is the current tetromino on the gameboard
  * Which contains an arraylist of all its states
  *
- * @author
+ * @author Albin Becevic
  * @version 2019-02-27
  */
 public class ActiveTetromino {

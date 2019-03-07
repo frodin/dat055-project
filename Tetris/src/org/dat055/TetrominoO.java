@@ -4,15 +4,13 @@ package org.dat055;
  * Creates the diffrent states for teromino O
  *
  * @author Philip Hellberg
- * @Version 2019-02-21
+ * @version 2019-02-21
  */
 public class TetrominoO extends ActiveTetromino {
     private String color = "FFFF00";
 
     /**
      * Constructor creates different states for the tetromino
-     *
-     * @param color of the containing cells.
      */
     public TetrominoO() {
 

@@ -62,7 +62,7 @@ public class GameboardController extends Observable {
     /**
      * Getter
      *
-     * @return
+     * @return value of variable
      */
     public boolean getLost() {
         return this.lost;
@@ -71,7 +71,7 @@ public class GameboardController extends Observable {
     /**
      * Getter of active tetromino
      *
-     * @return
+     * @return coordinate of active tetromino
      */
     public Coordinate getTetrominoPosition() {
         return gameboard.getTetrominoPosition();

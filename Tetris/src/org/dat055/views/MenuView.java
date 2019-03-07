@@ -17,8 +17,8 @@ import java.io.IOException;
  * Menuview takes care of the visual aspects of the
  * menu in the game
  *
- * @author
- * @version
+ * @author Max Hansson
+ * @version 2019-03-07
  */
 public class MenuView {
     GameboardController gameBoardController;

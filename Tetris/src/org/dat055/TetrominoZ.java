@@ -4,15 +4,13 @@ package org.dat055;
  * Creates the diffrent states for tetromino Z
  *
  * @author Philip Hellberg
- * @Version 2019-02-21
+ * @version 2019-02-21
  */
 public class TetrominoZ extends ActiveTetromino {
     private String color = "FF0000";
 
     /**
      * Constructor creates different states for the tetromino
-     *
-     * @param color of the containing cells.
      */
     public TetrominoZ() {
 
