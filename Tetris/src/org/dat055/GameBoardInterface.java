@@ -3,6 +3,12 @@ package org.dat055;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ *
+ * @author
+ * @version 2019-02-26
+ */
+
 public interface GameBoardInterface {
     // ta bort radkommentarerna när ni implementerat trellokorten!
     // om en funktion saknas så lägg till

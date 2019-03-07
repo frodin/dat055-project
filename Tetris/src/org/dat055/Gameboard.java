@@ -7,7 +7,7 @@ import java.util.*;
  * with coordinate as key and a cell as value
  *
  * @author
- * @version
+ * @version 2019-02-20
  */
 public class Gameboard extends Observable implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
