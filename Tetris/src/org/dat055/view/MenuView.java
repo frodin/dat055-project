@@ -1,18 +1,23 @@
-package org.dat055.views;
+package org.dat055.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.dat055.Gameboard;
-import org.dat055.GameboardController;
+import org.dat055.controller.GameboardController;
 
 import java.io.IOException;
 
+/**
+ * Menuview takes care of the visual aspects of the
+ * menu in the game
+ *
+ * @author Max Hansson
+ * @version 2019-03-07
+ */
 public class MenuView {
     GameboardController gameBoardController;
     @FXML Button newGameButton;

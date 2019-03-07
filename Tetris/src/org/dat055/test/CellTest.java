@@ -1,6 +1,6 @@
 package org.dat055.test;
 
-import org.dat055.Cell;
+import org.dat055.model.Cell;
 
 import static org.junit.jupiter.api.Assertions.*;
 

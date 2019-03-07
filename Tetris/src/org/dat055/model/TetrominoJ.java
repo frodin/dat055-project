@@ -1,10 +1,16 @@
-package org.dat055;
+package org.dat055.model;
 
+/**
+ * Creates the diffrent states for tetromino J
+ *
+ * @author Philip Hellberg
+ * @version 2019-02-21
+ */
 public class TetrominoJ extends ActiveTetromino {
     private String color = "0000FF";
+
     /**
-     * Constructor.
-     * @param color Initial color for the Tetromino cells.
+     * Constructor creates different states for the tetromino
      */
     public TetrominoJ() {
 

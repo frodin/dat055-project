@@ -1,11 +1,8 @@
 package org.dat055.test;
 
-import org.dat055.Cell;
-import org.dat055.Coordinate;
-import org.dat055.State;
+import org.dat055.model.Coordinate;
+import org.dat055.model.State;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 

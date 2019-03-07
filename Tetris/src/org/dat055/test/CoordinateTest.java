@@ -1,6 +1,6 @@
 package org.dat055.test;
 
-import org.dat055.Coordinate;
+import org.dat055.model.Coordinate;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

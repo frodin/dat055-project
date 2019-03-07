@@ -1,7 +1,11 @@
-package org.dat055;
+package org.dat055.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+/**
+ * @author Max Hansson
+ * @version 2019-02-26
+ */
 
 public interface GameBoardInterface {
     // ta bort radkommentarerna när ni implementerat trellokorten!
@@ -9,7 +13,9 @@ public interface GameBoardInterface {
 
     // trello #6: GameBoard celler
     Cell getCell(Coordinate coord);
+
     void setCell(Coordinate coord, Cell cell);
+
     HashMap<Coordinate, Cell> getGameBoard();
 
     // trello #15: GameBoard - vad som händer när en rad tas bort
@@ -17,10 +23,15 @@ public interface GameBoardInterface {
 
     // trello #14: ActiveTetromino hantering
     Coordinate getTetrominoPosition();
+
     void setTetrominoPosition(Coordinate coord);
-    HashMap<Coordinate,Cell> getTetrominoCells();
+
+    HashMap<Coordinate, Cell> getTetrominoCells();
+
     void rotateTetromino();
+
     void killTetromino();
+
     void createTetromino();
 
     // trello #18: Gameboard. undersöker om det finns lines att cleara.

@@ -1,36 +1,42 @@
-package org.dat055.views;
+package org.dat055.view;
 
-import javafx.animation.Animation;
+import com.google.gson.JsonObject;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.dat055.*;
+import org.dat055.controller.GameboardController;
+import org.dat055.model.Cell;
+import org.dat055.model.Coordinate;
 
 import java.io.IOException;
 import java.io.File;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
+/**
+ * GameView takes care of the visual aspects of the game
+ *
+ * @author Max Hansson
+ * @version 2019-03-07
+ */
 public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
     private MediaPlayer mediaPlayer;
+    //private final String USER_AGENT = "Mozilla/5.0";
 
     // score counter
     @FXML private HBox scoreArea;
@@ -88,12 +94,18 @@ public class GameView implements Observer {
                     new RowConstraints(RECT_HEIGHT));
         }
 
-        // start music
-        String musicFile = "tetris.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+
+        try {
+            // start music
+            String musicFile = "tetris.mp3";
+            Media sound = new Media(new File(musicFile).toURI().toString());
+            mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.play();
+        } catch (Exception e){
+            // Do nothing
+        }
+
 
 
         // start game
@@ -207,6 +219,29 @@ public class GameView implements Observer {
 
     }
 
+    public void postScore(String name, int score){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name", name);
+        jsonObject.addProperty("score", score);
+
+        System.out.println(jsonObject.toString());
+        HttpURLConnectionInstance httpURLConnectionTest = new HttpURLConnectionInstance();
+
+        try {
+            httpURLConnectionTest.sendPOST(jsonObject);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Server error");
+            alert.setHeaderText(null);
+            alert.setContentText("Oh no! Server is not online or could not be reached. Highscore not saved.");
+            alert.showAndWait();
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("You got an exception.");
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void update(Observable obj, Object arg) {
         this.changeEvents++;
@@ -214,8 +249,24 @@ public class GameView implements Observer {
         System.out.println("[DEBUG] Change detected. Changes: " + this.changeEvents);
         if(gameBoardController.getLost()){ // Check if we have lost after the a new tetromino has been created.
             System.out.println("you lost!!!!!");
+            int playerScore = gameBoardController.getScore();
             gameBoardController.resetGameBoardController();
-            mediaPlayer.stop();
+            try {
+                mediaPlayer.stop();
+            } catch (Exception e){
+                // Do nothing
+            }
+            String defaultName = "SuperMonster253";
+            TextInputDialog dialog = new TextInputDialog(defaultName);
+            dialog.setTitle("Your weakness disgusts me!");
+            dialog.setHeaderText("You lost.");
+            dialog.setContentText("Please enter your name:");
+            Optional<String> playerName = dialog.showAndWait();
+
+            if (playerName.isPresent()){
+                postScore(playerName.get(), playerScore);
+            }
+
             Stage s = Main.getPrimaryStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
             loader.setController(new MenuView(this.gameBoardController));

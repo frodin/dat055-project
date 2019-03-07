@@ -1,19 +1,21 @@
 package org.dat055;
 
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
-import org.dat055.views.MenuView;
+import org.dat055.controller.GameboardController;
+import org.dat055.view.MenuView;
 
-import java.io.IOException;
-
-
+/**
+ * Main class initiates the environment needed for the application.
+ *
+ * @author Philip Hellberg
+ * @version 2019-03-06
+ */
 
 
 public class Main extends Application {
@@ -31,17 +33,18 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         final String TITLE = "Tetris";
         setPrimaryStage(primaryStage);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/menu_view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/menu_view.fxml"));
         GameboardController gameBoardController = new GameboardController(10, 20);
         MenuView menuController = new MenuView(gameBoardController);
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
 
 
+
         EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.O){
+                if (event.getCode() == KeyCode.O) {
                     System.out.println("You started the game");
                     gameBoardController.start();
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardController.getKeyHandler());
