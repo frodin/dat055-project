@@ -37,7 +37,7 @@ public class HttpURLConnectionInstance {
         os.close();
 
         int responseCode = con.getResponseCode();
-        System.out.println("POST Response Code :: " + responseCode);
+
 
 
     }

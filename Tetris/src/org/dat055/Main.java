@@ -46,15 +46,15 @@ public class Main extends Application {
                     gameBoardController.rotateTetromino();
                 }
                 if (key.getCode() == KeyCode.LEFT && gameBoardController.canMove('l')) {
-                    System.out.println("You moved LEFT");
+
                     gameBoardController.moveLeft();
                 }
                 if (key.getCode() == KeyCode.RIGHT && gameBoardController.canMove('r')) {
-                    System.out.println("You moved RIGHT");
+
                     gameBoardController.moveRight();
                 }
                 if (key.getCode() == KeyCode.DOWN && gameBoardController.canMove('d')) {
-                    System.out.println("You moved DOWN");
+
                     gameBoardController.moveDown();
                 }
 
@@ -65,7 +65,7 @@ public class Main extends Application {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.O) {
-                    System.out.println("You started the game");
+
                     gameBoardController.start();
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
@@ -77,7 +77,7 @@ public class Main extends Application {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.P) {
-                    System.out.println("You paused the game");
+
                     gameBoardController.pause();
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, startKeyHandler);
