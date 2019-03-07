@@ -224,7 +224,7 @@ public class GameView implements Observer {
         jsonObject.addProperty("name", name);
         jsonObject.addProperty("score", score);
 
-        System.out.println(jsonObject.toString());
+
         HttpURLConnectionInstance httpURLConnectionTest = new HttpURLConnectionInstance();
 
         try {
@@ -237,7 +237,7 @@ public class GameView implements Observer {
             alert.showAndWait();
             e.printStackTrace();
         } catch (Exception e) {
-            System.out.println("You got an exception.");
+
             e.printStackTrace();
         }
     }
@@ -246,9 +246,9 @@ public class GameView implements Observer {
     public void update(Observable obj, Object arg) {
         this.changeEvents++;
         this.changeCounter.setText(" [Change events: " + this.changeEvents + "]");
-        System.out.println("[DEBUG] Change detected. Changes: " + this.changeEvents);
+
         if(gameBoardController.getLost()){ // Check if we have lost after the a new tetromino has been created.
-            System.out.println("you lost!!!!!");
+
             int playerScore = gameBoardController.getScore();
             gameBoardController.resetGameBoardController();
             try {

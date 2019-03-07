@@ -132,9 +132,6 @@ public class GameboardController extends Observable {
         // Checks if we can move down or not
         if (this.getTetrominoCells() != null && this.canMove('d')) {
             setTetrominoPosition(getTetrominoPosition().getXPos(), getTetrominoPosition().getYPos() + 1);
-            System.out.println("[DEBUG] New tetromino position: " +
-                    this.gameboard.getTetrominoPosition().getXPos() + "," +
-                    this.gameboard.getTetrominoPosition().getYPos());
         } else {
             killAndReplaceTetromino();
         }

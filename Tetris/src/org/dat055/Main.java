@@ -39,13 +39,11 @@ public class Main extends Application {
         loader.setController(menuController);
         primaryStage.setTitle(TITLE);
 
-
-
         EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.O) {
-                    System.out.println("You started the game");
+
                     gameBoardController.start();
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardController.getKeyHandler());
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
@@ -57,7 +55,7 @@ public class Main extends Application {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.P) {
-                    System.out.println("You paused the game");
+
                     gameBoardController.pause();
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, gameBoardController.getKeyHandler());
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, startKeyHandler);
