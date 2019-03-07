@@ -37,6 +37,13 @@ public class GameView implements Observer {
     @FXML private Label scoreLabel;
     @FXML private Label scoreCountLabel;
 
+
+    @FXML private HBox levelArea;
+    @FXML private Label levelCountLabel;
+    @FXML private Label levelLabel;
+    private Label linesCleared;
+    private Label lineClearedCounter;
+
     // fps counter
     @FXML private Label fpsCounter;
     private final long[] frameTimes = new long[100];
@@ -120,8 +127,14 @@ public class GameView implements Observer {
         // align and initialize score counter label
         this.scoreArea.setSpacing(5);
         this.scoreCountLabel.setText(Integer.toString(0));
+        this.levelCountLabel.setText(Integer.toString(1));
         scoreArea.setAlignment(Pos.BOTTOM_CENTER);
         scoreArea.setPadding(new Insets(0, 0, 0, -field.getMaxWidth()));
+
+
+
+
+
     }
 
     /**
@@ -190,6 +203,8 @@ public class GameView implements Observer {
 
         // Update score counter
         this.scoreCountLabel.setText(String.format("%d", this.gameBoardController.getScore()));
+        this.levelCountLabel.setText(String.format("%d", this.gameBoardController.getLevel()));
+
     }
 
     @Override

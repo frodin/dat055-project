@@ -17,12 +17,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.Timer;
 
-public class GameboardController extends Observable {
+public class GameboardController{
     private Timer tickTimer;
     private Gameboard gameboard;
     private boolean lost;
     private int score;
     private int clearedLines;
+    private int periodTimer = 1000;
+    private int delay = 1000;
     private int width;
     private int height;
 
@@ -39,6 +41,9 @@ public class GameboardController extends Observable {
         tickTimer.cancel();
         tickTimer.purge();
         score = 0;
+        clearedLines = 0;
+        periodTimer = 1000;
+        delay = 1000;
         this.gameboard = new Gameboard(width, height);
         lost = false;
     }
@@ -54,20 +59,30 @@ public class GameboardController extends Observable {
 
     public void setTetrominoPosition(int x, int y) {
         gameboard.setTetrominoPosition(new Coordinate(x, y));
-        setChanged();
-        notifyObservers();
     }
 
     public void start() {
-            tickTimer = new Timer();
-            tickTimer.schedule(new TimerTask() {
-                public void run() {
-                    Platform.runLater(() -> {
-                        tick();
-
-                    });
-                }
-            }, 1000, 1000);
+        this.score = getScore();
+        tickTimer = new Timer();
+        tickTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    tick();
+                    if(clearedLines >= getLevel() * 10){
+                        levelUp();
+                        tickTimer.cancel();
+                        levelToSpeed(getLevel());
+                        delay = 0;
+                        start();
+                    }
+                });
+            }
+        }, delay, periodTimer);
+    }
+    public void levelToSpeed(int i){
+        if(i < 10) periodTimer = 1000 / i;
+        else periodTimer = 1000 / 10;
     }
 
     public void pause(){
@@ -102,11 +117,13 @@ public class GameboardController extends Observable {
             case 3: this.score += 300; break;
             case 4: this.score += 1200; break;
         }
-
-        setChanged();
-        notifyObservers();
     }
-
+    public void levelUp(){
+        gameboard.levelUp();
+    }
+    public int getLevel(){
+        return gameboard.getLevel();
+    }
     public int getScore() {
         return this.score;
     }
@@ -232,8 +249,6 @@ public class GameboardController extends Observable {
         gameboard.killTetromino();
         gameboard.createTetromino();
         lost = haveWeLost();
-        setChanged();
-        notifyObservers();
     }
 
     public void rotateTetromino(){
@@ -253,8 +268,6 @@ public class GameboardController extends Observable {
     public void clearMultipleLines(ArrayList<Integer> y) {
         Collections.sort(y);
         y.forEach(i -> clearLine(i));
-        setChanged();
-        notifyObservers();
     }
 
     /**
