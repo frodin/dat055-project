@@ -1,48 +1,26 @@
 package org.dat055.views;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sun.deploy.net.HttpResponse;
-import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.dat055.*;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
-import java.net.HttpURLConnection;
-import java.security.Permission;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.Scanner;
+import java.util.*;
 
 public class GameView implements Observer {
     @FXML private GridPane field;
@@ -211,30 +189,21 @@ public class GameView implements Observer {
     }
 
     public void postScore(String name, int score){
-        Gson gsonObject = new GsonBuilder().create();
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", name);
         jsonObject.addProperty("score", score);
 
-
-
         System.out.println(jsonObject.toString());
-        String postUrl = "localhost:8080";
-        URL obj = null;
-        HttpURLConnectionTest httpURLConnectionTest = new HttpURLConnectionTest();
+        HttpURLConnectionInstance httpURLConnectionTest = new HttpURLConnectionInstance();
 
         try {
-            httpURLConnectionTest.sendGET();
-            System.out.println("GET DONE");
             httpURLConnectionTest.sendPOST(jsonObject);
-            System.out.println("POST DONE");
         } catch (IOException e) {
+            System.out.println("You got an IO exception.");
             e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("You got an exception.");
         }
-
-
-
-
     }
 
     @Override
@@ -246,19 +215,17 @@ public class GameView implements Observer {
             System.out.println("you lost!!!!!");
             gameBoardController.resetGameBoardController();
             mediaPlayer.stop();
-            //  ----------------------
-            /*
-            Scanner scanner = new Scanner(System.in);
-            String playerName = scanner.next();
-            */
-            String playerName = "DigBick";
 
-            int playerScore = gameBoardController.getScore();
-            postScore(playerName, playerScore);
+            String defaultName = "SuperMonster253";
+            TextInputDialog dialog = new TextInputDialog(defaultName);
+            dialog.setTitle("Your weakness disgusts me!");
+            dialog.setHeaderText("You lost.");
+            dialog.setContentText("Please enter your name:");
+            Optional<String> playerName = dialog.showAndWait();
 
-            //localhost:8080
-            //-----------------------
-            //-----------------------
+            if (playerName.isPresent()){
+                postScore(playerName.get(), gameBoardController.getScore());
+            }
 
             Stage s = Main.getPrimaryStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
