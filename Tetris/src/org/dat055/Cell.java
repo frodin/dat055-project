@@ -1,5 +1,12 @@
 package org.dat055;
 
+/**
+ * Cell object that the gameboard and tetrominos is made up of.
+ * Two kinds of cell, "empty" and "filled"
+ *
+ * @author Max Hansson
+ * @version 2019-02-20
+ */
 public class Cell {
 
     private String color;
@@ -14,6 +21,7 @@ public class Cell {
 
     /**
      * Constructor for choosing color.
+     *
      * @param color The color of the cell.
      */
     public Cell(String color) {
