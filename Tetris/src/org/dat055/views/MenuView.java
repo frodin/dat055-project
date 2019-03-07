@@ -13,6 +13,13 @@ import org.dat055.GameboardController;
 
 import java.io.IOException;
 
+/**
+ * Menuview takes care of the visual aspects of the
+ * menu in the game
+ *
+ * @author
+ * @version
+ */
 public class MenuView {
     GameboardController gameBoardController;
     @FXML Button newGameButton;

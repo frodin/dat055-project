@@ -30,6 +30,11 @@ public class Coordinate {
         return this.yPos;
     }
 
+    /**
+     * Checks if the coordinates are equal
+     * @param o the coordinate we want to compare
+     * @return true if equal
+     */
     @Override
     public boolean equals(Object o) {
         Coordinate coord = (Coordinate) o;
