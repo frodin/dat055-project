@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.dat055.views.MenuView;
 
 import java.io.IOException;
+import com.google.gson.*;
 
 /**
  * Main class initiates the environment needed for the application.
@@ -20,7 +21,7 @@ import java.io.IOException;
  * @version 2019-03-06
  */
 
-import com.google.gson.*;
+
 public class Main extends Application {
     private static Stage primaryStage; // **Declare static Stage**
 
