@@ -21,7 +21,7 @@
                   <String fx:value="mainMenuNewGameButton" />
                </styleClass>
             </Button>
-            <Button styleClass="mainMenuButton" text="Highscore" />
+            <Button fx:id="highscoreButton" styleClass="mainMenuButton" text="Highscore" />
          </children>
       </VBox>
    </center>
