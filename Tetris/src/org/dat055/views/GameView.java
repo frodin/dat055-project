@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
@@ -214,10 +215,15 @@ public class GameView implements Observer {
         try {
             httpURLConnectionTest.sendPOST(jsonObject);
         } catch (IOException e) {
-            System.out.println("You got an IO exception.");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Server error");
+            alert.setHeaderText(null);
+            alert.setContentText("Oh no! Server is not online or could not be reached. Highscore not saved.");
+            alert.showAndWait();
             e.printStackTrace();
         } catch (Exception e) {
             System.out.println("You got an exception.");
+            e.printStackTrace();
         }
     }
 
@@ -228,6 +234,7 @@ public class GameView implements Observer {
         System.out.println("[DEBUG] Change detected. Changes: " + this.changeEvents);
         if(gameBoardController.getLost()){ // Check if we have lost after the a new tetromino has been created.
             System.out.println("you lost!!!!!");
+            int playerScore = gameBoardController.getScore();
             gameBoardController.resetGameBoardController();
             mediaPlayer.stop();
 
@@ -239,7 +246,7 @@ public class GameView implements Observer {
             Optional<String> playerName = dialog.showAndWait();
 
             if (playerName.isPresent()){
-                postScore(playerName.get(), gameBoardController.getScore());
+                postScore(playerName.get(), playerScore);
             }
 
             Stage s = Main.getPrimaryStage();
