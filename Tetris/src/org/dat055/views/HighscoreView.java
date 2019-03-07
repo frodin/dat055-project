@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.dat055.GameboardController;
+import org.dat055.Main;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,14 +26,18 @@ import java.util.Iterator;
 public class HighscoreView {
     private final String SERVER_URL = "http://localhost:8080";
 
+    private final GameboardController gameboardController;
     @FXML VBox scoreContainer;
     @FXML Button backButton;
     VBox scoreList;
 
-    public HighscoreView() {
+
+    public HighscoreView(GameboardController gameboardController) {
         URL url;
         HttpURLConnection conn;
         JsonObject scores = null;
+
+        this.gameboardController = gameboardController;
 
         this.scoreList = new VBox();
 
@@ -76,11 +81,11 @@ public class HighscoreView {
     }
 
     public void showMenu(MouseEvent event) {
-        Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = Main.getPrimaryStage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
-        loader.setController(new MenuView(new GameboardController(10, 20)));
+        loader.setController(new MenuView(this.gameboardController));
         try {
-            rootStage.setScene(new Scene(loader.load()));
+            stage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
             e.printStackTrace();
         }

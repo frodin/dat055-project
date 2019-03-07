@@ -44,7 +44,7 @@ public class MenuView {
     public void showHighscore(MouseEvent event) {
         Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
         FXMLLoader loader = new FXMLLoader(getClass().getResource("highscore_view.fxml"));
-        loader.setController(new HighscoreView());
+        loader.setController(new HighscoreView(this.gameBoardController));
         try {
             rootStage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
