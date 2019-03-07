@@ -1,22 +1,22 @@
-package org.dat055;
+package org.dat055.model;
 
 /**
- * Creates the diffrent states for tetromino L
+ * Creates the diffrent states for tetromino T
  *
  * @author Philip Hellberg
  * @version 2019-02-21
  */
-public class TetrominoL extends ActiveTetromino {
-    private String color = "FFA500";
+public class TetrominoT extends ActiveTetromino {
+    private String color = "800080";
 
     /**
      * Constructor creates different states for the tetromino
      */
-    public TetrominoL() {
+    public TetrominoT() {
 
         // state 0
         states.add(new State(color,
-                new Coordinate(2, 0),
+                new Coordinate(1, 0),
                 new Coordinate(0, 1),
                 new Coordinate(1, 1),
                 new Coordinate(2, 1)));
@@ -25,21 +25,22 @@ public class TetrominoL extends ActiveTetromino {
         states.add(new State(color,
                 new Coordinate(1, 0),
                 new Coordinate(1, 1),
-                new Coordinate(1, 2),
-                new Coordinate(2, 2)));
+                new Coordinate(2, 1),
+                new Coordinate(1, 2)));
 
         // state 2
         states.add(new State(color,
                 new Coordinate(0, 1),
                 new Coordinate(1, 1),
                 new Coordinate(2, 1),
-                new Coordinate(0, 2)));
+                new Coordinate(1, 2)));
 
         // state 3
         states.add(new State(color,
-                new Coordinate(0, 0),
                 new Coordinate(1, 0),
                 new Coordinate(1, 1),
-                new Coordinate(1, 2)));
+                new Coordinate(1, 2),
+                new Coordinate(0, 1)));
     }
+
 }

@@ -18,6 +18,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.dat055.*;
+import org.dat055.controller.GameboardController;
+import org.dat055.model.Cell;
+import org.dat055.model.Coordinate;
 
 import java.io.IOException;
 import java.io.File;

@@ -1,20 +1,12 @@
-package org.dat055;
+package org.dat055.controller;
 
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.Property;
-import javafx.beans.property.SimpleBooleanProperty;
-import org.dat055.Gameboard;
+import org.dat055.model.Cell;
+import org.dat055.model.Coordinate;
+import org.dat055.model.Gameboard;
 
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.sql.SQLOutput;
 import java.util.*;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 import java.util.Timer;
 
 /**

@@ -1,4 +1,4 @@
-package org.dat055;
+package org.dat055.model;
 
 /**
  * Cell object that the gameboard and tetrominos is made up of.

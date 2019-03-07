@@ -1,4 +1,4 @@
-package org.dat055;
+package org.dat055.model;
 
 /**
  * Creates the diffrent states for the I tetromino

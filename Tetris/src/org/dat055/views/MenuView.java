@@ -3,13 +3,11 @@ package org.dat055.views;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.dat055.Gameboard;
-import org.dat055.GameboardController;
+import org.dat055.controller.GameboardController;
 
 import java.io.IOException;
 

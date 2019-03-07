@@ -1,6 +1,5 @@
-package org.dat055;
+package org.dat055.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
