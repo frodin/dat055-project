@@ -17,6 +17,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 import java.util.Timer;
 
+/**
+ * 
+ */
 public class GameboardController extends Observable {
     private Timer tickTimer;
     private Gameboard gameboard;

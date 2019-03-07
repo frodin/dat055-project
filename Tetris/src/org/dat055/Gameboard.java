@@ -3,7 +3,7 @@ package org.dat055;
 import java.util.*;
 
 /**
- * Model of our gameboard the consists of a hashmap
+ * Model of our gameboard consists of a hashmap
  * with coordinate as key and a cell as value
  *
  * @author
@@ -16,7 +16,7 @@ public class Gameboard extends Observable implements GameBoardInterface {
     private ActiveTetromino activeTetromino;
 
     /**
-     * Creates an gameboard with a width and a height and
+     * Creates an gameboard with a width and a height
      * @param width in terms of cells
      * @param height in terms of cells
      */
@@ -86,9 +86,11 @@ public class Gameboard extends Observable implements GameBoardInterface {
         notifyObservers();
     }
 
-    // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
-    // Now coordinates range from 10x20 and before it was 3x3
-
+    /**
+     * This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
+     *  Now coordinates range from 10x20 and before it was 3x3
+     * @return Hashmap of actvieTetromino cells and coords but modified to gameboard coordinates
+     */
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         // Return null if no active tetromino exists
         if (this.activeTetromino == null)
@@ -108,6 +110,10 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
         return tempHashMap;
     }
+
+    /**
+     * @return the next cells and coordinates of the next state of the activeTetromino
+     */
     public HashMap<Coordinate, Cell> getNextTetrominoCells(){
         HashMap<Coordinate, Cell> tempHashMap = new HashMap<>();
         for(Map.Entry<Coordinate, Cell> entry : activeTetromino.getNextState().getHashMap().entrySet()){
@@ -128,6 +134,11 @@ public class Gameboard extends Observable implements GameBoardInterface {
         //getTetrominoCells();
     }
 
+    /**
+     * Creates a tetromino and its states by creating a new object
+     * of a random tetromino.
+     * @param i integer that is randomized another method
+     */
     public void createTetromino(int i){
         tetrominoPosition = new Coordinate(4,0);
         switch(i){
@@ -150,6 +161,10 @@ public class Gameboard extends Observable implements GameBoardInterface {
         notifyObservers();
     }
 
+    /**
+     * This method creates the random integer and calls the
+     * createTetromino method above to make a random choice of tetrominos
+     */
     public void createTetromino() {
         Random rand = new Random();
         int random = rand.nextInt(7);
