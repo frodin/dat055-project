@@ -38,35 +38,13 @@ public class Main extends Application {
         primaryStage.setTitle(TITLE);
 
 
-
-        EventHandler keyHandler = new EventHandler<KeyEvent>(){
-            public void handle(KeyEvent key){
-                if (key.getCode() == KeyCode.UP && gameBoardController.canWeRotate()) {
-                    gameBoardController.rotateTetromino();
-                }
-                if (key.getCode() == KeyCode.LEFT && gameBoardController.canMove('l')) {
-                    System.out.println("You moved LEFT");
-                    gameBoardController.moveLeft();
-                }
-                if (key.getCode() == KeyCode.RIGHT && gameBoardController.canMove('r')) {
-                    System.out.println("You moved RIGHT");
-                    gameBoardController.moveRight();
-                }
-                if (key.getCode() == KeyCode.DOWN && gameBoardController.canMove('d')) {
-                    System.out.println("You moved DOWN");
-                    gameBoardController.moveDown();
-                }
-
-            }
-        };
-
         EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if(event.getCode() == KeyCode.O){
                     System.out.println("You started the game");
                     gameBoardController.start();
-                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                    primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardController.getKeyHandler());
                     primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, this);
                 }
             }
@@ -78,16 +56,15 @@ public class Main extends Application {
                 if (event.getCode() == KeyCode.P) {
                     System.out.println("You paused the game");
                     gameBoardController.pause();
-                    primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+                    primaryStage.removeEventHandler(KeyEvent.KEY_PRESSED, gameBoardController.getKeyHandler());
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, startKeyHandler);
-
                 }
-
             }
         };
 
         primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, pauseKeyHandler);
-        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+        primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, gameBoardController.getKeyHandler());
+
         primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
     }

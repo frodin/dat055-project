@@ -8,18 +8,21 @@ import org.dat055.Gameboard;
 
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.sql.SQLOutput;
 import java.util.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import java.util.Timer;
 
 public class GameboardController{
     private Timer tickTimer;
     private Gameboard gameboard;
+    private Main s;
     private boolean lost;
     private int score;
     private int clearedLines;
@@ -323,11 +326,33 @@ public class GameboardController{
             if (temp[i] == gameboard.getWidth()) {
                 lines.add(i);
             }
-
         }
         return lines;
     }
 
+    EventHandler keyHandler = new EventHandler<javafx.scene.input.KeyEvent>(){
+        public void handle(KeyEvent key){
+            if (key.getCode() == KeyCode.UP && canWeRotate()) {
+                rotateTetromino();
+            }
+            if (key.getCode() == KeyCode.LEFT && canMove('l')) {
+                System.out.println("You moved LEFT");
+                moveLeft();
+            }
+            if (key.getCode() == KeyCode.RIGHT && canMove('r')) {
+                System.out.println("You moved RIGHT");
+                moveRight();
+            }
+            if (key.getCode() == KeyCode.DOWN && canMove('d')) {
+                System.out.println("You moved DOWN");
+                moveDown();
+            }
+        }
+    };
+
+    public EventHandler getKeyHandler(){
+        return keyHandler;
+    }
 }
 
 
