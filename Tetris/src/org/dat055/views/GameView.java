@@ -22,6 +22,12 @@ import java.io.IOException;
 import java.io.File;
 import java.util.*;
 
+/**
+ * GameView takes care of the visual aspects of the game
+ *
+ * @author Max Hansson
+ * @version 2019-03-07
+ */
 public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;

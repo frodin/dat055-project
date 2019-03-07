@@ -2,6 +2,13 @@ package org.dat055;
 
 import java.util.*;
 
+/**
+ * Model of our gameboard consists of a hashmap
+ * with coordinate as key and a cell as value
+ *
+ * @author Dara Khadjehnouri
+ * @version 2019-02-27
+ */
 public class Gameboard extends Observable implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
     private Coordinate tetrominoPosition;
@@ -9,7 +16,12 @@ public class Gameboard extends Observable implements GameBoardInterface {
     private ActiveTetromino activeTetromino;
     private int gameLevel;
 
-
+    /**
+     * Creates an gameboard with a width and a height
+     *
+     * @param width  in terms of cells
+     * @param height in terms of cells
+     */
     public Gameboard(int width, int height){
        this.width = width;
        this.height = height;
@@ -77,9 +89,12 @@ public class Gameboard extends Observable implements GameBoardInterface {
         notifyObservers();
     }
 
-    // This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
-    // Now coordinates range from 10x20 and before it was 3x3
-
+    /**
+     * This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
+     * Now coordinates range from 10x20 and before it was 3x3
+     *
+     * @return Hashmap of actvieTetromino cells and coords but modified to gameboard coordinates
+     */
     public HashMap<Coordinate, Cell> getTetrominoCells() {
         // Return null if no active tetromino exists
         if (this.activeTetromino == null)
@@ -99,9 +114,13 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
         return tempHashMap;
     }
-    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+
+    /**
+     * @return the next cells and coordinates of the next state of the activeTetromino
+     */
+    public HashMap<Coordinate, Cell> getNextTetrominoCells() {
         HashMap<Coordinate, Cell> tempHashMap = new HashMap<>();
-        for(Map.Entry<Coordinate, Cell> entry : activeTetromino.getNextState().getHashMap().entrySet()){
+        for (Map.Entry<Coordinate, Cell> entry : activeTetromino.getNextState().getHashMap().entrySet()) {
             tempHashMap.put(new Coordinate(
                     entry.getKey().getXPos() + tetrominoPosition.getXPos(),
                     entry.getKey().getYPos() + tetrominoPosition.getYPos()), entry.getValue());
@@ -119,28 +138,45 @@ public class Gameboard extends Observable implements GameBoardInterface {
         //getTetrominoCells();
     }
 
-    public void createTetromino(int i){
-        tetrominoPosition = new Coordinate(4,0);
-        switch(i){
-            case 0: activeTetromino = new TetrominoI();
-            break;
-            case 1: activeTetromino = new TetrominoJ();
-            break;
-            case 2: activeTetromino = new TetrominoL();
-            break;
-            case 3: activeTetromino = new TetrominoO();
-            break;
-            case 4: activeTetromino = new TetrominoS();
-            break;
-            case 5: activeTetromino = new TetrominoT();
-            break;
-            case 6: activeTetromino = new TetrominoZ();
-            break;
+    /**
+     * Creates a tetromino and its states by creating a new object
+     * of a random tetromino.
+     *
+     * @param i integer that is randomized another method
+     */
+    public void createTetromino(int i) {
+        tetrominoPosition = new Coordinate(4, 0);
+        switch (i) {
+            case 0:
+                activeTetromino = new TetrominoI();
+                break;
+            case 1:
+                activeTetromino = new TetrominoJ();
+                break;
+            case 2:
+                activeTetromino = new TetrominoL();
+                break;
+            case 3:
+                activeTetromino = new TetrominoO();
+                break;
+            case 4:
+                activeTetromino = new TetrominoS();
+                break;
+            case 5:
+                activeTetromino = new TetrominoT();
+                break;
+            case 6:
+                activeTetromino = new TetrominoZ();
+                break;
         }
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * This method creates the random integer and calls the
+     * createTetromino method above to make a random choice of tetrominos
+     */
     public void createTetromino() {
         Random rand = new Random();
         int random = rand.nextInt(7);

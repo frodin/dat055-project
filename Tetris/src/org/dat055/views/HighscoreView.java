@@ -23,15 +23,27 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Iterator;
 
+/**
+ * High score server
+ *
+ * @author Max Hansson
+ * @version 2019-03-07
+ */
 public class HighscoreView {
     private final String SERVER_URL = "http://localhost:8080";
 
     private final GameboardController gameboardController;
-    @FXML VBox scoreContainer;
-    @FXML Button backButton;
+    @FXML
+    VBox scoreContainer;
+    @FXML
+    Button backButton;
     VBox scoreList;
 
-
+    /**
+     * Constructor
+     *
+     * @param gameboardController the current gameboardController
+     */
     public HighscoreView(GameboardController gameboardController) {
         URL url;
         HttpURLConnection conn;
@@ -44,12 +56,12 @@ public class HighscoreView {
         // Fetch JSON object from score server
         try {
             url = new URL(SERVER_URL);
-            conn = (HttpURLConnection)url.openConnection();
+            conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("GET");
             conn.connect();
             JsonParser jp = new JsonParser();
-            JsonElement element = jp.parse(new InputStreamReader((InputStream)conn.getContent()));
+            JsonElement element = jp.parse(new InputStreamReader((InputStream) conn.getContent()));
             scores = element.getAsJsonObject();
             System.out.println(scores.toString());
             conn.disconnect();
@@ -63,7 +75,7 @@ public class HighscoreView {
 
         // Loop over JSON object and print highscores
         Iterator<String> names = scores.keySet().iterator();
-        while(names.hasNext()) {
+        while (names.hasNext()) {
             String name = names.next();
             HBox container = new HBox();
             Label nameLabel = new Label(name + ": ");
@@ -76,11 +88,20 @@ public class HighscoreView {
         }
     }
 
-    @FXML public void initialize() {
+    /**
+     * Initializes the event handler to access high score
+     */
+    @FXML
+    public void initialize() {
         scoreContainer.getChildren().add(this.scoreList);
         this.backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> showMenu(event));
     }
 
+    /**
+     * show the menu
+     *
+     * @param event mouse event from button
+     */
     public void showMenu(MouseEvent event) {
         Stage stage = Main.getPrimaryStage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));

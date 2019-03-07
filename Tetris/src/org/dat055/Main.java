@@ -12,10 +12,16 @@ import javafx.stage.Stage;
 import org.dat055.views.MenuView;
 
 import java.io.IOException;
-
-
-
 import com.google.gson.*;
+
+/**
+ * Main class initiates the environment needed for the application.
+ *
+ * @author Philip Hellberg
+ * @version 2019-03-06
+ */
+
+
 public class Main extends Application {
     private static Stage primaryStage; // **Declare static Stage**
 
@@ -38,9 +44,8 @@ public class Main extends Application {
         primaryStage.setTitle(TITLE);
 
 
-
-        EventHandler keyHandler = new EventHandler<KeyEvent>(){
-            public void handle(KeyEvent key){
+        EventHandler keyHandler = new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent key) {
                 if (key.getCode() == KeyCode.UP && gameBoardController.canWeRotate()) {
                     gameBoardController.rotateTetromino();
                 }
@@ -63,7 +68,7 @@ public class Main extends Application {
         EventHandler startKeyHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.O){
+                if (event.getCode() == KeyCode.O) {
                     System.out.println("You started the game");
                     gameBoardController.start();
                     primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
