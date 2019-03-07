@@ -3,6 +3,7 @@
     -fx-font-family: 'DejaVu Sans Mono', monospace;
     -fx-min-width: 500px;
     -fx-min-height: 600px;
+    -fx-text-fill: white;
 }
 
 .logo {
@@ -48,5 +49,31 @@
 }
 
 .scoreCountLabel {
+    -fx-text-fill: white;
+}
+
+.highscoreLabel {
+    -fx-font-size: 18pt;
+    -fx-text-fill: white;
+    -fx-padding: 20px;
+}
+
+.highscoreNameLabel {
+    -fx-font-weight: bold;
+}
+
+.highscoreNameLabel, .highscoreScoreLabel {
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 20;
+}
+
+.errorLabel {
+    -fx-text-fill: red;
+    -fx-padding: 10 0 0 20px;
+
+.levelLabel {
+    -fx-text-fill: #ddd;
+}
+.levelCountLabel {
     -fx-text-fill: white;
 }

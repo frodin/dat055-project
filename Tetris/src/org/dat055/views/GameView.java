@@ -1,31 +1,26 @@
 package org.dat055.views;
 
-import javafx.animation.Animation;
+import com.google.gson.JsonObject;
 import javafx.animation.AnimationTimer;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import org.dat055.*;
 
 import java.io.IOException;
 import java.io.File;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
 
 /**
  * GameView takes care of the visual aspects of the game
@@ -37,11 +32,19 @@ public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
     private MediaPlayer mediaPlayer;
+    //private final String USER_AGENT = "Mozilla/5.0";
 
     // score counter
     @FXML private HBox scoreArea;
     @FXML private Label scoreLabel;
     @FXML private Label scoreCountLabel;
+
+
+    @FXML private HBox levelArea;
+    @FXML private Label levelCountLabel;
+    @FXML private Label levelLabel;
+    private Label linesCleared;
+    private Label lineClearedCounter;
 
     // fps counter
     @FXML private Label fpsCounter;
@@ -126,8 +129,14 @@ public class GameView implements Observer {
         // align and initialize score counter label
         this.scoreArea.setSpacing(5);
         this.scoreCountLabel.setText(Integer.toString(0));
+        this.levelCountLabel.setText(Integer.toString(1));
         scoreArea.setAlignment(Pos.BOTTOM_CENTER);
         scoreArea.setPadding(new Insets(0, 0, 0, -field.getMaxWidth()));
+
+
+
+
+
     }
 
     /**
@@ -196,6 +205,26 @@ public class GameView implements Observer {
 
         // Update score counter
         this.scoreCountLabel.setText(String.format("%d", this.gameBoardController.getScore()));
+        this.levelCountLabel.setText(String.format("%d", this.gameBoardController.getLevel()));
+
+    }
+
+    public void postScore(String name, int score){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("name", name);
+        jsonObject.addProperty("score", score);
+
+        System.out.println(jsonObject.toString());
+        HttpURLConnectionInstance httpURLConnectionTest = new HttpURLConnectionInstance();
+
+        try {
+            httpURLConnectionTest.sendPOST(jsonObject);
+        } catch (IOException e) {
+            System.out.println("You got an IO exception.");
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("You got an exception.");
+        }
     }
 
     @Override
@@ -207,6 +236,18 @@ public class GameView implements Observer {
             System.out.println("you lost!!!!!");
             gameBoardController.resetGameBoardController();
             mediaPlayer.stop();
+
+            String defaultName = "SuperMonster253";
+            TextInputDialog dialog = new TextInputDialog(defaultName);
+            dialog.setTitle("Your weakness disgusts me!");
+            dialog.setHeaderText("You lost.");
+            dialog.setContentText("Please enter your name:");
+            Optional<String> playerName = dialog.showAndWait();
+
+            if (playerName.isPresent()){
+                postScore(playerName.get(), gameBoardController.getScore());
+            }
+
             Stage s = Main.getPrimaryStage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu_view.fxml"));
             loader.setController(new MenuView(this.gameBoardController));

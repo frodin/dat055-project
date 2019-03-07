@@ -14,6 +14,7 @@ public class Gameboard extends Observable implements GameBoardInterface {
     private Coordinate tetrominoPosition;
     private int width, height;
     private ActiveTetromino activeTetromino;
+    private int gameLevel;
 
     /**
      * Creates an gameboard with a width and a height
@@ -21,10 +22,11 @@ public class Gameboard extends Observable implements GameBoardInterface {
      * @param width  in terms of cells
      * @param height in terms of cells
      */
-    public Gameboard(int width, int height) {
-        this.width = width;
-        this.height = height;
-        gameboard = new HashMap<>();
+    public Gameboard(int width, int height){
+       this.width = width;
+       this.height = height;
+       gameboard = new HashMap<>();
+       gameLevel = 1;
     }
 
     public int getWidth() {
@@ -200,6 +202,12 @@ public class Gameboard extends Observable implements GameBoardInterface {
         setChanged();
         notifyObservers();
 
+    }
+    public void levelUp(){
+        gameLevel++;
+    }
+    public int getLevel(){
+       return gameLevel;
     }
 
 }
