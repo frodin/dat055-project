@@ -91,12 +91,18 @@ public class GameView implements Observer {
                     new RowConstraints(RECT_HEIGHT));
         }
 
-        // start music
-        String musicFile = "tetris.mp3";
-        Media sound = new Media(new File(musicFile).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play();
+
+        try {
+            // start music
+            String musicFile = "tetris.mp3";
+            Media sound = new Media(new File(musicFile).toURI().toString());
+            mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+            mediaPlayer.play();
+        } catch (Exception e){
+            // Do nothing
+        }
+
 
 
         // start game
@@ -242,8 +248,11 @@ public class GameView implements Observer {
             System.out.println("you lost!!!!!");
             int playerScore = gameBoardController.getScore();
             gameBoardController.resetGameBoardController();
-            mediaPlayer.stop();
-
+            try {
+                mediaPlayer.stop();
+            } catch (Exception e){
+                // Do nothing
+            }
             String defaultName = "SuperMonster253";
             TextInputDialog dialog = new TextInputDialog(defaultName);
             dialog.setTitle("Your weakness disgusts me!");
