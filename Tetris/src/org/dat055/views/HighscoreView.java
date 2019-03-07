@@ -23,6 +23,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Iterator;
 
+/**
+ * 
+ *
+ * @author Max Hansson
+ * @version 2019-03-07
+ */
 public class HighscoreView {
     private final String SERVER_URL = "http://localhost:8080";
 
