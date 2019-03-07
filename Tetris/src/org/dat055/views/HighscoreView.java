@@ -52,6 +52,7 @@ public class HighscoreView {
             JsonElement element = jp.parse(new InputStreamReader((InputStream)conn.getContent()));
             scores = element.getAsJsonObject();
             System.out.println(scores.toString());
+            conn.disconnect();
         } catch (IOException e) {
             // Score server is unreachable, show error message instead of highscores
             Label errorLabel = new Label("Sorry, the highscore server seems to be down.");

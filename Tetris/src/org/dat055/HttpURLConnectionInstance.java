@@ -24,9 +24,14 @@ public class HttpURLConnectionInstance {
         os.write(jsonObject.toString().getBytes());
         os.close();
 
+        int responseCode = con.getResponseCode();
+        System.out.println("POST Response Code :: " + responseCode);
+
 
     }
 
 }
+
+
 
 
