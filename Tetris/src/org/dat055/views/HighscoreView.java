@@ -59,24 +59,19 @@ public class HighscoreView {
         Iterator<String> names = scores.keySet().iterator();
         while(names.hasNext()) {
             String name = names.next();
-
             HBox container = new HBox();
             Label nameLabel = new Label(name + ": ");
             Label scoreLabel = new Label(scores.get(name).toString());
-
             nameLabel.getStyleClass().add("highscoreNameLabel");
             scoreLabel.getStyleClass().add("highscoreScoreLabel");
-
             container.getChildren().add(nameLabel);
             container.getChildren().add(scoreLabel);
-
             this.scoreList.getChildren().add(container);
         }
     }
 
     @FXML public void initialize() {
         scoreContainer.getChildren().add(this.scoreList);
-
         this.backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> showMenu(event));
     }
 
