@@ -18,8 +18,7 @@ import java.util.Random;
 import java.util.Timer;
 
 /**
- *
- *
+ * Gameboardcontroller handels the event handling and user actions
  *
  * @author
  * @version 2019-03-06

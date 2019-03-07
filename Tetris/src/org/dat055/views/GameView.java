@@ -27,6 +27,12 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * GameView takes care of the visual aspects of the game
+ *
+ * @author
+ * @version
+ */
 public class GameView implements Observer {
     @FXML private GridPane field;
     private GameboardController gameBoardController;
