@@ -116,7 +116,6 @@ public class Gameboard extends Observable implements GameBoardInterface {
         activeTetromino.rotate();
         setChanged();
         notifyObservers();
-        //getTetrominoCells();
     }
 
     public void createTetromino(int i){
@@ -157,11 +156,9 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
         for (Map.Entry<Coordinate, Cell> cell : getTetrominoCells().entrySet()) {
             setCell(cell.getKey(), cell.getValue());
-            //setChanged();
-            //notifyObservers();
         }
 
-        // Might not be neccesary, but "disables" the activeTetromino
+        // Disables the activeTetromino
         activeTetromino = null;
         setChanged();
         notifyObservers();

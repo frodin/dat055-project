@@ -180,8 +180,6 @@ public class GameboardController{
             } else if (gameboard.getCell(nextState.getKey().getXPos(), nextState.getKey().getYPos()) != null){
                 return false;
             }
-
-           // else if(nextState.getKey().getXPos() == )
         }
         return true;
     }

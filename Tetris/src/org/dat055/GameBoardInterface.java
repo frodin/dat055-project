@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 public interface GameBoardInterface {
 
-    // GameBoard cells
     Cell getCell(Coordinate coord);
     void setCell(Coordinate coord, Cell cell);
     HashMap<Coordinate, Cell> getGameBoard();
@@ -13,7 +12,6 @@ public interface GameBoardInterface {
     void setCell(int xPos, int yPos, Cell cell);
     void removeCell(int xPos, int yPos);
 
-    //ActiveTetromino handeling
     Coordinate getTetrominoPosition();
     void setTetrominoPosition(Coordinate coord);
     HashMap<Coordinate,Cell> getTetrominoCells();
