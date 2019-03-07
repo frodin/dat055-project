@@ -1,4 +1,4 @@
-package org.dat055.views;
+package org.dat055.view;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

@@ -1,4 +1,4 @@
-package org.dat055.views;
+package org.dat055.view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

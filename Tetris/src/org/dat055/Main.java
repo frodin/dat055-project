@@ -8,7 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import org.dat055.controller.GameboardController;
-import org.dat055.views.MenuView;
+import org.dat055.view.MenuView;
 
 /**
  * Main class initiates the environment needed for the application.
@@ -33,7 +33,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         final String TITLE = "Tetris";
         setPrimaryStage(primaryStage);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("views/menu_view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/menu_view.fxml"));
         GameboardController gameBoardController = new GameboardController(10, 20);
         MenuView menuController = new MenuView(gameBoardController);
         loader.setController(menuController);
