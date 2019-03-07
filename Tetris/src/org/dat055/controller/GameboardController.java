@@ -434,15 +434,12 @@ public class GameboardController extends Observable {
                 rotateTetromino();
             }
             if (key.getCode() == KeyCode.LEFT && canMove('l')) {
-                System.out.println("You moved LEFT");
                 moveLeft();
             }
             if (key.getCode() == KeyCode.RIGHT && canMove('r')) {
-                System.out.println("You moved RIGHT");
                 moveRight();
             }
             if (key.getCode() == KeyCode.DOWN && canMove('d')) {
-                System.out.println("You moved DOWN");
                 moveDown();
             }
         }
