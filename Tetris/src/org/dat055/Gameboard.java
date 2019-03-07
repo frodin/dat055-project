@@ -167,9 +167,11 @@ public class Gameboard extends Observable implements GameBoardInterface {
         notifyObservers();
 
     }
+
     public void levelUp(){
         gameLevel++;
     }
+
     public int getLevel(){
        return gameLevel;
     }
