@@ -6,8 +6,8 @@ import java.util.*;
  * Model of our gameboard consists of a hashmap
  * with coordinate as key and a cell as value
  *
- * @author
- * @version 2019-02-20
+ * @author Dara Khadjehnouri
+ * @version 2019-02-27
  */
 public class Gameboard extends Observable implements GameBoardInterface {
     private HashMap<Coordinate, Cell> gameboard;
@@ -17,13 +17,14 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
     /**
      * Creates an gameboard with a width and a height
-     * @param width in terms of cells
+     *
+     * @param width  in terms of cells
      * @param height in terms of cells
      */
-    public Gameboard(int width, int height){
-       this.width = width;
-       this.height = height;
-       gameboard = new HashMap<>();
+    public Gameboard(int width, int height) {
+        this.width = width;
+        this.height = height;
+        gameboard = new HashMap<>();
     }
 
     public int getWidth() {
@@ -88,7 +89,8 @@ public class Gameboard extends Observable implements GameBoardInterface {
 
     /**
      * This method returns all cells in the activeTetromino but with new coordinates related to the gameboard.
-     *  Now coordinates range from 10x20 and before it was 3x3
+     * Now coordinates range from 10x20 and before it was 3x3
+     *
      * @return Hashmap of actvieTetromino cells and coords but modified to gameboard coordinates
      */
     public HashMap<Coordinate, Cell> getTetrominoCells() {
@@ -114,9 +116,9 @@ public class Gameboard extends Observable implements GameBoardInterface {
     /**
      * @return the next cells and coordinates of the next state of the activeTetromino
      */
-    public HashMap<Coordinate, Cell> getNextTetrominoCells(){
+    public HashMap<Coordinate, Cell> getNextTetrominoCells() {
         HashMap<Coordinate, Cell> tempHashMap = new HashMap<>();
-        for(Map.Entry<Coordinate, Cell> entry : activeTetromino.getNextState().getHashMap().entrySet()){
+        for (Map.Entry<Coordinate, Cell> entry : activeTetromino.getNextState().getHashMap().entrySet()) {
             tempHashMap.put(new Coordinate(
                     entry.getKey().getXPos() + tetrominoPosition.getXPos(),
                     entry.getKey().getYPos() + tetrominoPosition.getYPos()), entry.getValue());
@@ -137,25 +139,33 @@ public class Gameboard extends Observable implements GameBoardInterface {
     /**
      * Creates a tetromino and its states by creating a new object
      * of a random tetromino.
+     *
      * @param i integer that is randomized another method
      */
-    public void createTetromino(int i){
-        tetrominoPosition = new Coordinate(4,0);
-        switch(i){
-            case 0: activeTetromino = new TetrominoI();
-            break;
-            case 1: activeTetromino = new TetrominoJ();
-            break;
-            case 2: activeTetromino = new TetrominoL();
-            break;
-            case 3: activeTetromino = new TetrominoO();
-            break;
-            case 4: activeTetromino = new TetrominoS();
-            break;
-            case 5: activeTetromino = new TetrominoT();
-            break;
-            case 6: activeTetromino = new TetrominoZ();
-            break;
+    public void createTetromino(int i) {
+        tetrominoPosition = new Coordinate(4, 0);
+        switch (i) {
+            case 0:
+                activeTetromino = new TetrominoI();
+                break;
+            case 1:
+                activeTetromino = new TetrominoJ();
+                break;
+            case 2:
+                activeTetromino = new TetrominoL();
+                break;
+            case 3:
+                activeTetromino = new TetrominoO();
+                break;
+            case 4:
+                activeTetromino = new TetrominoS();
+                break;
+            case 5:
+                activeTetromino = new TetrominoT();
+                break;
+            case 6:
+                activeTetromino = new TetrominoZ();
+                break;
         }
         setChanged();
         notifyObservers();

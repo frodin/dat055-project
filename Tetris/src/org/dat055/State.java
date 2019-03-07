@@ -5,15 +5,14 @@ import java.util.HashMap;
 /**
  * A state is a HashMap that represents a Tetromino state - a collection of 4 cells
  *
- * @author
+ * @author Dara Khadjehnouri
  * @version 2019-02-20
  */
 public class State {
     private HashMap<Coordinate, Cell> state = new HashMap<Coordinate, Cell>();
 
     /**
-     *
-     * @param color Color of all cells in the state.
+     * @param color  Color of all cells in the state.
      * @param coord1 Coordinate of the 1st cell
      * @param coord2 Coordinate of the 2nd cell
      * @param coord3 Coordinate of the 3rd cell
@@ -28,6 +27,7 @@ public class State {
 
     /**
      * Get method for state
+     *
      * @return state
      */
     public HashMap<Coordinate, Cell> getHashMap() {

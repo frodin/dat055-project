@@ -3,13 +3,15 @@ package org.dat055;
 /**
  * Creates the diffrent states for tetromino S
  *
- * @author
- * @version
+ * @author Philip Hellberg
+ * @Version 2019-02-21
  */
 public class TetrominoS extends ActiveTetromino {
     private String color = "7FFF00";
+
     /**
      * Constructor.
+     *
      * @param color The color of the cells in the Tetromino.
      */
     public TetrominoS() {

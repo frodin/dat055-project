@@ -3,8 +3,8 @@ package org.dat055;
 /**
  * Creates the diffrent states for the I tetromino
  *
- * @author
- * @Version
+ * @author Philip Hellberg
+ * @Version 2019-02-21
  */
 public class TetrominoI extends ActiveTetromino{
     private String color = "00FFFF";
