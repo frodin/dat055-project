@@ -23,6 +23,8 @@ import java.net.URL;
 import java.util.Iterator;
 
 public class HighscoreView {
+    private final String SERVER_URL = "http://localhost:8080";
+
     @FXML VBox scoreContainer;
     @FXML Button backButton;
     VBox scoreList;
@@ -36,7 +38,7 @@ public class HighscoreView {
 
         // Fetch JSON object from score server
         try {
-            url = new URL("http://localhost:8080");
+            url = new URL(SERVER_URL);
             conn = (HttpURLConnection)url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("GET");
@@ -46,11 +48,14 @@ public class HighscoreView {
             scores = element.getAsJsonObject();
             System.out.println(scores.toString());
         } catch (IOException e) {
-            // todo: Server is down! Show some message!
-            e.printStackTrace();
+            // Score server is unreachable, show error message instead of highscores
+            Label errorLabel = new Label("Sorry, the highscore server seems to be down.");
+            errorLabel.getStyleClass().add("errorLabel");
+            this.scoreList.getChildren().add(errorLabel);
+            return;
         }
 
-        // Loop over JSON object and print scores
+        // Loop over JSON object and print highscores
         Iterator<String> names = scores.keySet().iterator();
         while(names.hasNext()) {
             String name = names.next();
@@ -58,6 +63,7 @@ public class HighscoreView {
             HBox container = new HBox();
             Label nameLabel = new Label(name + ": ");
             Label scoreLabel = new Label(scores.get(name).toString());
+
             nameLabel.getStyleClass().add("highscoreNameLabel");
             scoreLabel.getStyleClass().add("highscoreScoreLabel");
 

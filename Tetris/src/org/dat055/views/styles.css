@@ -67,3 +67,6 @@
     -fx-padding: 10px;
 }
 
+.errorLabel {
+    -fx-text-fill: red;
+}
