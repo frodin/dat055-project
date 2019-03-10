@@ -70,6 +70,7 @@
 .errorLabel {
     -fx-text-fill: red;
     -fx-padding: 10 0 0 20px;
+}
 
 .levelLabel {
     -fx-text-fill: #ddd;
