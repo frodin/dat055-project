@@ -18,7 +18,7 @@ import java.net.URL;
  */
 public class HttpURLConnectionInstance {
 
-    private final String POST_URL = "http://localhost:8080/";
+    private final String POST_URL = "http://tetrisproject.ddns.net:8080/";
 
     /**
      * sends HTTP POST command
