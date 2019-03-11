@@ -29,7 +29,7 @@ import java.util.Iterator;
  * @version 2019-03-07
  */
 public class HighscoreView {
-    private final String SERVER_URL = "http://localhost:8080";
+    private final String SERVER_URL = "http://tetrisproject.ddns.net:8080";
 
     private final GameboardController gameboardController;
     @FXML
