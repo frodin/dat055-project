@@ -453,7 +453,7 @@ public class GameboardController extends Observable {
     /**
      * Getter for the Eventhandler that controls all buttonpress commands.
      *
-     * @return keyhandler that controls all of our buttonpress commands.
+     * @return Eventhandler that controls all of our buttonpress commands.
      */
     public EventHandler getKeyHandler(){
         return keyHandler;
