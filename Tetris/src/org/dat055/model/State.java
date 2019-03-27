@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class State {
     private HashMap<Coordinate, Cell> state = new HashMap<Coordinate, Cell>();
 
-    /**
+    /** Gives the current state variable new cells, with respective color and coordinate for each cell.
      * @param color  Color of all cells in the state.
      * @param coord1 Coordinate of the 1st cell
      * @param coord2 Coordinate of the 2nd cell
