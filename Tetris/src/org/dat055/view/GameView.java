@@ -219,6 +219,12 @@ public class GameView implements Observer {
 
     }
 
+    /**
+     * Adds propertiies to the json Object
+     *
+     * @param name of the player
+     * @param score of the player
+     */
     public void postScore(String name, int score){
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("name", name);
@@ -242,6 +248,13 @@ public class GameView implements Observer {
         }
     }
 
+    /**
+     * Update funtion for our observer that is invoked when a change
+     * is made in the model gameboard.
+     *
+     * @param obj
+     * @param arg
+     */
     @Override
     public void update(Observable obj, Object arg) {
         this.changeEvents++;

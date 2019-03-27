@@ -27,12 +27,20 @@ public class MenuView {
         this.gameBoardController = gameBoardController;
     }
 
+    /**
+     * Initialize mouseevent for our buttons on the menu
+     */
     @FXML
     public void initialize() {
         newGameButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> newGame(event));
         highscoreButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> showHighscore(event));
     }
 
+    /**
+     * Starts the new game
+     *
+     * @param event that stores the actual mouse click
+     */
     @FXML
     public void newGame(MouseEvent event) {
         Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
@@ -45,6 +53,11 @@ public class MenuView {
         }
     }
 
+    /**
+     * Shows the highscore
+     *
+     * @param event that stores the mouse click
+     */
     @FXML
     public void showHighscore(MouseEvent event) {
         Stage rootStage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // lol java
