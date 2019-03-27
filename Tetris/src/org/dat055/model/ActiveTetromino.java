@@ -22,14 +22,15 @@ public class ActiveTetromino {
         stateIndex = 0;
     }
 
-    /**
+    /** Returns the state which stateIndex is currently "pointing" at.
      * @return returns the current state
      */
     public State getState() {
         return states.get(stateIndex);
     }
 
-    /**
+    /** Returns the next state in line of all available states.
+     *  Loops back to the first state if the last state is reached.
      * @return returns the next state
      */
     public State getNextState() {

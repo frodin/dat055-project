@@ -12,7 +12,7 @@ public class Cell {
     private String color;
 
     /**
-     * Empty constructor
+     * Empty constructor, initiates the cells color to black
      */
     public Cell() {
         color = "black";
@@ -28,10 +28,18 @@ public class Cell {
         this.color = color;
     }
 
+    /**
+     * Gets the String value of the cell
+     * @return color value
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * Sets the color of the cell to the specified String parameter
+     * @param color
+     */
     public void setColor(String color) {
         this.color = color;
     }

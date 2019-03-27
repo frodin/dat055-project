@@ -29,23 +29,45 @@ public class Gameboard extends Observable implements GameBoardInterface {
        gameLevel = 1;
     }
 
+    /**
+     * Returns the current integer width of this Gameboard
+     * @return width
+     */
     public int getWidth() {
         return this.width;
     }
 
+    /**
+     * Returns the current integer width of this Gameboard
+     * @return height
+     */
     public int getHeight() {
         return this.height;
     }
 
+    /**
+     * Returns the cell with the coordinate specified with parameter "coord" of this Gameboard.
+     * @param coord the coordinate of the cell
+     * @return the actual cell returned. returns null if no cell exist
+     */
     public Cell getCell(Coordinate coord) {
         return gameboard.get(coord);
     }
 
-
+    /**
+     * Returns the whole HashMap of this Gameboard
+     * @return hashMap
+     */
     public HashMap<Coordinate, Cell> getGameBoard() {
         return this.gameboard;
     }
 
+    /**
+     * Returns the cell with the respective x-position and y-position of this gameboard
+     * @param xPos the specified x-position of the cell
+     * @param yPos the specified y-position of the cell
+     * @return the actual cell returned. Returns null if no cell exist.
+     */
     public Cell getCell(int xPos, int yPos) {
         for (Map.Entry<Coordinate, Cell> cell : this.gameboard.entrySet()) {
             if (cell.getKey().getXPos() == xPos && cell.getKey().getYPos() == yPos) {
@@ -55,34 +77,62 @@ public class Gameboard extends Observable implements GameBoardInterface {
         return null;
     }
 
+    /**
+     * Puts a specified cell on the gameboard on the coord position. Also notifies Observers
+     * @param coord the position to place the cell
+     * @param cell the cell to be placed
+     */
     public void setCell(Coordinate coord, Cell cell) {
         gameboard.put(coord, cell);
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Puts a specified cell on the gameboard on the x-position and y-position. Also notifies Observers
+     * @param xPos the x-position of the cell
+     * @param yPos the y-position of the cell
+     * @param cell the cell to be placed
+     */
     public void setCell(int xPos, int yPos, Cell cell) {
         gameboard.put(new Coordinate(xPos, yPos), cell);
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Removes a cell on the specified coordinate(coord). Also notifies Observers
+     * @param coord the coordinate to have its cell removed
+     */
     public void removeCell(Coordinate coord) {
         gameboard.remove(coord);
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Removes a cell on the specified x-position and y-position. Also notifies Observers
+     * @param xPos the x-position of the cell
+     * @param yPos the y-position of the cell
+     */
     public void removeCell(int xPos, int yPos) {
         gameboard.remove(new Coordinate(xPos, yPos));
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * Returns the Coordinate(tetrominoPosition) of the current tetromino
+     * @return coordinate of the tetromino
+     */
     public Coordinate getTetrominoPosition() {
         return this.tetrominoPosition;
     }
 
+    /**
+     * Sets the coordinate of the tetromino to the specified coordinate. Also notifies Observers
+     * @param coordinate the coordinate for the tetromino to be set.
+     */
     public void setTetrominoPosition(Coordinate coordinate) {
         tetrominoPosition = coordinate;
         setChanged();
@@ -203,9 +253,18 @@ public class Gameboard extends Observable implements GameBoardInterface {
         notifyObservers();
 
     }
+
+    /**
+     * Increments the gameLevel variable with +1.
+     */
     public void levelUp(){
         gameLevel++;
     }
+
+    /**
+     * Returns the current integer gamelevel
+     * @return gameLevel
+     */
     public int getLevel(){
        return gameLevel;
     }
