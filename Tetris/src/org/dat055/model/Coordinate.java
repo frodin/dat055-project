@@ -22,10 +22,18 @@ public class Coordinate {
         this.yPos = yPos;
     }
 
+    /**
+     * Gets the X-position integer(xPos) of the current coordinate
+     * @return xPos
+     */
     public int getXPos() {
         return this.xPos;
     }
 
+    /**
+     * Gets the Y-position integer(xPos) of the current coordinate
+     * @return yPos
+     */
     public int getYPos() {
         return this.yPos;
     }
@@ -41,6 +49,10 @@ public class Coordinate {
         return (this.xPos == coord.getXPos() && this.yPos == coord.getYPos());
     }
 
+    /**
+     * Returns the unique hashCode(int) for this object
+     * @return int
+     */
     @Override
     public int hashCode() {
         return this.xPos * 397 + this.yPos * 397;
