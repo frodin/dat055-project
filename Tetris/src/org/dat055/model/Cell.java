@@ -12,7 +12,7 @@ public class Cell {
     private String color;
 
     /**
-     * Empty constructor
+     * Empty constructor, initiates the cells color to black
      */
     public Cell() {
         color = "black";
