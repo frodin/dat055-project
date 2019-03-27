@@ -61,16 +61,17 @@ public class GameboardController extends Observable {
 
 
     /**
-     * Getter
+     * Getter for our game lost variable
      *
-     * @return value of variable
+     * @return boolean value to determine if the game is lost
+     *
      */
     public boolean getLost() {
         return this.lost;
     }
 
     /**
-     * Getter of active tetromino
+     * Getter of active tetrominos position
      *
      * @return coordinate of active tetromino
      */
@@ -428,6 +429,10 @@ public class GameboardController extends Observable {
         return lines;
     }
 
+    /**
+     * Starts a new eventhandler to listen to our button press commands
+     * to perform game actions.
+     */
     EventHandler keyHandler = new EventHandler<javafx.scene.input.KeyEvent>(){
         public void handle(KeyEvent key){
             if (key.getCode() == KeyCode.UP && canWeRotate()) {
@@ -445,6 +450,11 @@ public class GameboardController extends Observable {
         }
     };
 
+    /**
+     * Getter for the Eventhandler that controls all buttonpress commands.
+     *
+     * @return keyhandler that controls all of our buttonpress commands.
+     */
     public EventHandler getKeyHandler(){
         return keyHandler;
     }
