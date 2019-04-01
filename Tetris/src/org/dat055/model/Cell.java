@@ -38,7 +38,7 @@ public class Cell {
 
     /**
      * Sets the color of the cell to the specified String parameter
-     * @param color
+     * @param color the color
      */
     public void setColor(String color) {
         this.color = color;

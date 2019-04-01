@@ -169,6 +169,9 @@ public class GameView implements Observer {
 
     /**
      * Helper function: return a Rectangle object from the game field
+     * @param x the x position of the node
+     * @param y the y position of the node
+     * @return returns the rectangle or null if field does not have any children nodesw
      */
     private Rectangle getNode(int x, int y) {
         for (Node node : field.getChildren()) {
@@ -252,8 +255,8 @@ public class GameView implements Observer {
      * Update funtion for our observer that is invoked when a change
      * is made in the model gameboard.
      *
-     * @param obj
-     * @param arg
+     * @param obj the object
+     * @param arg the argument
      */
     @Override
     public void update(Observable obj, Object arg) {
